@@ -19,9 +19,9 @@ class AnalyzePuzzles extends Command
         $start = microtime(true);
 
         if (! Puzzle::unanalyzed()->exists()) {
-            $this->question('                                                                          ');
-            $this->question('  No unanalyzed puzzles! Generate some with the puzzle:generate command.  ');
-            return $this->question('                                                                          ');
+            $this->question('                                                                               ');
+            $this->question('  No puzzles left to analyze! Generate some with the puzzle:generate command.  ');
+            return $this->question('                                                                               ');
         }
 
         $this->comment('Analyzing puzzles...');
