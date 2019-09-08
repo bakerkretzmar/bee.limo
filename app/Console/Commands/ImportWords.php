@@ -16,6 +16,8 @@ class ImportWords extends Command
 
     public function handle()
     {
+        config(['telescope.enabled' => false]);
+
         $start = microtime(true);
 
         $this->comment('Importing words from "' . $this->argument('file') . '"...');

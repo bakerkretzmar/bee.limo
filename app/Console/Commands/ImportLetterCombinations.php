@@ -16,6 +16,8 @@ class ImportLetterCombinations extends Command
 
     public function handle()
     {
+        config(['telescope.enabled' => false]);
+
         $start = microtime(true);
 
         $this->comment('Importing letter combinations from "' . $this->argument('file') . '"...');
