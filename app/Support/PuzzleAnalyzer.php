@@ -52,7 +52,7 @@ class PuzzleAnalyzer
         $this->puzzle->update(compact('analysis'));
     }
 
-    protected function fail(string $summary, array $analysis)
+    protected function fail(string $summary, array $analysis = [])
     {
         $this->puzzle->markAsAnalyzed();
 
