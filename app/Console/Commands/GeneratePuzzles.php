@@ -24,9 +24,9 @@ class GeneratePuzzles extends Command
         $generated = 0;
         $amount = ($this->argument('amount') - ($this->argument('amount') % 7)) / 7;
 
-        LetterCombination::unprocessed()->inRandomOrder()->take($amount)
-            ->each(function (LetterCombination $LetterCombination) {
-                (new PuzzleGenerator($LetterCombination))->generate();
+        LetterCombination::unprocessed()->inRandomOrder()->take($amount)->get()
+            ->each(function ($letterCombination) use (&$generated) {
+                (new PuzzleGenerator($letterCombination))->generate();
                 $generated += 7;
             });
 

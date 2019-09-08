@@ -28,8 +28,8 @@ class AnalyzePuzzles extends Command
 
         $analyzed = 0;
 
-        Puzzle::unanalyzed()->inRandomOrder()->take($this->argument('amount'))
-            ->each(function (Puzzle $puzzle) {
+        Puzzle::unanalyzed()->inRandomOrder()->take($this->argument('amount'))->get()
+            ->each(function ($puzzle) use (&$analyzed) {
                 (new PuzzleAnalyzer($puzzle))->analyze();
                 $analyzed++;
             });
