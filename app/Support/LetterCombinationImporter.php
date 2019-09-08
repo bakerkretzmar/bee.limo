@@ -8,10 +8,6 @@ class LetterCombinationImporter
 {
     protected $file;
 
-    protected $letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-
-    protected $vowels = ['a', 'e', 'i', 'o', 'u'];
-
     public function __construct(string $file)
     {
         $this->file = $file;
@@ -24,7 +20,7 @@ class LetterCombinationImporter
         foreach ($this->readLines() as $line) {
             $letters = explode(',', $line);
 
-            if (count(array_intersect($letters, $this->vowels))) {
+            if (count(array_intersect($letters, vowels()))) {
                 $this->store($letters);
             }
         }
