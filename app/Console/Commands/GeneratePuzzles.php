@@ -11,7 +11,7 @@ use Illuminate\Console\Command;
 
 class GeneratePuzzles extends Command
 {
-    protected $signature = 'generate:puzzles {amount}';
+    protected $signature = 'puzzles:generate {amount}';
 
     protected $description = 'Generate the given number of puzzles.';
 
