@@ -1,5 +1,5 @@
 {
-    "name": "laravel/laravel",
+    "name": "bakerkretzmar/brain.limo",
     "type": "project",
     "description": "The Laravel Framework.",
     "keywords": [
@@ -10,8 +10,13 @@
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
+        "jtant/laravel-env-sync": "^3.0",
         "laravel/framework": "^6.0",
-        "laravel/tinker": "^1.0"
+        "laravel/horizon": "^3.3",
+        "laravel/telescope": "^2.1",
+        "laravel/tinker": "^1.0",
+        "spatie/laravel-honeypot": "^1.4",
+        "tightenco/ziggy": "^0.8.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
@@ -51,11 +56,9 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
         ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
+        "post-update-cmd": [
+            "@php artisan telescope:publish",
+            "@php artisan horizon:assets"
         ]
     }
 }
