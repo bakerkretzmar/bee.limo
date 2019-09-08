@@ -4,6 +4,8 @@ namespace App\Support;
 
 use App\LetterCombination;
 
+use Arr;
+
 class LetterCombinationImporter
 {
     protected $file;
@@ -39,11 +41,6 @@ class LetterCombinationImporter
 
     protected function store(array $letters): void
     {
-        LetterCombination::updateOrCreate(['string' => implode('', $letters)], [
-            'letters' => $letters,
-            'vowels' => array_values(array_intersect($letters, $this->vowels)),
-            'vowel_count' => count(array_intersect($letters, $this->vowels)),
-            'consonants' => array_values(array_diff($letters, $this->vowels)),
-        ]);
+        LetterCombination::createFromLetters($letters);
     }
 }
