@@ -15,16 +15,14 @@ class WordImporter
 
     public function import()
     {
-        $buffer = '';
-
-        foreach ($this->readLines() as $line) {
+        foreach ($this->lineGenerator() as $line) {
             if (strlen($line) >= 4) {
                 $this->store($line);
             }
         }
     }
 
-    protected function readLines()
+    protected function lineGenerator()
     {
         $handle = fopen($this->file, 'r');
 

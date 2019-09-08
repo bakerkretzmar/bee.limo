@@ -17,9 +17,7 @@ class LetterCombinationImporter
 
     public function import()
     {
-        $buffer = '';
-
-        foreach ($this->readLines() as $line) {
+        foreach ($this->lineGenerator() as $line) {
             $letters = explode(',', $line);
 
             if (count(array_intersect($letters, vowels()))) {
@@ -28,7 +26,7 @@ class LetterCombinationImporter
         }
     }
 
-    protected function readLines()
+    protected function lineGenerator()
     {
         $handle = fopen($this->file, 'r');
 
