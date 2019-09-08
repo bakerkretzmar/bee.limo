@@ -22,15 +22,14 @@ class ImportLetterCombinations extends Command
 
         $this->comment('Importing letter combinations from "' . $this->argument('file') . '"...');
 
-        (new LetterCombinationImporter(storage_path($this->argument('file'))))->import();
+        $imported = (new LetterCombinationImporter($this->argument('file')))->import();
 
         $end = microtime(true);
 
         $duration = Date::createFromTimestamp($start)
             ->shortAbsoluteDiffForHumans(Date::createFromTimestamp($end), 2);
 
-        $total = LetterCombination::count();
-
-        $this->info('Imported ' . number_format($total) . ' letter combinations in ' . $duration);
+        $this->info('Imported ' . number_format($imported) . ' letter combinations in ' . $duration);
+        $this->info('Total letter combinations: ' . number_format(LetterCombination::count()));
     }
 }

@@ -22,15 +22,14 @@ class ImportWords extends Command
 
         $this->comment('Importing words from "' . $this->argument('file') . '"...');
 
-        (new WordImporter(storage_path($this->argument('file'))))->import();
+        $imported = (new WordImporter($this->argument('file')))->import();
 
         $end = microtime(true);
 
         $duration = Date::createFromTimestamp($start)
             ->shortAbsoluteDiffForHumans(Date::createFromTimestamp($end), 2);
 
-        $total = Word::count();
-
-        $this->info('Imported ' . number_format($total) . ' words in ' . $duration);
+        $this->info('Imported ' . number_format($imported) . ' words in ' . $duration);
+        $this->info('Total words: ' . number_format(Word::count()));
     }
 }

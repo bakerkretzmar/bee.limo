@@ -15,11 +15,16 @@ class WordImporter
 
     public function import()
     {
+        $counter = 0;
+
         foreach ($this->lineGenerator() as $line) {
             if (strlen($line) >= 4) {
                 $this->store($line);
+                $counter++;
             }
         }
+
+        return $counter;
     }
 
     protected function lineGenerator()

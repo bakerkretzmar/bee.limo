@@ -17,13 +17,18 @@ class LetterCombinationImporter
 
     public function import()
     {
+        $counter = 0;
+
         foreach ($this->lineGenerator() as $line) {
             $letters = explode(',', $line);
 
             if (count(array_intersect($letters, vowels()))) {
                 $this->store($letters);
+                $counter++;
             }
         }
+
+        return $counter;
     }
 
     protected function lineGenerator()
