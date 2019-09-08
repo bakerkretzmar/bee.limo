@@ -12,7 +12,7 @@ class ImportLetterCombinations extends Command
 {
     protected $signature = 'import:letter-combinations {file}';
 
-    protected $description = 'Import letter combinations from the given file into the database';
+    protected $description = 'Import letter combinations from the given file into the database.';
 
     public function handle()
     {

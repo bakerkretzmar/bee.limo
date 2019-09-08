@@ -12,7 +12,7 @@ class ImportWords extends Command
 {
     protected $signature = 'import:words {file}';
 
-    protected $description = 'Import words from the given file into the database';
+    protected $description = 'Import words from the given file into the database.';
 
     public function handle()
     {

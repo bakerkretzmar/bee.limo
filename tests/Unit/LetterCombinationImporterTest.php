@@ -17,7 +17,7 @@ class LetterCombinationImporterTest extends TestCase
     {
         (new LetterCombinationImporter(__DIR__ . '/../__fixtures__/letters.txt'))->import();
 
-        dump(LetterCombination::all());
+        // dump(LetterCombination::all());
 
         $this->assertEqualsCanonicalizing(
             [
