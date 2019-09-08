@@ -45,18 +45,4 @@ class PuzzleTest extends TestCase
 
         $this->assertFalse($puzzle->hasPangram());
     }
-
-    /** @test */
-    public function can_analyze_itself()
-    {
-        $letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
-        $letterCombination = LetterCombination::createFromLetters($letters);
-        $letterCombination->puzzles()->save(
-            $puzzle = Puzzle::makeFromLetters($letters[0], $letters)
-        );
-
-        $puzzle->analyze();
-
-        //
-    }
 }

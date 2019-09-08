@@ -4,12 +4,16 @@ namespace App;
 
 use Arr;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Puzzle extends Model
 {
+    use SoftDeletes;
+
     protected $casts = [
-        'others' => 'array',
         'letters' => 'array',
+        'others' => 'array',
+        'analysis' => 'array',
     ];
 
     protected $dates = [
@@ -39,11 +43,6 @@ class Puzzle extends Model
     public function hasPangram(): bool
     {
         return Word::whereJsonContains('letters', $this->letters)->exists();
-    }
-
-    public function analyze(): void
-    {
-
     }
 
     public function scopeAnalyzed(Builder $query)

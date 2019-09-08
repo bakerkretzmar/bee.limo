@@ -12,10 +12,12 @@ class CreatePuzzlesTable extends Migration
             $table->bigIncrements('id');
             $table->string('string')->unique();
             $table->string('initial');
-            $table->json('others');
             $table->json('letters');
+            $table->json('others');
             $table->bigInteger('letter_combination_id');
+            $table->json('analysis')->nullable();
             $table->timestamp('analyzed_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
