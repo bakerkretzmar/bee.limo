@@ -7,12 +7,8 @@ use App\Puzzle;
 use App\Word;
 use Tests\TestCase;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
 class PuzzleTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function can_check_if_pangram_exists()
     {

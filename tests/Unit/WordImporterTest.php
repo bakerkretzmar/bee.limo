@@ -6,12 +6,8 @@ use App\Word;
 use App\Support\WordImporter;
 use Tests\TestCase;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
 class WordImporterTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function can_import_words_from_txt_file()
     {

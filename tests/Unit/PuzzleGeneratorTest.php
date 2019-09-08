@@ -7,12 +7,8 @@ use App\Puzzle;
 use App\Support\PuzzleGenerator;
 use Tests\TestCase;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
 class PuzzleGeneratorTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function can_generate_puzzles_based_on_letter_combination()
     {

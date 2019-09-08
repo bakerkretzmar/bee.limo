@@ -8,12 +8,8 @@ use App\Word;
 use App\Support\PuzzleAnalyzer;
 use Tests\TestCase;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
 class PuzzleAnalyzerTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $letters = ['i', 'v', 'e', 't', 'n', 'c', 'z'];
 
     protected $letterCombination;

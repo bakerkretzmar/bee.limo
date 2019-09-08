@@ -6,12 +6,8 @@ use App\LetterCombination;
 use App\Support\LetterCombinationImporter;
 use Tests\TestCase;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
 class LetterCombinationImporterTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function can_import_letters_from_txt_file()
     {
