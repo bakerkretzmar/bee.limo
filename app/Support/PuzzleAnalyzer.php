@@ -24,9 +24,14 @@ class PuzzleAnalyzer
 
         $forbidden = array_values(array_diff(letters(), $this->puzzle->letters));
 
-        $this->words = Word::whereJsonContains('letters', $this->puzzle->initial)
-                           ->whereJsonDoesntContain('letters', $forbidden)
-                           ->get();
+        $this->words = tap(
+            Word::whereJsonContains('letters', $this->puzzle->initial),
+            function ($query) use ($forbidden) {
+                foreach ($forbidden as $letter) {
+                    $query->whereJsonDoesntContain('letters', $letter);
+                }
+            }
+        )->get();
 
         if ($this->words->count() < 15) {
             return $this->fail('Fewer than 15 words.', [
