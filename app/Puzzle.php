@@ -41,7 +41,9 @@ class Puzzle extends Model
 
     public function hasPangram(): bool
     {
-        return Word::whereJsonContains('letters', $this->letters)->exists();
+        return Word::whereJsonContains('letters', $this->letters)
+                   ->whereJsonLength('letters', 7)
+                   ->exists();
     }
 
     public function scopeAnalyzed(Builder $query)
