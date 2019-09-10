@@ -26,15 +26,17 @@ class AnalyzePuzzles extends Command
         $this->comment('Analyzing puzzles...');
 
         $analyzed = 0;
+        $passed = 0;
 
         Puzzle::unanalyzed()->inRandomOrder()->take($this->argument('amount'))->get()
-            ->each(function ($puzzle) use (&$analyzed) {
-                (new PuzzleAnalyzer($puzzle))->analyze();
+            ->each(function ($puzzle) use (&$analyzed, &$passed) {
+                $pass = (new PuzzleAnalyzer($puzzle))->analyze();
+                $passed += $pass ? 1 : 0;
                 $analyzed++;
             });
 
         $duration = $start->shortAbsoluteDiffForHumans(now(), 2);
 
-        $this->info('Analyzed ' . number_format($analyzed) . ' puzzles in ' . $duration);
+        $this->info('Analyzed ' . number_format($analyzed) . ' puzzles, found ' . number_format($passed) . ', in ' . $duration);
     }
 }

@@ -18,7 +18,7 @@ class PuzzleAnalyzer
         $this->puzzle = $puzzle;
     }
 
-    public function analyze()
+    public function analyze(): bool
     {
         $this->start = now();
 
@@ -60,9 +60,11 @@ class PuzzleAnalyzer
 
         $this->puzzle->markAsAnalyzed();
         $this->puzzle->update(compact('analysis'));
+
+        return true;
     }
 
-    protected function fail(string $summary, array $analysis = [])
+    protected function fail(string $summary, array $analysis = []): bool
     {
         $this->puzzle->markAsAnalyzed();
 
@@ -73,5 +75,7 @@ class PuzzleAnalyzer
         ], $analysis)]);
 
         $this->puzzle->delete();
+
+        return false;
     }
 }
