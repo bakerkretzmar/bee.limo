@@ -12,7 +12,6 @@ class Puzzle extends Model
 
     protected $casts = [
         'letters' => 'array',
-        'others' => 'array',
         'analysis' => 'array',
     ];
 
@@ -57,12 +56,9 @@ class Puzzle extends Model
 
     public static function makeFromLetters(string $initial, array $letters): self
     {
-        $others = array_values(array_diff($letters, [$initial]));
-
         return new static([
-            'string' => $initial . implode('', Arr::sort($others)),
+            'string' => $initial . implode('', Arr::sort(array_values(array_diff($letters, [$initial])))),
             'initial' => $initial,
-            'others' => $others,
             'letters' => $letters,
         ]);
     }

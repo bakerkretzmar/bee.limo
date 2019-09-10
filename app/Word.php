@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Arr;
+
 class Word extends Model
 {
     protected $casts = [
@@ -17,9 +19,7 @@ class Word extends Model
     {
         return static::create([
             'word' => $string,
-            'letters' => str_split($string),
-            'letter_1' => str_split($string)[0],
-            'letter_2' => str_split($string)[1],
+            'letters' => array_values(Arr::sort(array_unique(str_split($string)))),
         ]);
     }
 }

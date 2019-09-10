@@ -16,7 +16,6 @@ class PuzzleGeneratorTest extends TestCase
             'string' => 'abcdefg',
             'letters' => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
             'vowels' => ['a', 'e'],
-            'vowel_count' => 2,
             'consonants' => ['b', 'c', 'd', 'f', 'g'],
         ]);
 

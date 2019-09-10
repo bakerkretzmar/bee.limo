@@ -10,7 +10,6 @@ class LetterCombination extends Model
     protected $casts = [
         'letters' => 'array',
         'vowels' => 'array',
-        'vowel_count' => 'integer',
         'consonants' => 'array',
     ];
 
@@ -49,7 +48,6 @@ class LetterCombination extends Model
             'string' => implode('', Arr::sort($letters)),
             'letters' => $letters,
             'vowels' => array_values(array_intersect($letters, vowels())),
-            'vowel_count' => count(array_intersect($letters, vowels())),
             'consonants' => array_values(array_diff($letters, vowels())),
         ]);
     }

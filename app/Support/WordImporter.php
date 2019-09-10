@@ -4,6 +4,8 @@ namespace App\Support;
 
 use App\Word;
 
+use Arr;
+
 class WordImporter
 {
     protected $file;
@@ -41,9 +43,7 @@ class WordImporter
     protected function store(string $line): void
     {
         Word::updateOrCreate(['word' => $line], [
-            'letter_1' => str_split($line)[0],
-            'letter_2' => str_split($line)[1],
-            'letters' => str_split($line),
+            'letters' => array_values(Arr::sort(array_unique(str_split($line)))),
         ]);
     }
 }

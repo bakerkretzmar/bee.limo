@@ -13,7 +13,6 @@ class CreateLetterCombinationsTable extends Migration
             $table->string('string')->unique();
             $table->json('letters');
             $table->json('vowels');
-            $table->tinyInteger('vowel_count')->index();
             $table->json('consonants');
             $table->timestamp('processed_at')->nullable();
             $table->timestamps();

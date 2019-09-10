@@ -13,7 +13,6 @@ class CreatePuzzlesTable extends Migration
             $table->string('string')->unique();
             $table->string('initial');
             $table->json('letters');
-            $table->json('others');
             $table->bigInteger('letter_combination_id');
             $table->json('analysis')->nullable();
             $table->timestamp('analyzed_at')->nullable();
