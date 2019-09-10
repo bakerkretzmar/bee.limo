@@ -91,9 +91,9 @@ return [
         'production' => [
             'supervisor-1' => [
                 'connection' => 'redis',
-                'queue' => ['default'],
-                'balance' => 'simple',
-                'processes' => 2,
+                'queue' => ['priority', 'default'],
+                'balance' => 'auto',
+                'processes' => 4,
                 'tries' => 3,
             ],
         ],
@@ -101,9 +101,9 @@ return [
         'local' => [
             'supervisor-1' => [
                 'connection' => 'redis',
-                'queue' => ['default'],
-                'balance' => 'simple',
-                'processes' => 2,
+                'queue' => ['priority', 'default'],
+                'balance' => 'auto',
+                'processes' => 4,
                 'tries' => 3,
             ],
         ],
