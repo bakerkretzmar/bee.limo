@@ -46,6 +46,13 @@ class Puzzle extends Model
                    ->exists();
     }
 
+    public function getPangramsAttribute()
+    {
+        return Word::whereJsonContains('letters', $this->letters)
+                   ->whereJsonLength('letters', 7)
+                   ->get();
+    }
+
     public function scopeAnalyzed(Builder $query)
     {
         return $query->whereNotNull('analyzed_at');
