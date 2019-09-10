@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Puzzle;
 use App\Support\PuzzleAnalyzer;
 
-use Date;
 use Illuminate\Console\Command;
 
 class AnalyzePuzzles extends Command
@@ -16,7 +15,7 @@ class AnalyzePuzzles extends Command
 
     public function handle()
     {
-        $start = microtime(true);
+        $start = now();
 
         if (! Puzzle::unanalyzed()->exists()) {
             $this->question('                                                                               ');
@@ -34,10 +33,7 @@ class AnalyzePuzzles extends Command
                 $analyzed++;
             });
 
-        $end = microtime(true);
-
-        $duration = Date::createFromTimestamp($start)
-            ->shortAbsoluteDiffForHumans(Date::createFromTimestamp($end), 2);
+        $duration = $start->shortAbsoluteDiffForHumans(now(), 2);
 
         $this->info('Analyzed ' . number_format($analyzed) . ' puzzles in ' . $duration);
     }
