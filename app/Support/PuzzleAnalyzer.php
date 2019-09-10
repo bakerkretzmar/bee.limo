@@ -11,6 +11,8 @@ class PuzzleAnalyzer
 
     protected $words;
 
+    protected $start;
+
     public function __construct(Puzzle $puzzle)
     {
         $this->puzzle = $puzzle;
@@ -18,6 +20,8 @@ class PuzzleAnalyzer
 
     public function analyze()
     {
+        $this->start = now();
+
         if (! $this->puzzle->hasPangram()) {
             return $this->fail('No pangram.');
         }
@@ -51,6 +55,7 @@ class PuzzleAnalyzer
             'max_word_length' => max($this->words->map(function ($word) {
                 return strlen($word->word);
             })->all()),
+            'duration' => $this->start->floatDiffInSeconds(now()),
         ];
 
         $this->puzzle->markAsAnalyzed();
@@ -64,6 +69,7 @@ class PuzzleAnalyzer
         $this->puzzle->update(['analysis' => array_merge([
             'result' => 'fail',
             'summary' => $summary,
+            'duration' => $this->start->floatDiffInSeconds(now()),
         ], $analysis)]);
 
         $this->puzzle->delete();
