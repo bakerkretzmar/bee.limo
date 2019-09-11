@@ -3,7 +3,11 @@ const path = require('path')
 
 mix
     .js('resources/js/app.js', 'public/js')
-    .css('resources/css/app.css', 'public/css')
+    .postCss('resources/css/app.css', 'public/css', [
+        require('postcss-import'),
+        require('tailwindcss'),
+        require('postcss-nesting'),
+    ])
     .babelConfig({
         plugins: ['@babel/plugin-syntax-dynamic-import'],
     })
@@ -30,3 +34,4 @@ mix
             ]
         },
     })
+    .version()
