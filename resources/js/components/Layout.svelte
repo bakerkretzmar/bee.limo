@@ -8,14 +8,14 @@
     <title>{title}</title>
 </svelte:head>
 
-<main>
-    <header>
+<main class="text-lg font-sans text-grey-900">
+    <!-- <header>
         <InertiaLink href="/">Home</InertiaLink>
         <InertiaLink href="/about">About</InertiaLink>
         <InertiaLink href="/contact">Contact</InertiaLink>
-    </header>
+    </header> -->
 
     <article>
-        <slot />
+        <slot/>
     </article>
 </main>
