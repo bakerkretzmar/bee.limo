@@ -4,3 +4,8 @@ Route::get('/', [
     'as' => 'app',
     'uses' => AppController::class,
 ]);
+
+Route::get('/dash', [
+    'as' => 'dashboard',
+    'uses' => DashboardController::class,
+]);
