@@ -14,10 +14,10 @@ class Kernel extends ConsoleKernel
 
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->job(new AnalyzePuzzles(100))
-        //     ->when(Puzzle::unanalyzed()->exists())
-        //     ->everyFiveMinutes()
-        //     ->withoutOverlapping();
+        $schedule->job(new AnalyzePuzzles(100))
+            ->when(Puzzle::unanalyzed()->exists())
+            ->everyFiveMinutes()
+            ->withoutOverlapping();
 
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
 
