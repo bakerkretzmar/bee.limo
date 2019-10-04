@@ -1,14 +1,3 @@
-<div class="flex items-center px-6 py-4 bg-yellow-200 rounded-lg shadow-md">
-
-    <label class="inline-flex rounded-full">
-        <input type="checkbox" class="hidden" bind:checked={value}>
-        <div class="toggle"></div>
-    </label>
-
-    <p class="ml-4">{title}</p>
-
-</div>
-
 <script>
     import { tick } from 'svelte'
     import api from '@/api'
@@ -38,3 +27,14 @@
         tick().then(() => loading = false)
     }
 </script>
+
+<div class="flex items-center px-6 py-4 bg-yellow-200 rounded-lg shadow-md">
+
+    <label class="inline-flex rounded-full">
+        <input type="checkbox" class="hidden" bind:checked={value}>
+        <div class="toggle"></div>
+    </label>
+
+    <p class="ml-4">{title}</p>
+
+</div>

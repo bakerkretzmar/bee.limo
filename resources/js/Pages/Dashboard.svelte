@@ -1,17 +1,3 @@
-<Layout title="Dashboard">
-    <div class="flex">
-        <StatCardGrid>
-            <StatCard title="Words" stat={words}/>
-            <StatCard title="Letter combinations" stat={letter_combinations}/>
-            <StatCard title="Puzzles"/>
-        </StatCardGrid>
-        <SettingGrid>
-            <ToggleSetting key="auto_puzzle_generation"/>
-            <ToggleSetting key="auto_puzzle_analysis"/>
-        </SettingGrid>
-    </div>
-</Layout>
-
 <script>
     import Layout from '@/components/Layout.svelte'
     import StatCard from '@/components/StatCard.svelte'
@@ -34,3 +20,17 @@
         }
     }
 </script>
+
+<Layout title="Dashboard">
+    <div class="flex">
+        <StatCardGrid>
+            <StatCard title="Words" stat={words}/>
+            <StatCard title="Letter combinations" stat={letter_combinations}/>
+            <StatCard title="Puzzles"/>
+        </StatCardGrid>
+        <SettingGrid>
+            <ToggleSetting key="auto_puzzle_generation"/>
+            <ToggleSetting key="auto_puzzle_analysis"/>
+        </SettingGrid>
+    </div>
+</Layout>
