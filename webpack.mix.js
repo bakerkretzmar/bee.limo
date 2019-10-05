@@ -28,6 +28,7 @@ mix
                     use: {
                         loader: 'svelte-loader',
                         options: {
+                            dev: process.env.NODE_ENV !== 'production',
                             emitCss: true,
                             hotReload: true,
                         },

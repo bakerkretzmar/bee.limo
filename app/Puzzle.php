@@ -12,6 +12,7 @@ class Puzzle extends Model
 
     protected $casts = [
         'letters' => 'array',
+        'others' => 'array',
         'analysis' => 'array',
     ];
 

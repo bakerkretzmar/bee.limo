@@ -1,42 +1,73 @@
 <script>
+    import Cell from '@/components/Cell.svelte'
+    import Controls from '@/components/Controls.svelte'
+    import Entry from '@/components/Entry.svelte'
     import Layout from '@/components/Layout.svelte'
-    import StatCard from '@/components/StatCard.svelte'
-    import StatCardGrid from '@/components/StatCardGrid.svelte'
-    import ToggleSetting from '@/components/ToggleSetting.svelte'
-    import SettingGrid from '@/components/SettingGrid.svelte'
+    import shuffle from 'lodash/shuffle'
 
-    let words, letter_combinations;
+    export let puzzle
 
-    $: load()
+    let entry
+    let outers = puzzle.others
 
-    const load = async () => {
-        let response = await fetch('api/stats')
-        let data = await response.json()
+    $: console.log(puzzle)
 
-        if (response.ok) {
-            ({ words, letter_combinations } = data)
-        } else {
-            throw new Error(data)
+    const check = () => {
+        console.log('suibmitted!!')
+    }
+
+    const handleKeydown = (e) => {
+        switch (e.key) {
+            case ' ':
+                return shuffleOuters()
+            default:
+                return console.log(e.key)
         }
+    }
+
+    const shuffleOuters = () => {
+        let shuffled = shuffle(outers)
+        outers = ['','','','','','']
+        setTimeout(() => outers = shuffled, 200)
+    }
+
+    const clearEntry = () => {
+        console.log('clearEntry')
+    }
+
+    const submitEntry = () => {
+        console.log('submitEntry')
     }
 </script>
 
-<style>
-#honeycomb {
-    background-color: #DFDBE5;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='odd'%3E%3Cg id='hexagons' fill='%23d8d0e4' fill-opacity='0.83' %3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-</style>
+<svelte:window on:keydown={handleKeydown} />
 
-<Layout title="Dashboard">
-    <svg class="h-1/2 w-1/2 fill-current" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 593 620">
-        <path class="cell text-grey-400" d="M167.0972,318.0039H58.5554c-1.4291,0-2.7496,0.7624-3.4641,2l-54.2709,94c-0.7145,1.2376-0.7145,2.7624,0,4 l54.2709,94c0.7145,1.2376,2.035,2,3.4641,2h108.5419c1.4291,0,2.7496-0.7624,3.4641-2l54.2709-94 c0.7145-1.2376,0.7145-2.7624,0-4l-54.2709-94C169.8468,318.7663,168.5263,318.0039,167.0972,318.0039z"/>
-        <path class="cell text-grey-400" d="M167.0972,106.0039H58.5554c-1.4291,0-2.7496,0.7624-3.4641,2l-54.2709,94c-0.7145,1.2376-0.7145,2.7624,0,4 l54.2709,94c0.7145,1.2376,2.035,2,3.4641,2h108.5419c1.4291,0,2.7496-0.7624,3.4641-2l54.2709-94 c0.7145-1.2376,0.7145-2.7624,0-4l-54.2709-94C169.8468,106.7663,168.5263,106.0039,167.0972,106.0039z"/>
-        <path class="cell text-grey-400" d="M534.0972,106.0039H425.5554c-1.429,0-2.7496,0.7624-3.4641,2l-54.2709,94c-0.7145,1.2376-0.7145,2.7624,0,4 l54.2709,94c0.7145,1.2376,2.0351,2,3.4641,2h108.5418c1.4291,0,2.7496-0.7624,3.4641-2l54.2709-94 c0.7145-1.2376,0.7145-2.7624,0-4l-54.2709-94C536.8468,106.7663,535.5263,106.0039,534.0972,106.0039z"/>
-        <path class="cell text-grey-400" d="M351.0972,0.0039H242.5554c-1.4291,0-2.7496,0.7624-3.4641,2l-54.2709,94c-0.7145,1.2376-0.7145,2.7624,0,4 l54.2709,94c0.7145,1.2376,2.035,2,3.4641,2h108.5418c1.4291,0,2.7496-0.7624,3.4641-2l54.2709-94 c0.7145-1.2376,0.7145-2.7624,0-4l-54.2709-94C353.8468,0.7663,352.5263,0.0039,351.0972,0.0039z"/>
-        <path class="cell text-grey-400" d="M351.0972,424.0039H242.5554c-1.4291,0-2.7496,0.7624-3.4641,2l-54.2709,94c-0.7145,1.2376-0.7145,2.7624,0,4 l54.2709,94c0.7145,1.2376,2.035,2,3.4641,2h108.5418c1.4291,0,2.7496-0.7624,3.4641-2l54.2709-94 c0.7145-1.2376,0.7145-2.7624,0-4l-54.2709-94C353.8468,424.7663,352.5263,424.0039,351.0972,424.0039z"/>
-        <path class="cell text-grey-400" d="M534.0972,318.0039H425.5554c-1.429,0-2.7496,0.7624-3.4641,2l-54.2709,94c-0.7145,1.2376-0.7145,2.7624,0,4 l54.2709,94c0.7145,1.2376,2.0351,2,3.4641,2h108.5418c1.4291,0,2.7496-0.7624,3.4641-2l54.2709-94 c0.7145-1.2376,0.7145-2.7624,0-4l-54.2709-94C536.8468,318.7663,535.5263,318.0039,534.0972,318.0039z"/>
-        <path class="cell text-yellow-500" d="M351.0972,212.0039H242.5554c-1.4291,0-2.7496,0.7624-3.4641,2l-54.2709,94c-0.7145,1.2376-0.7145,2.7624,0,4 l54.2709,94c0.7145,1.2376,2.035,2,3.4641,2h108.5418c1.4291,0,2.7496-0.7624,3.4641-2l54.2709-94 c0.7145-1.2376,0.7145-2.7624,0-4l-54.2709-94C353.8468,212.7663,352.5263,212.0039,351.0972,212.0039z"/>
-    </svg>
+<Layout title="Play">
+    <div class="flex items-center justify-center flex-grow">
 
+    <!-- <input type="text" bind:value={guess} on:keydown={(e) => e.key === 'Enter' && check()} /> -->
+
+        <div class="flex flex-col">
+
+            <Entry {entry} letters={puzzle.letters}/>
+
+            <div class="relative" style="width: 300px; padding-bottom: 315px;">
+                <Cell letter={puzzle.initial} center />
+                <Cell letter={[outers[0]]} y=-100 />
+                <Cell letter={[outers[1]]} x=75 y=-50 />
+                <Cell letter={[outers[2]]} x=75 y=50 />
+                <Cell letter={[outers[3]]} y=100 />
+                <Cell letter={[outers[4]]} x=-75 y=50 />
+                <Cell letter={[outers[5]]} x=-75 y=-50 />
+            </div>
+
+            <Controls {clearEntry} {shuffleOuters} {submitEntry}/>
+
+        </div>
+
+        <div>
+            answers
+        </div>
+
+    </div>
 </Layout>

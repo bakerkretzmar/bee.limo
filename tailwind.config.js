@@ -10,6 +10,7 @@ module.exports = {
 
             colors: {
                 grey: defaultTheme.colors.gray,
+                cream: 'rgb(255, 250, 245)',
             },
 
             fontFamily: {
