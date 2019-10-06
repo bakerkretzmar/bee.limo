@@ -4,7 +4,7 @@ module.exports = {
 
     theme: {
 
-        //
+        maxHeight: theme => theme('maxWidth'),
 
         extend: {
 
@@ -14,7 +14,7 @@ module.exports = {
             },
 
             fontFamily: {
-                sans: ['"Roboto"', ...defaultTheme.fontFamily.sans],
+                sans: ['"National 2"', ...defaultTheme.fontFamily.sans],
             },
 
         },

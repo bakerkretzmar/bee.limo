@@ -10,7 +10,7 @@ Route::get('/dash', [
     'uses' => DashboardController::class,
 ]);
 
-Route::get('/play', [
+Route::get('/play/{puzzle}', [
     'as' => 'play',
     'uses' => PlayController::class,
 ]);

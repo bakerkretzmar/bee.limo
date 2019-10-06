@@ -49,9 +49,9 @@ class PuzzleAnalyzer
             'result' => 'pass',
             'summary' => 'Analysis successful.',
             'word_count' => $this->words->count(),
-            'avg_word_length' => $this->words->reduce(function ($carry, $word) {
+            'avg_word_length' => round($this->words->reduce(function ($carry, $word) {
                 return $carry + strlen($word->word);
-            }) / $this->words->count(),
+            }) / $this->words->count(), 3),
             'max_word_length' => max($this->words->map(function ($word) {
                 return strlen($word->word);
             })->all()),

@@ -10,7 +10,7 @@
         <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
         <script src="{{ mix('/js/app.js') }}" defer></script>
 
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
+        {{-- <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet"> --}}
     </head>
     <body>
 

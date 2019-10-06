@@ -8,10 +8,12 @@ use Inertia\Inertia;
 
 class PlayController
 {
-    public function __invoke()
+    public function __invoke(Puzzle $puzzle)
     {
+        abort_unless($puzzle->is_analyzed, 404);
+
         return Inertia::render('Play', [
-            'puzzle' => Puzzle::with('words', 'letterCombination')->analyzed()->skip(1)->first(),
+            'puzzle' => $puzzle->load('words', 'letterCombination')->append('pangrams'),
             // 'event' => $event->only('id', 'title', 'start_date', 'description'),
         ]);
     }
