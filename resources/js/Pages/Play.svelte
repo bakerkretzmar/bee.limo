@@ -1,27 +1,41 @@
 <script>
+    import { alphabet } from '@/util'
     import Cell from '@/components/Cell.svelte'
     import Controls from '@/components/Controls.svelte'
     import Entry from '@/components/Entry.svelte'
     import Layout from '@/components/Layout.svelte'
+    import Message from '@/components/Message.svelte'
     import shuffle from 'lodash/shuffle'
 
     export let puzzle
 
-    let entry
-    let outers = puzzle.others
+    let entry = ''
+    let outers = shuffle(puzzle.others)
+    let error = false
+    let found = []
+    let words = puzzle.words.map(word => word.word)
+    let forbidden = alphabet.filter(l => ! puzzle.letters.includes(l))
+    let message = ''
 
     $: console.log(puzzle)
 
-    const check = () => {
-        console.log('suibmitted!!')
-    }
-
     const handleKeydown = (e) => {
-        switch (e.key) {
-            case ' ':
+        switch (true) {
+            case ' ' === e.key:
                 return shuffleOuters()
+            case /^[a-zA-Z]$/.test(e.key):
+                return entry += e.key
+            case 'Backspace' === e.key:
+                e.preventDefault()
+                return entry = entry.substr(0, entry.length - 1)
+            case 'Escape' === e.key:
+                e.preventDefault()
+                return clearEntry()
+            case 'Enter' === e.key:
+                e.preventDefault()
+                return checkEntry()
             default:
-                return console.log(e.key)
+                return
         }
     }
 
@@ -32,11 +46,55 @@
     }
 
     const clearEntry = () => {
-        console.log('clearEntry')
+        entry = ''
     }
 
-    const submitEntry = () => {
-        console.log('submitEntry')
+    const checkEntry = () => {
+        if (found.includes(entry)) {
+            return handleBadEntry('Already found')
+        }
+
+        if (words.includes(entry)) {
+            return handleGoodEntry('Nice!')
+        }
+
+        if (entry.length < 4) {
+            return handleBadEntry('Too short')
+        }
+
+        if (forbidden.find(l => entry.split('').includes(l)) !== undefined) {
+            return handleBadEntry('Bad letters')
+        }
+
+        if (! entry.includes(puzzle.initial)) {
+            return handleBadEntry('Missing center letter')
+        }
+
+        return handleBadEntry('Not in word list')
+    }
+
+    const handleBadEntry = (msg) => {
+        showMessage(msg)
+
+        if (msg !== 'Already found') {
+            error = true
+        }
+
+        setTimeout(() => {
+            error = false
+            clearEntry()
+        }, 850)
+    }
+
+    const handleGoodEntry = (msg) => {
+        showMessage(msg)
+        found.push(entry)
+        clearEntry()
+    }
+
+    const showMessage = (msg) => {
+        message = msg
+        setTimeout(() => message = '', 800)
     }
 </script>
 
@@ -45,23 +103,23 @@
 <Layout title="Play">
     <div class="flex items-center justify-center flex-grow">
 
-    <!-- <input type="text" bind:value={guess} on:keydown={(e) => e.key === 'Enter' && check()} /> -->
+        <div class="relative flex flex-col items-center">
 
-        <div class="flex flex-col">
+            <Message {message} />
 
-            <Entry {entry} letters={puzzle.letters}/>
+            <Entry {entry} {error} letters={puzzle.letters} center={puzzle.initial} />
 
             <div class="relative" style="width: 300px; padding-bottom: 315px;">
-                <Cell letter={puzzle.initial} center />
-                <Cell letter={[outers[0]]} y=-100 />
-                <Cell letter={[outers[1]]} x=75 y=-50 />
-                <Cell letter={[outers[2]]} x=75 y=50 />
-                <Cell letter={[outers[3]]} y=100 />
-                <Cell letter={[outers[4]]} x=-75 y=50 />
-                <Cell letter={[outers[5]]} x=-75 y=-50 />
+                <Cell letter={puzzle.initial} on:click={() => entry += puzzle.initial} center />
+                <Cell letter={[outers[0]]} on:click={() => entry += outers[0]} y=-100 />
+                <Cell letter={[outers[1]]} on:click={() => entry += outers[1]} x=75 y=-50 />
+                <Cell letter={[outers[2]]} on:click={() => entry += outers[2]} x=75 y=50 />
+                <Cell letter={[outers[3]]} on:click={() => entry += outers[3]} y=100 />
+                <Cell letter={[outers[4]]} on:click={() => entry += outers[4]} x=-75 y=50 />
+                <Cell letter={[outers[5]]} on:click={() => entry += outers[5]} x=-75 y=-50 />
             </div>
 
-            <Controls {clearEntry} {shuffleOuters} {submitEntry}/>
+            <Controls {clearEntry} {shuffleOuters} {checkEntry}/>
 
         </div>
 

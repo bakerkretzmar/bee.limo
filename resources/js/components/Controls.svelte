@@ -1,7 +1,7 @@
 <script>
     export let clearEntry
     export let shuffleOuters
-    export let submitEntry
+    export let checkEntry
 </script>
 
 <section class="flex justify-center mt-8">
@@ -18,7 +18,7 @@
         </svg>
     </button>
 
-    <button on:click={submitEntry} class="block px-4 py-2 ml-4 bg-grey-300 hover:bg-grey-200 border-2 rounded-full focus:bg-grey-200 focus:outline-none">
+    <button on:click={checkEntry} class="block px-4 py-2 ml-4 bg-grey-300 hover:bg-grey-200 border-2 rounded-full focus:bg-grey-200 focus:outline-none">
         Enter
     </button>
 
