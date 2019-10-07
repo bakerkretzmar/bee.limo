@@ -16,7 +16,7 @@ class ImportWords extends Command
 
         $start = now();
 
-        $lines = (int) explode(' ', trim(exec('wc -l ' . $this->argument('file'))))[0];
+        $lines = (int) head(explode(' ', trim(exec('wc -l ' . $this->argument('file')))));
 
         $progress = $this->output->createProgressBar($lines);
         $progress->setFormat('debug');
@@ -35,7 +35,7 @@ class ImportWords extends Command
 
         $progress->finish();
 
-        $this->info('Imported ' . number_format(Word::count()) . ' words in ' . $start->shortAbsoluteDiffForHumans(now(), 2));
+        $this->info("\n" . 'Imported ' . number_format(Word::count()) . ' words in ' . $start->shortAbsoluteDiffForHumans(now(), 2));
     }
 
     protected function lineGenerator()
