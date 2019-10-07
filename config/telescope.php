@@ -68,8 +68,6 @@ return [
     'ignore_commands' => [
         'import:words',
         'import:letters',
-        'puzzles:generate',
-        'puzzles:solve',
     ],
 
     /*
