@@ -10,16 +10,19 @@ class Word extends Model
         'letters' => 'array',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->fill([
+                'letters' => array_values(Arr::sort(array_unique(str_split($model->word)))),
+            ]);
+        });
+    }
+
     public function puzzles()
     {
         return $this->belongsToMany(Puzzle::class);
-    }
-
-    public static function createFromString(string $string): self
-    {
-        return static::create([
-            'word' => $string,
-            'letters' => array_values(Arr::sort(array_unique(str_split($string)))),
-        ]);
     }
 }

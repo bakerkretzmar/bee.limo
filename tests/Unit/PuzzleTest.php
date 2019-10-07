@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\LetterCombination;
 use App\Puzzle;
 use App\Word;
 use Tests\TestCase;
@@ -10,15 +9,26 @@ use Tests\TestCase;
 class PuzzleTest extends TestCase
 {
     /** @test */
+    public function infers_attributes_when_creating()
+    {
+        $puzzle = Puzzle::create([
+            'letters' => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
+            'letter_combination_id' => 1,
+        ]);
+
+        $this->assertSame('abcdefg', $puzzle->string);
+        $this->assertSame('a', $puzzle->initial);
+    }
+
+    /** @test */
     public function can_check_if_pangram_exists()
     {
-        $letters = ['i', 'v', 'e', 't', 'n', 'c', 'z'];
-        $letterCombination = LetterCombination::createFromLetters($letters);
-        $letterCombination->puzzles()->save(
-            $puzzle = Puzzle::makeFromLetters($letters[0], $letters)
-        );
+        $puzzle = Puzzle::create([
+            'letters' => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
+            'letter_combination_id' => 1,
+        ]);
 
-        Word::createFromString('incentivize');
+        Word::create(['word' => 'incentivize']);
 
         $this->assertTrue($puzzle->hasPangram());
     }
@@ -26,19 +36,140 @@ class PuzzleTest extends TestCase
     /** @test */
     public function can_check_if_pangram_doesnt_exist()
     {
-        $letters = ['i', 'v', 'e', 't', 'n', 'c', 'z'];
-        $letterCombination = LetterCombination::createFromLetters($letters);
-        $letterCombination->puzzles()->save(
-            $puzzle = Puzzle::makeFromLetters($letters[0], $letters)
-        );
+        $puzzle = Puzzle::create([
+            'letters' => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
+            'letter_combination_id' => 1,
+        ]);
 
-        Word::createFromString('invite');
-        Word::createFromString('incentive');
-        Word::createFromString('zinc');
-        Word::createFromString('incite');
-        Word::createFromString('zoomy');
-        Word::createFromString('accept');
+        Word::create(['word' => 'invite']);
+        Word::create(['word' => 'incentive']);
+        Word::create(['word' => 'zinc']);
+        Word::create(['word' => 'incite']);
+        Word::create(['word' => 'zoomy']);
+        Word::create(['word' => 'accept']);
 
         $this->assertFalse($puzzle->hasPangram());
+    }
+
+    /** @test */
+    public function can_get_pangrams_attribute()
+    {
+        $puzzle = Puzzle::create([
+            'letters' => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
+            'letter_combination_id' => 1,
+        ]);
+
+        $incentivize = Word::create(['word' => 'incentivize']);
+        $puzzle->words()->attach($incentivize);
+
+        $this->assertSame(['incentivize'], $puzzle->pangrams->pluck('word')->all());
+
+        $inventicize = Word::create(['word' => 'inventicize']);
+        $puzzle->words()->attach($inventicize);
+        $puzzle->refresh();
+
+        $this->assertSame(['incentivize', 'inventicize'], $puzzle->pangrams->pluck('word')->all());
+    }
+
+    /** @test */
+    public function fails_analysis_if_no_pangram()
+    {
+        $puzzle = Puzzle::create([
+            'letters' => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
+            'letter_combination_id' => 1,
+        ]);
+
+        Word::create(['word' => 'invite']);
+        Word::create(['word' => 'incentive']);
+        Word::create(['word' => 'zinc']);
+        Word::create(['word' => 'incite']);
+        Word::create(['word' => 'zoomy']);
+        Word::create(['word' => 'accept']);
+
+        $puzzle->solve();
+
+        $this->assertTrue($puzzle->solved);
+        $this->assertSame(
+            [
+                'result' => 'fail',
+                'summary' => 'No pangram.',
+            ],
+            $puzzle->analysis
+        );
+        $this->assertTrue($puzzle->trashed());
+    }
+
+    /** @test */
+    public function fails_analysis_if_fewer_than_fifteen_words()
+    {
+        $puzzle = Puzzle::create([
+            'letters' => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
+            'letter_combination_id' => 1,
+        ]);
+
+        Word::create(['word' => 'invite']);
+        Word::create(['word' => 'incentive']);
+        Word::create(['word' => 'incentivize']);
+        Word::create(['word' => 'intent']);
+        Word::create(['word' => 'nice']);
+        Word::create(['word' => 'nine']);
+        Word::create(['word' => 'cite']);
+        Word::create(['word' => 'citizen']);
+        Word::create(['word' => 'civic']);
+        Word::create(['word' => 'entice']);
+        Word::create(['word' => 'evict']);
+        Word::create(['word' => 'evince']);
+        Word::create(['word' => 'zinc']);
+        Word::create(['word' => 'incite']);
+        Word::create(['word' => 'zoomy']);
+        Word::create(['word' => 'accept']);
+
+        $puzzle->solve();
+
+        $this->assertTrue($puzzle->solved);
+        $this->assertSame('fail', $puzzle->analysis['result']);
+        $this->assertSame('Fewer than 15 words.', $puzzle->analysis['summary']);
+        $this->assertSame(14, $puzzle->analysis['word_count']);
+        $this->assertTrue($puzzle->trashed());
+    }
+
+    /** @test */
+    public function passes_analysis_if_valid()
+    {
+        $puzzle = Puzzle::create([
+            'letters' => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
+            'letter_combination_id' => 1,
+        ]);
+
+        Word::create(['word' => 'invite']);
+        Word::create(['word' => 'incentive']);
+        Word::create(['word' => 'incentivize']);
+        Word::create(['word' => 'intent']);
+        Word::create(['word' => 'nice']);
+        Word::create(['word' => 'nine']);
+        Word::create(['word' => 'cite']);
+        Word::create(['word' => 'citizen']);
+        Word::create(['word' => 'civic']);
+        Word::create(['word' => 'entice']);
+        Word::create(['word' => 'evict']);
+        Word::create(['word' => 'evince']);
+        Word::create(['word' => 'zinc']);
+        Word::create(['word' => 'incite']);
+        Word::create(['word' => 'zoomy']);
+        Word::create(['word' => 'accept']);
+        Word::create(['word' => 'ziti']);
+
+        $puzzle->solve();
+
+        $this->assertTrue($puzzle->solved);
+        $this->assertEqualsCanonicalizing(
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17],
+            $puzzle->words->pluck('id')->all()
+        );
+        $this->assertSame('pass', $puzzle->analysis['result']);
+        $this->assertSame(15, $puzzle->analysis['word_count']);
+        $this->assertSame(5.8, $puzzle->analysis['avg_word_length']);
+        $this->assertSame(11, $puzzle->analysis['max_word_length']);
+        $this->assertFalse($puzzle->trashed());
     }
 }

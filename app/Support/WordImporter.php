@@ -17,16 +17,19 @@ class WordImporter
 
     public function import()
     {
-        $counter = 0;
+        $count = 0;
 
         foreach ($this->lineGenerator() as $line) {
-            if (strlen($line) >= 4) {
-                $this->store($line);
-                $counter++;
+            // Ignore words shorter than four letters
+            if (strlen($line) < 4) {
+                continue;
             }
+
+            $this->store($line);
+            $count++;
         }
 
-        return $counter;
+        return $count;
     }
 
     protected function lineGenerator()
@@ -40,10 +43,8 @@ class WordImporter
         fclose($handle);
     }
 
-    protected function store(string $line): void
+    protected function store(string $word): void
     {
-        Word::updateOrCreate(['word' => $line], [
-            'letters' => array_values(Arr::sort(array_unique(str_split($line)))),
-        ]);
+        Word::updateOrCreate(compact('word'));
     }
 }

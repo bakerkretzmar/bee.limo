@@ -1,30 +1,19 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Jobs;
 
 use App\LetterCombination;
 use App\Puzzle;
-use App\Jobs\AnalyzePuzzles;
+use App\Jobs\SolvePuzzles;
 use Tests\TestCase;
 
-use Date;
 use Queue;
 
-class AnalyzePuzzlesTest extends TestCase
+class SolvePuzzlesTest extends TestCase
 {
     /** @test */
-    public function runs_automatically_on_schedule()
+    public function can_solve_puzzles()
     {
-        // $letterCombination = LetterCombination::createFromLetters(['i', 'v', 'e', 't', 'n', 'c', 'z']);
-        // $puzzle = Puzzle::makeFromLetters('i', ['i', 'v', 'e', 't', 'n', 'c', 'z']);
-        // $letterCombination->puzzles()->save($puzzle);
-
-        // Queue::fake();
-
-        // $this->artisan('schedule:run');
-        // Date::setTestNow(now()->addMinutes(10));
-        // $this->artisan('schedule:run');
-
-        // Queue::assertPushed(AnalyzePuzzles::class);
+        //
     }
 }

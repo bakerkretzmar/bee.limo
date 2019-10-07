@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Arr;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -17,12 +16,19 @@ class Puzzle extends Model
     ];
 
     protected $dates = [
-        'analyzed_at',
+        'solved_at',
     ];
 
-    public function getIsAnalyzedAttribute(): bool
+    public static function boot()
     {
-        return ! is_null($this->analyzed_at);
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->fill([
+                'string' => implode('', $model->letters),
+                'initial' => head($model->letters),
+            ]);
+        });
     }
 
     public function letterCombination()
@@ -35,41 +41,102 @@ class Puzzle extends Model
         return $this->belongsToMany(Word::class);
     }
 
-    public function markAsAnalyzed()
+    public function getSolvedAttribute(): bool
     {
-        return $this->update(['analyzed_at' => $this->freshTimestamp()]);
+        return ! is_null($this->solved_at);
     }
 
     public function hasPangram(): bool
     {
         return Word::whereJsonContains('letters', $this->letters)
-                   ->whereJsonLength('letters', 7)
-                   ->exists();
+            ->whereJsonLength('letters', 7)
+            ->exists();
     }
 
     public function getPangramsAttribute()
     {
-        return Word::whereJsonContains('letters', $this->letters)
-                   ->whereJsonLength('letters', 7)
-                   ->get();
+        $letters = $this->letters;
+
+        return $this->words->filter(function ($word) use ($letters) {
+            return array_intersect($letters, $word->letters) === $letters;
+        });
     }
 
-    public function scopeAnalyzed(Builder $query)
+    public function solve(): bool
     {
-        return $query->whereNotNull('analyzed_at');
-    }
+        $start = now();
 
-    public function scopeUnanalyzed(Builder $query)
-    {
-        return $query->whereNull('analyzed_at');
-    }
+        // Fail if the puzzle doesn't have a pangram
+        if (! $this->hasPangram()) {
+            $this->update([
+                'solved_at' => $this->freshTimestamp(),
+                'analysis' => [
+                    'result' => 'fail',
+                    'summary' => 'No pangram.',
+                ],
+            ]);
 
-    public static function makeFromLetters(string $initial, array $letters): self
-    {
-        return new static([
-            'string' => $initial . implode('', Arr::sort(array_values(array_diff($letters, [$initial])))),
-            'initial' => $initial,
-            'letters' => $letters,
+            $this->delete();
+
+            return false;
+        }
+
+        // $forbidden = array_values(array_diff(letters(), $this->letters));
+
+        $words = tap(
+            Word::whereJsonContains('letters', $this->initial),
+            function ($query) {
+                foreach (array_values(array_diff(letters(), $this->letters)) as $forbidden) {
+                    $query->whereJsonDoesntContain('letters', $forbidden);
+                }
+            }
+        )->get();
+
+        // Fail if the puzzle has fewer than 15 words
+        if ($words->count() < 15) {
+            $this->update([
+                'solved_at' => $this->freshTimestamp(),
+                'analysis' => [
+                    'result' => 'fail',
+                    'summary' => 'Fewer than 15 words.',
+                    'word_count' => $words->count(),
+                    'duration' => round($start->floatDiffInSeconds(now()), 3),
+                ],
+            ]);
+
+            $this->delete();
+
+            return false;
+        }
+
+        $this->words()->sync($words);
+
+        $this->update([
+            'solved_at' => $this->freshTimestamp(),
+            'analysis' => [
+                'result' => 'pass',
+                'word_count' => $words->count(),
+                'avg_word_length' => round($words->reduce(function ($carry, $word) {
+                    return $carry + strlen($word->word);
+                }) / $words->count(), 3),
+                'max_word_length' => max($words->map(function ($word) {
+                    return strlen($word->word);
+                })->all()),
+                'duration' => round($start->floatDiffInSeconds(now()), 3),
+            ],
         ]);
+
+        return true;
+    }
+
+
+    public function scopeSolved(Builder $query)
+    {
+        return $query->whereNotNull('solved_at');
+    }
+
+    public function scopeUnsolved(Builder $query)
+    {
+        return $query->whereNull('solved_at');
     }
 }

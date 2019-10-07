@@ -11,8 +11,6 @@ class ImportWords extends Command
 {
     protected $signature = 'import:words {file}';
 
-    protected $description = 'Import words from the given file into the database.';
-
     public function handle()
     {
         config(['telescope.enabled' => false]);
@@ -23,9 +21,7 @@ class ImportWords extends Command
 
         $imported = (new WordImporter($this->argument('file')))->import();
 
-        $duration = $start->shortAbsoluteDiffForHumans(now(), 2);
-
-        $this->info('Imported ' . number_format($imported) . ' words in ' . $duration);
+        $this->info('Imported ' . number_format($imported) . ' words in ' . $start->shortAbsoluteDiffForHumans(now(), 2));
         $this->info('Total words: ' . number_format(Word::count()));
     }
 }

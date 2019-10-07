@@ -15,7 +15,7 @@ class CreatePuzzlesTable extends Migration
             $table->json('letters');
             $table->bigInteger('letter_combination_id');
             $table->json('analysis')->nullable();
-            $table->timestamp('analyzed_at')->nullable();
+            $table->timestamp('solved_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

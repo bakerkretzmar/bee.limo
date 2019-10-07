@@ -17,18 +17,21 @@ class LetterCombinationImporter
 
     public function import()
     {
-        $counter = 0;
+        $count = 0;
 
         foreach ($this->lineGenerator() as $line) {
             $letters = explode(',', $line);
 
-            if (count(array_intersect($letters, vowels()))) {
-                $this->store($letters);
-                $counter++;
+            // Ignore letter combinations with no vowels
+            if (empty(get_vowels($letters))) {
+                continue;
             }
+
+            $this->store($letters);
+            $count++;
         }
 
-        return $counter;
+        return $count;
     }
 
     protected function lineGenerator()
@@ -44,6 +47,6 @@ class LetterCombinationImporter
 
     protected function store(array $letters): void
     {
-        LetterCombination::createFromLetters($letters);
+        LetterCombination::create(compact('letters'));
     }
 }
