@@ -60,7 +60,7 @@
         if (words.includes(entry)) {
             if (pangrams.includes(entry)) {
                 pangram = true
-                return handleGoodEntry('Pangram!')
+                return handleGoodEntry('Panagram!')
             }
 
             return handleGoodEntry('Nice!')
