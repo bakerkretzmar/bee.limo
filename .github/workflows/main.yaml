@@ -1,0 +1,23 @@
+name: CI
+
+on: [push]
+
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Set up environment and install dependencies
+        run: |
+          cp .env.example .env
+          composer install -n --prefer-dist --no-ansi --no-progress --no-suggest --no-scripts
+          php artisan key:generate
+
+      - name: PHPUnit
+        run: vendor/bin/phpunit --testdox --colors=always
