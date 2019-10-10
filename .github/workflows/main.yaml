@@ -11,6 +11,9 @@ jobs:
       mysql:
         image: mysql
         env:
+          MYSQL_DATABASE: brain_testing
+          MYSQL_USERNAME: forge
+          MYSQL_PASSWORD: password
           MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306
@@ -33,4 +36,5 @@ jobs:
           mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports[3306] }} -uroot -proot -e "grant all on brain_testing.* to 'root'@'%';"
           mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports[3306] }} -uroot -proot -e "show databases;"
           mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports[3306] }} -uroot -proot -e "show grants;"
+          export DB_PORT=${{ job.services.mysql.ports[3306] }}
           vendor/bin/phpunit --testdox --colors=always
