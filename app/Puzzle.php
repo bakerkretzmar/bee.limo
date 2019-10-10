@@ -11,7 +11,6 @@ class Puzzle extends Model
 
     protected $casts = [
         'letters' => 'array',
-        'others' => 'array',
         'analysis' => 'array',
     ];
 
@@ -59,7 +58,7 @@ class Puzzle extends Model
 
         return $this->words->filter(function ($word) use ($letters) {
             return array_intersect($letters, $word->letters) === $letters;
-        });
+        })->values();
     }
 
     public function solve(): bool

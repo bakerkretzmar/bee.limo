@@ -10,12 +10,12 @@
     export let puzzle
 
     let entry = ''
-    let outers = shuffle(puzzle.others)
+    let outers = shuffle(puzzle.letters.filter(l => l !== puzzle.initial))
     let error = false
     let found = []
-    let words = puzzle.words.map(word => word.word)
+    let words = puzzle.words.map(w => w.word)
     let pangram = false
-    let pangrams = puzzle.pangrams.map(word => word.word)
+    let pangrams = puzzle.pangrams.map(w => w.word)
     let forbidden = alphabet.filter(l => ! puzzle.letters.includes(l))
     let message = ''
 
