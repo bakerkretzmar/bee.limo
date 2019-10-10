@@ -1,4 +1,5 @@
 import { InertiaApp } from '@inertiajs/inertia-svelte'
+import '../css/x.css'
 
 const app = document.getElementById('app')
 

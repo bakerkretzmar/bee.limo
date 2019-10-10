@@ -4,21 +4,19 @@ const path = require('path')
 mix.disableNotifications()
 
 mix
-    .js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),
         require('postcss-nesting'),
     ])
-    .babelConfig({
-        plugins: ['@babel/plugin-syntax-dynamic-import'],
-    })
+    .js('resources/js/app.js', 'public/js')
     .webpackConfig({
-        output: { chunkFilename: 'js/[name].js?id=[chunkhash]' },
+        output: { chunkFilename: 'js/[name].js' },
         resolve: {
             mainFields: ['svelte', 'browser', 'module', 'main'],
             alias: {
                 '@': path.resolve('resources/js'),
+                svelte: path.resolve('node_modules', 'svelte'),
             },
         },
         module: {
@@ -30,7 +28,6 @@ mix
                         options: {
                             dev: process.env.NODE_ENV !== 'production',
                             emitCss: true,
-                            hotReload: true,
                         },
                     },
                 }
@@ -38,3 +35,4 @@ mix
         },
     })
     .version()
+

@@ -8,7 +8,7 @@
         {{-- <meta name="twitter:title" content="{{ $page['props']['event']->title }}"> --}}
 
         <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
-        <script src="{{ mix('/js/app.js') }}" defer></script>
+        <script defer src="{{ mix('/js/app.js') }}"></script>
     </head>
     <body>
 
