@@ -19,6 +19,20 @@ module.exports = {
 
         },
 
+        customForms: theme => ({
+            default: {
+                input: {
+                    borderColor: defaultTheme.colors.gray[400],
+                    borderWidth: defaultTheme.borderWidth['2'],
+                },
+                checkbox: {
+                    color: defaultTheme.colors.teal[500],
+                    borderColor: defaultTheme.colors.gray[400],
+                    borderWidth: defaultTheme.borderWidth['2'],
+                },
+            },
+        }),
+
     },
 
     variants: {
@@ -26,7 +40,9 @@ module.exports = {
     },
 
     plugins: [
-        //
+
+        require('@tailwindcss/custom-forms'),
+
     ],
 
 }

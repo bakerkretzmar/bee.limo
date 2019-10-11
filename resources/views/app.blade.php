@@ -6,8 +6,10 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
         {{-- <meta name="twitter:title" content="{{ $page['props']['event']->title }}"> --}}
-
         <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+
+        @routes
+
         <script defer src="{{ mix('/js/app.js') }}"></script>
     </head>
     <body>

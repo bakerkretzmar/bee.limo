@@ -1,115 +1,121 @@
 <script>
-    import { alphabet } from '@/util'
-    import Cell from '@/components/Cell.svelte'
-    import Controls from '@/components/Controls.svelte'
-    import Entry from '@/components/Entry.svelte'
+    // import { alphabet } from '@/util'
+    // import Cell from '@/components/Cell.svelte'
+    // import Controls from '@/components/Controls.svelte'
+    // import Entry from '@/components/Entry.svelte'
     import Layout from '@/components/Layout.svelte'
-    import Message from '@/components/Message.svelte'
-    import shuffle from 'lodash/shuffle'
+    import { Inertia } from '@inertiajs/inertia'
+    // import Message from '@/components/Message.svelte'
+    // import shuffle from 'lodash/shuffle'
 
-    export let puzzle
+    // export let puzzle
 
-    let entry = ''
-    let outers = shuffle(puzzle.letters.filter(l => l !== puzzle.initial))
-    let error = false
-    let found = []
-    let words = puzzle.words.map(w => w.word)
-    let pangram = false
-    let pangrams = puzzle.pangrams.map(w => w.word)
-    let forbidden = alphabet.filter(l => ! puzzle.letters.includes(l))
-    let message = ''
-
-    // $: console.log(puzzle)
-    $: alphaFound = found.sort()
-
-    const handleKeydown = (e) => {
-        switch (true) {
-            case ' ' === e.key:
-                return shuffleOuters()
-            case /^[a-zA-Z]$/.test(e.key):
-                return entry += e.key
-            case 'Backspace' === e.key:
-                e.preventDefault()
-                return entry = entry.substr(0, entry.length - 1)
-            case 'Escape' === e.key:
-                e.preventDefault()
-                return clearEntry()
-            case 'Enter' === e.key:
-                e.preventDefault()
-                return checkEntry()
-            default:
-                return
-        }
+    const logout = () => {
+        Inertia.post(route('api:logout'))
     }
 
-    const shuffleOuters = () => {
-        let shuffled = shuffle(outers)
-        outers = ['','','','','','']
-        setTimeout(() => outers = shuffled, 200)
-    }
+    // let entry = ''
+    // let outers = shuffle(puzzle.letters.filter(l => l !== puzzle.initial))
+    // let error = false
+    // let found = []
+    // let words = puzzle.words.map(w => w.word)
+    // let pangram = false
+    // let pangrams = puzzle.pangrams.map(w => w.word)
+    // let forbidden = alphabet.filter(l => ! puzzle.letters.includes(l))
+    // let message = ''
 
-    const clearEntry = () => {
-        entry = ''
-    }
+    // // $: console.log(puzzle)
+    // $: alphaFound = found.sort()
 
-    const checkEntry = () => {
-        if (found.includes(entry)) {
-            return handleBadEntry('Already found')
-        }
+    // const handleKeydown = (e) => {
+    //     switch (true) {
+    //         case ' ' === e.key:
+    //             return shuffleOuters()
+    //         case /^[a-zA-Z]$/.test(e.key):
+    //             return entry += e.key
+    //         case 'Backspace' === e.key:
+    //             e.preventDefault()
+    //             return entry = entry.substr(0, entry.length - 1)
+    //         case 'Escape' === e.key:
+    //             e.preventDefault()
+    //             return clearEntry()
+    //         case 'Enter' === e.key:
+    //             e.preventDefault()
+    //             return checkEntry()
+    //         default:
+    //             return
+    //     }
+    // }
 
-        if (words.includes(entry)) {
-            if (pangrams.includes(entry)) {
-                pangram = true
-                return handleGoodEntry('Panagram!')
-            }
+    // const shuffleOuters = () => {
+    //     let shuffled = shuffle(outers)
+    //     outers = ['','','','','','']
+    //     setTimeout(() => outers = shuffled, 200)
+    // }
 
-            return handleGoodEntry('Nice!')
-        }
+    // const clearEntry = () => {
+    //     entry = ''
+    // }
 
-        if (entry.length < 4) {
-            return handleBadEntry('Too short')
-        }
+    // const checkEntry = () => {
+    //     if (found.includes(entry)) {
+    //         return handleBadEntry('Already found')
+    //     }
 
-        if (forbidden.find(l => entry.split('').includes(l)) !== undefined) {
-            return handleBadEntry('Bad letters')
-        }
+    //     if (words.includes(entry)) {
+    //         if (pangrams.includes(entry)) {
+    //             pangram = true
+    //             return handleGoodEntry('Panagram!')
+    //         }
 
-        if (! entry.includes(puzzle.initial)) {
-            return handleBadEntry('Missing center letter')
-        }
+    //         return handleGoodEntry('Nice!')
+    //     }
 
-        return handleBadEntry('Not in word list')
-    }
+    //     if (entry.length < 4) {
+    //         return handleBadEntry('Too short')
+    //     }
 
-    const handleBadEntry = (msg) => {
-        showMessage(msg)
-        error = true
-        setTimeout(() => {
-            error = false
-            clearEntry()
-        }, 850)
-    }
+    //     if (forbidden.find(l => entry.split('').includes(l)) !== undefined) {
+    //         return handleBadEntry('Bad letters')
+    //     }
 
-    const handleGoodEntry = (msg) => {
-        showMessage(msg)
-        found = [...found, entry]
-        clearEntry()
-    }
+    //     if (! entry.includes(puzzle.initial)) {
+    //         return handleBadEntry('Missing center letter')
+    //     }
 
-    const showMessage = (msg) => {
-        message = msg
-        setTimeout(() => {
-            message = ''
-            pangram = false
-        }, 800)
-    }
+    //     return handleBadEntry('Not in word list')
+    // }
+
+    // const handleBadEntry = (msg) => {
+    //     showMessage(msg)
+    //     error = true
+    //     setTimeout(() => {
+    //         error = false
+    //         clearEntry()
+    //     }, 850)
+    // }
+
+    // const handleGoodEntry = (msg) => {
+    //     showMessage(msg)
+    //     found = [...found, entry]
+    //     clearEntry()
+    // }
+
+    // const showMessage = (msg) => {
+    //     message = msg
+    //     setTimeout(() => {
+    //         message = ''
+    //         pangram = false
+    //     }, 800)
+    // }
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<!-- <svelte:window on:keydown={handleKeydown} /> -->
 
 <Layout title="Play">
 
-    <div class="flex items-center justify-center flex-grow">
+hi
+    <!-- <div class="flex items-center justify-center flex-grow">
 
         <div class="relative flex flex-col items-center">
 
@@ -141,6 +147,8 @@
             <p class="text-center text-xl">{found.length} / {words.length}</p>
         </div>
 
-    </div>
+    </div> -->
+
+    <button on:click={logout}>log out</button>
 
 </Layout>

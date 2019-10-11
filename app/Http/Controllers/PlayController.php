@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Puzzle;
+// use App\Puzzle;
 
 use Inertia\Inertia;
 
 class PlayController
 {
-    public function __invoke(Puzzle $puzzle)
+    public function __invoke()
     {
-        abort_unless($puzzle->solved, 404);
-
         return Inertia::render('Play', [
-            'puzzle' => $puzzle->load('words', 'letterCombination')->append('pangrams'),
+            // 'puzzle' => $puzzle->load('words', 'letterCombination')->append('pangrams'),
         ]);
     }
 }

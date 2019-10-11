@@ -1,3 +1,28 @@
+.btn {
+    @apply flex items-center justify-center h-10 font-medium tracking-wide rounded shadow;
+    @apply outline-none !important;
+    &:focus {
+        @apply shadow-outline;
+    }
+}
+.btn-teal {
+    @apply text-white bg-teal-500;
+    &:hover, &:focus {
+        @apply bg-teal-600;
+    }
+}
+
+.link {
+    @apply text-teal-500;
+    &:hover, &:focus {
+        @apply text-teal-600;
+    }
+}
+.link-muted {
+    @apply text-grey-600;
+}
+
+
 input[type='checkbox'] + .toggle {
     @apply .relative .w-12 .rounded-full .bg-grey-400 .cursor-pointer;
     height: 1.75rem;

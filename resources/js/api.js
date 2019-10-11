@@ -8,6 +8,7 @@ export default {
             credentials: 'same-origin',
             method: 'POST',
             body: JSON.stringify(data),
+            redirect: 'follow',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,

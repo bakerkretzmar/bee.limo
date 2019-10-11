@@ -1,14 +1,15 @@
 <script>
-    import { InertiaLink } from '@inertiajs/inertia-svelte'
-
+    // import { InertiaLink } from '@inertiajs/inertia-svelte'
     export let title
+    let classes = ''
+    export { classes as class }
 </script>
 
 <svelte:head>
-    <title>{title}</title>
+    <title>bee.limo | {title}</title>
 </svelte:head>
 
-<main class="flex flex-col p-4 min-h-screen text-lg font-sans text-grey-900 bg-cream">
+<main class="flex flex-col min-h-screen p-4 font-sans text-lg text-grey-900 bg-cream {classes}">
     <!-- <header>
         <InertiaLink href="/">Home</InertiaLink>
         <InertiaLink href="/about">About</InertiaLink>
