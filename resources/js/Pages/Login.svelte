@@ -9,6 +9,7 @@
     let email = ''
     let password = ''
     let remember = false
+    let route = window.route
 
     const login = () => {
         Inertia.post(route('api:login'), { email, password, remember })

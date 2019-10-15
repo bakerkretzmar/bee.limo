@@ -1,5 +1,6 @@
 const mix = require('laravel-mix')
 const path = require('path')
+require('laravel-mix-purgecss')
 
 mix.disableNotifications()
 
@@ -36,3 +37,8 @@ mix
     })
     .version()
 
+if (mix.inProduction()) {
+    mix.purgeCss({
+        extensions: ['html', 'svelte', 'js', 'php']
+    })
+}

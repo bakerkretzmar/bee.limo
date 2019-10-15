@@ -11,6 +11,24 @@ module.exports = {
             colors: {
                 grey: defaultTheme.colors.gray,
                 cream: 'rgb(255, 250, 245)',
+                'cream-dark': 'rgb(245, 240, 235)',
+                'cream-darker': 'rgb(235, 230, 225)',
+            },
+
+            fill: {
+                cream: 'rgb(255, 250, 245)',
+                'cream-dark': 'rgb(245, 240, 235)',
+                'cream-darker': 'rgb(235, 230, 225)',
+                grey: defaultTheme.colors.gray,
+                ...defaultTheme.colors,
+            },
+
+            stroke: {
+                cream: 'rgb(255, 250, 245)',
+                'cream-dark': 'rgb(245, 240, 235)',
+                'cream-darker': 'rgb(235, 230, 225)',
+                grey: defaultTheme.colors.gray,
+                ...defaultTheme.colors,
             },
 
             fontFamily: {
@@ -36,7 +54,8 @@ module.exports = {
     },
 
     variants: {
-        //
+        fill: ['responsive', 'group-hover'],
+        stroke: ['responsive', 'group-hover'],
     },
 
     plugins: [

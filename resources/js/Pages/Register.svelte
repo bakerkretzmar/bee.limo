@@ -8,6 +8,7 @@
 
     let email = ''
     let password = ''
+    let route = window.route
 
     const register = () => {
         Inertia.post(route('api:register'), { email, password })

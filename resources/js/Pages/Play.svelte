@@ -1,154 +1,56 @@
 <script>
-    // import { alphabet } from '@/util'
-    // import Cell from '@/components/Cell.svelte'
-    // import Controls from '@/components/Controls.svelte'
-    // import Entry from '@/components/Entry.svelte'
     import Layout from '@/components/Layout.svelte'
-    import { Inertia } from '@inertiajs/inertia'
-    // import Message from '@/components/Message.svelte'
-    // import shuffle from 'lodash/shuffle'
+    import Navbar from '@/components/Navbar.svelte'
+    import Pagination from '@/components/Pagination.svelte'
+    import { InertiaLink } from '@inertiajs/inertia-svelte'
 
-    // export let puzzle
+    export let data
 
-    const logout = () => {
-        Inertia.post(route('api:logout'))
-    }
-
-    // let entry = ''
-    // let outers = shuffle(puzzle.letters.filter(l => l !== puzzle.initial))
-    // let error = false
-    // let found = []
-    // let words = puzzle.words.map(w => w.word)
-    // let pangram = false
-    // let pangrams = puzzle.pangrams.map(w => w.word)
-    // let forbidden = alphabet.filter(l => ! puzzle.letters.includes(l))
-    // let message = ''
-
-    // // $: console.log(puzzle)
-    // $: alphaFound = found.sort()
-
-    // const handleKeydown = (e) => {
-    //     switch (true) {
-    //         case ' ' === e.key:
-    //             return shuffleOuters()
-    //         case /^[a-zA-Z]$/.test(e.key):
-    //             return entry += e.key
-    //         case 'Backspace' === e.key:
-    //             e.preventDefault()
-    //             return entry = entry.substr(0, entry.length - 1)
-    //         case 'Escape' === e.key:
-    //             e.preventDefault()
-    //             return clearEntry()
-    //         case 'Enter' === e.key:
-    //             e.preventDefault()
-    //             return checkEntry()
-    //         default:
-    //             return
-    //     }
-    // }
-
-    // const shuffleOuters = () => {
-    //     let shuffled = shuffle(outers)
-    //     outers = ['','','','','','']
-    //     setTimeout(() => outers = shuffled, 200)
-    // }
-
-    // const clearEntry = () => {
-    //     entry = ''
-    // }
-
-    // const checkEntry = () => {
-    //     if (found.includes(entry)) {
-    //         return handleBadEntry('Already found')
-    //     }
-
-    //     if (words.includes(entry)) {
-    //         if (pangrams.includes(entry)) {
-    //             pangram = true
-    //             return handleGoodEntry('Panagram!')
-    //         }
-
-    //         return handleGoodEntry('Nice!')
-    //     }
-
-    //     if (entry.length < 4) {
-    //         return handleBadEntry('Too short')
-    //     }
-
-    //     if (forbidden.find(l => entry.split('').includes(l)) !== undefined) {
-    //         return handleBadEntry('Bad letters')
-    //     }
-
-    //     if (! entry.includes(puzzle.initial)) {
-    //         return handleBadEntry('Missing center letter')
-    //     }
-
-    //     return handleBadEntry('Not in word list')
-    // }
-
-    // const handleBadEntry = (msg) => {
-    //     showMessage(msg)
-    //     error = true
-    //     setTimeout(() => {
-    //         error = false
-    //         clearEntry()
-    //     }, 850)
-    // }
-
-    // const handleGoodEntry = (msg) => {
-    //     showMessage(msg)
-    //     found = [...found, entry]
-    //     clearEntry()
-    // }
-
-    // const showMessage = (msg) => {
-    //     message = msg
-    //     setTimeout(() => {
-    //         message = ''
-    //         pangram = false
-    //     }, 800)
-    // }
+    $: puzzles = data.data
+    let route = window.route
 </script>
 
-<!-- <svelte:window on:keydown={handleKeydown} /> -->
+<style>
+ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 12rem);
+    grid-auto-rows: 12rem;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-between;
+}
+li:hover, li:focus, li:focus-within {
+    @apply bg-cream-dark;
+}
+polygon {
+    stroke-width: 14;
+    stroke-linejoin: round;
+}
+</style>
 
 <Layout title="Play">
 
-hi
-    <!-- <div class="flex items-center justify-center flex-grow">
+    <Navbar/>
 
-        <div class="relative flex flex-col items-center">
+    <ul class="w-full max-w-6xl mx-auto py-4">
+        {#each puzzles as { id }}
+            <li class="rounded-lg w-40">
+                <InertiaLink class="relative flex items-center justify-center h-40 group" href={route('puzzle', id)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute w-32" viewBox="0 0 400 420">
+                        <polygon class="stroke-cream group-hover:stroke-cream-dark fill-yellow-300 group-hover:fill-yellow-400" points="240 140 160 140 120 210 160 280 240 280 280 210 240 140"/>
+                        <polygon class="stroke-cream group-hover:stroke-cream-dark fill-grey-200 group-hover:fill-grey-300" points="120 70 40 70 0 140 40 210 120 210 160 140 120 70"/>
+                        <polygon class="stroke-cream group-hover:stroke-cream-dark fill-grey-200 group-hover:fill-grey-300" points="360 210 280 210 240 280 280 350 360 350 400 280 360 210"/>
+                        <polygon class="stroke-cream group-hover:stroke-cream-dark fill-grey-200 group-hover:fill-grey-300" points="240 280 160 280 120 350 160 420 240 420 280 350 240 280"/>
+                        <polygon class="stroke-cream group-hover:stroke-cream-dark fill-grey-200 group-hover:fill-grey-300" points="240 0 160 0 120 70 160 140 240 140 280 70 240 0"/>
+                        <polygon class="stroke-cream group-hover:stroke-cream-dark fill-grey-200 group-hover:fill-grey-300" points="360 70 280 70 240 140 280 210 360 210 400 140 360 70"/>
+                        <polygon class="stroke-cream group-hover:stroke-cream-dark fill-grey-200 group-hover:fill-grey-300" points="120 210 40 210 0 280 40 350 120 350 160 280 120 210"/>
+                    </svg>
+                    <span class="absolute text-4xl font-medium text-grey-800 tracking-tight">{id}</span>
+                </InertiaLink>
+            </li>
+        {/each}
+    </ul>
 
-            <Message {message} {pangram} />
-
-            <Entry {entry} {error} letters={puzzle.letters} center={puzzle.initial} />
-
-            <div class="relative" style="width: 300px; padding-bottom: 315px;">
-                <Cell letter={puzzle.initial} on:click={() => entry += puzzle.initial} center />
-                <Cell letter={[outers[0]]} on:click={() => entry += outers[0]} y=-100 />
-                <Cell letter={[outers[1]]} on:click={() => entry += outers[1]} x=75 y=-50 />
-                <Cell letter={[outers[2]]} on:click={() => entry += outers[2]} x=75 y=50 />
-                <Cell letter={[outers[3]]} on:click={() => entry += outers[3]} y=100 />
-                <Cell letter={[outers[4]]} on:click={() => entry += outers[4]} x=-75 y=50 />
-                <Cell letter={[outers[5]]} on:click={() => entry += outers[5]} x=-75 y=-50 />
-            </div>
-
-            <Controls {clearEntry} {shuffleOuters} {checkEntry}/>
-
-        </div>
-
-        <div class="flex flex-col justify-between ml-12 px-6 py-5 w-full max-w-md h-full max-h-lg border rounded-lg">
-            <ul class="flex flex-col flex-wrap">
-                {#each alphaFound as word}
-                    <li class="w-1/2 mb-1 capitalize">{word}</li>
-                {/each}
-            </ul>
-
-            <p class="text-center text-xl">{found.length} / {words.length}</p>
-        </div>
-
-    </div> -->
-
-    <button on:click={logout}>log out</button>
+    <Pagination {...data}/>
 
 </Layout>

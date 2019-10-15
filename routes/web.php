@@ -11,10 +11,10 @@ use App\Http\Controllers\{
 
 Route::get('/', AppController::class);
 
-Route::get('dash', DashboardController::class)->name('dashboard');
+Route::get('dash', DashboardController::class)->middleware(['auth'])->name('dashboard');
 
-Route::get('play', PlayController::class)->name('play');
-Route::get('play/{puzzle}', PuzzleController::class)->name('puzzle');
+Route::get('play', PlayController::class)->middleware(['auth'])->name('play');
+Route::get('play/{puzzle}', PuzzleController::class)->middleware(['auth'])->name('puzzle');
 
 Route::get('login', [LoginController::class, 'show'])->name('login');
 Route::get('register', [RegisterController::class, 'show'])->name('register');

@@ -117,7 +117,7 @@
 
             <Entry {entry} {error} letters={puzzle.letters} center={puzzle.initial} />
 
-            <div class="relative" style="width: 300px; padding-bottom: 315px;">
+            <div class="relative" style="width: 280px; padding-bottom: 294px;">
                 <Cell letter={puzzle.initial} on:click={() => entry += puzzle.initial} center />
                 <Cell letter={[outers[0]]} on:click={() => entry += outers[0]} y=-100 />
                 <Cell letter={[outers[1]]} on:click={() => entry += outers[1]} x=75 y=-50 />
