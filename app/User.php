@@ -13,7 +13,15 @@ class User extends Authenticatable
 
     protected $hidden = ['password', 'remember_token'];
 
-    protected $dates = [
-        'email_verified_at',
-    ];
+    protected $dates = ['email_verified_at'];
+
+    public function puzzles()
+    {
+        return $this->belongsToMany(Puzzle::class)
+                    ->using(Game::class)
+                    ->withPivot([
+                        'found_word_ids',
+                    ])
+                    ->withTimestamps();
+    }
 }

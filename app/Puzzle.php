@@ -35,6 +35,16 @@ class Puzzle extends Model
         return $this->belongsTo(LetterCombination::class);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class)
+                    ->using(Game::class)
+                    ->withPivot([
+                        'found_word_ids',
+                    ])
+                    ->withTimestamps();
+    }
+
     public function words()
     {
         return $this->belongsToMany(Word::class);
