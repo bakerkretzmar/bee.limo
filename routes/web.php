@@ -3,7 +3,6 @@
 use App\Http\Controllers\{
     AppController,
     DashboardController,
-    PlayController,
     PuzzleController,
     Auth\LoginController,
     Auth\RegisterController,
@@ -19,5 +18,5 @@ Route::get('/', AppController::class);
 Route::get('dash', DashboardController::class)->middleware(['auth'])->name('dashboard');
 
 // Puzzles
-Route::get('play', PlayController::class)->middleware(['auth'])->name('play');
-Route::get('play/{puzzle}', PuzzleController::class)->middleware(['auth'])->name('puzzle');
+Route::get('play', [PuzzleController::class, 'index'])->middleware(['auth'])->name('puzzles');
+Route::get('play/{puzzle}', [PuzzleController::class, 'show'])->middleware(['auth'])->name('puzzles.show');

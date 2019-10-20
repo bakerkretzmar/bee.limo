@@ -10,29 +10,13 @@ module.exports = {
 
             colors: {
                 grey: defaultTheme.colors.gray,
-                cream: 'rgb(255, 250, 245)',
-                'cream-dark': 'rgb(245, 240, 235)',
-                'cream-darker': 'rgb(235, 230, 225)',
-            },
-
-            fill: {
-                cream: 'rgb(255, 250, 245)',
-                'cream-dark': 'rgb(245, 240, 235)',
-                'cream-darker': 'rgb(235, 230, 225)',
-                grey: defaultTheme.colors.gray,
-                ...defaultTheme.colors,
-            },
-
-            stroke: {
-                cream: 'rgb(255, 250, 245)',
-                'cream-dark': 'rgb(245, 240, 235)',
-                'cream-darker': 'rgb(235, 230, 225)',
-                grey: defaultTheme.colors.gray,
-                ...defaultTheme.colors,
+                cream: 'rgb(255, 252, 247)',
+                'cream-dark': 'rgb(245, 242, 237)',
+                'cream-darker': 'rgb(235, 232, 227)',
             },
 
             fontFamily: {
-                sans: ['"National 2"', ...defaultTheme.fontFamily.sans],
+                sans: ['"FreightSans Pro"', ...defaultTheme.fontFamily.sans],
             },
 
         },
@@ -42,6 +26,9 @@ module.exports = {
                 input: {
                     borderColor: defaultTheme.colors.gray[400],
                     borderWidth: defaultTheme.borderWidth['2'],
+                    // '&:focus': {
+                    //     borderColor: defaultTheme.colors.gray[400],
+                    // },
                 },
                 checkbox: {
                     color: defaultTheme.colors.teal[500],
@@ -54,8 +41,7 @@ module.exports = {
     },
 
     variants: {
-        fill: ['responsive', 'group-hover'],
-        stroke: ['responsive', 'group-hover'],
+        textColor: ['responsive', 'hover', 'group-hover', 'focus'],
     },
 
     plugins: [

@@ -12,7 +12,8 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('register', [RegisterController::class, 'register'])->name('register');
 
 // Puzzles
-Route::get('game/{puzzle}', GameController::class)->middleware(['auth'])->name('game');
+Route::get('game/{puzzle}', [GameController::class, 'show'])->middleware(['auth'])->name('game');
+Route::post('game/{puzzle}', [GameController::class, 'update'])->middleware(['auth'])->name('game');
 
 // middleware(['auth'])->
 // Route::middleware([])->group(function () {

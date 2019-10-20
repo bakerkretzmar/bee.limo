@@ -11,7 +11,7 @@ class CreatePuzzleUserPivotTable extends Migration
         Schema::create('puzzle_user', function (Blueprint $table) {
             $table->unsignedBigInteger('puzzle_id');
             $table->unsignedBigInteger('user_id');
-            $table->json('found_word_ids')->nullable();
+            $table->json('found_words')->nullable();
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });

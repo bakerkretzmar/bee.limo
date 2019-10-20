@@ -1,41 +1,39 @@
 <script>
-    import Brand from '@/components/Brand.svelte'
     import { Inertia } from '@inertiajs/inertia'
     import { InertiaLink } from '@inertiajs/inertia-svelte'
+    import Brand from '@/components/Brand.svelte'
 
     let route = window.route
-
-    const logout = () => {
-        Inertia.post(route('api:logout'))
-    }
 </script>
-
-<style>
-li:hover, li:focus, li:focus-within {
-    @apply bg-cream-darker outline-none;
-}
-</style>
 
 <nav class="flex items-center justify-between px-4 py-3">
 
-    <Brand/>
+    <Brand class="w-24"/>
 
     <ul class="flex items-center">
 
-        <li class="rounded">
-            <InertiaLink class="inline-block px-2 py-1 font-medium" href="/">Home</InertiaLink>
+        <li class="rounded overflow-hidden">
+            <InertiaLink class="inline-block px-3 py-1 font-medium hover:bg-cream-darker focus:bg-cream-darker" href="/">
+                Home
+            </InertiaLink>
         </li>
 
-        <li class="rounded ml-4">
-            <InertiaLink class="inline-block px-2 py-1 font-medium" href="/">About</InertiaLink>
+        <li class="ml-2 rounded overflow-hidden">
+            <InertiaLink class="inline-block px-3 py-1 font-medium hover:bg-cream-darker focus:bg-cream-darker" href="/">
+                About
+            </InertiaLink>
         </li>
 
-        <li class="rounded ml-4">
-            <InertiaLink class="inline-block px-2 py-1 font-medium" href="/">Account</InertiaLink>
+        <li class="ml-2 rounded overflow-hidden">
+            <InertiaLink class="inline-block px-3 py-1 font-medium hover:bg-cream-darker focus:bg-cream-darker" href="/">
+                Account
+            </InertiaLink>
         </li>
 
-        <li class="rounded ml-4">
-            <button class="px-2 py-1 text-grey-600" on:click={logout}>Log out</button>
+        <li class="ml-2 rounded overflow-hidden">
+            <button class="px-3 py-1 text-grey-600 hover:bg-cream-dark focus:bg-cream-dark" on:click={() => Inertia.post(route('api:logout'))}>
+                Log out
+            </button>
         </li>
 
     </ul>

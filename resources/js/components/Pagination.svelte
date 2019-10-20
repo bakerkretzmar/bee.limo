@@ -1,14 +1,18 @@
 <script>
     import { InertiaLink } from '@inertiajs/inertia-svelte'
 
-    export let prev_page_url
-    export let next_page_url
-    export let current_page
-    export let last_page
+    export let prev
+    export let next
+    export let current
+    export let last
 </script>
 
-<nav class="flex items-center justify-between w-full max-w-6xl mx-auto px-8">
-    <InertiaLink class="block px-2 py-1 bg-grey-300 hover:bg-grey-200 border-2 rounded focus:bg-grey-200 focus:outline-none" href={prev_page_url}>Previous</InertiaLink>
-    <span>{current_page} / {last_page}</span>
-    <InertiaLink class="block px-2 py-1 bg-grey-300 hover:bg-grey-200 border-2 rounded focus:bg-grey-200 focus:outline-none" href={next_page_url}>Next</InertiaLink>
+<nav class="flex items-center justify-between w-full max-w-6xl mx-auto px-8 mb-8">
+
+    <InertiaLink class="text-grey-600 hover:text-yellow-500 focus:text-yellow-500 {prev ? '' : 'pointer-events-none opacity-0'}" href={prev}>Previous</InertiaLink>
+
+    <span>{current.toLocaleString()} / {last.toLocaleString()}</span>
+
+    <InertiaLink class="text-grey-600 hover:text-yellow-500 focus:text-yellow-500 {next ? '' : 'pointer-events-none opacity-0'}" href={next}>Next</InertiaLink>
+
 </nav>

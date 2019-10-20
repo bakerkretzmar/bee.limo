@@ -18,9 +18,11 @@ class User extends Authenticatable
     public function puzzles()
     {
         return $this->belongsToMany(Puzzle::class)
+                    ->as('game')
                     ->using(Game::class)
                     ->withPivot([
-                        'found_word_ids',
+                        'found_words',
+                        'completed_at',
                     ])
                     ->withTimestamps();
     }

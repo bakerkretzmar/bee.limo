@@ -12,17 +12,7 @@
     }
 }
 
-.link {
-    @apply text-teal-500;
-    &:hover, &:focus {
-        @apply text-teal-600;
-    }
-}
-.link-muted {
-    @apply text-grey-600;
-}
-
-
+/*
 input[type='checkbox'] + .toggle {
     @apply .relative .w-12 .rounded-full .bg-grey-400 .cursor-pointer;
     height: 1.75rem;
@@ -43,3 +33,4 @@ input[type='checkbox']:checked + .toggle {
 input[type='checkbox']:checked + .toggle::before {
     transform: translateX(theme('spacing.5'));
 }
+ */

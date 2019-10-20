@@ -9,7 +9,7 @@ class Game extends Pivot
     protected $appends = [];
 
     protected $casts = [
-        'found_word_ids' => 'array',
+        'found_words' => 'array',
     ];
 
     protected $dates = [
@@ -18,10 +18,10 @@ class Game extends Pivot
         'completed_at',
     ];
 
-    public function markWordAsFound(int $id)
+    public function markWordAsFound(string $word)
     {
         $this->update([
-            'found_word_ids' => array_merge($this->found_word_ids, [$id]),
+            'found_words' => array_merge($this->found_words, [$word]),
         ]);
     }
 }

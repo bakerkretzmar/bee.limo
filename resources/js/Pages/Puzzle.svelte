@@ -1,13 +1,22 @@
 <script>
+    import api from '@/api'
+    import { onMount } from 'svelte'
+    import { fade } from 'svelte/transition'
     import { alphabet } from '@/util'
+    import { Inertia } from '@inertiajs/inertia'
     import Cell from '@/components/Cell.svelte'
     import Controls from '@/components/Controls.svelte'
     import Entry from '@/components/Entry.svelte'
     import Layout from '@/components/Layout.svelte'
     import Message from '@/components/Message.svelte'
+    import Loader from '@/components/Loader.svelte'
     import shuffle from 'lodash/shuffle'
+    import debounce from 'lodash/debounce'
 
     export let puzzle
+
+    let route = window.route
+    let loading = true
 
     let entry = ''
     let outers = shuffle(puzzle.letters.filter(l => l !== puzzle.initial))
@@ -19,15 +28,19 @@
     let forbidden = alphabet.filter(l => ! puzzle.letters.includes(l))
     let message = ''
 
-    // $: console.log(puzzle)
-    $: alphaFound = found.sort()
+    onMount(async () => {
+        let response = await fetch(route('api:game', puzzle.id))
+        let data = await response.json()
+        found = data.game.found_words || []
+        loading = false
+    })
 
     const handleKeydown = (e) => {
         switch (true) {
             case ' ' === e.key:
                 return shuffleOuters()
             case /^[a-zA-Z]$/.test(e.key):
-                return entry += e.key
+                return entry += e.key.toLowerCase()
             case 'Backspace' === e.key:
                 e.preventDefault()
                 return entry = entry.substr(0, entry.length - 1)
@@ -94,6 +107,7 @@
         showMessage(msg)
         found = [...found, entry]
         clearEntry()
+        updateGame()
     }
 
     const showMessage = (msg) => {
@@ -103,11 +117,16 @@
             pangram = false
         }, 800)
     }
+
+    const updateGame = debounce(async () => {
+        let response = await api.post(route('api:game', puzzle.id), { found_words: found })
+        let data = await response.json()
+    }, 500)
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
 
-<Layout title="Play">
+<Layout title="Puzzle {puzzle.id.toLocaleString()}">
 
     <div class="flex items-center justify-center flex-grow">
 
@@ -131,14 +150,18 @@
 
         </div>
 
-        <div class="flex flex-col justify-between ml-12 px-6 py-5 w-full max-w-md h-full max-h-lg border rounded-lg">
-            <ul class="flex flex-col flex-wrap">
-                {#each alphaFound as word}
-                    <li class="w-1/2 mb-1 capitalize">{word}</li>
-                {/each}
-            </ul>
+        <div class="relative flex flex-col justify-between ml-12 px-6 py-4 w-full max-w-md h-full max-h-lg border rounded-lg">
+            {#if loading}
+                <Loader/>
+            {:else}
+                <ul class="flex flex-col flex-wrap content-start max-h-md overflow-scroll" transition:fade={{duration: 100}}>
+                    {#each found.sort() as word}
+                        <li class="w-1/3 mb-1 capitalize">{word}</li>
+                    {/each}
+                </ul>
 
-            <p class="text-center text-xl">{found.length} / {words.length}</p>
+                <p class="text-center text-xl" transition:fade={{duration: 100}}>{found.length} / {words.length}</p>
+            {/if}
         </div>
 
     </div>

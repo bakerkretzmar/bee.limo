@@ -38,9 +38,11 @@ class Puzzle extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)
+                    ->as('game')
                     ->using(Game::class)
                     ->withPivot([
-                        'found_word_ids',
+                        'found_words',
+                        'completed_at',
                     ])
                     ->withTimestamps();
     }

@@ -31,11 +31,29 @@ class GameControllerTest extends TestCase
             'letters' => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
             'letter_combination_id' => 1,
         ]);
-        $user->puzzles()->attach($puzzle, ['found_word_ids' => ['test']]);
+        $user->puzzles()->attach($puzzle, ['found_words' => ['test']]);
 
         $response = $this->actingAs($user)->getJson(route('api:game', $puzzle->id));
 
         $response->assertSuccessful();
-        $this->assertSame(['test'], $response->json()['game']['found_word_ids']);
+        $this->assertSame(['test'], $response->json()['game']['found_words']);
+    }
+
+    /** @test */
+    public function can_update_existing_game()
+    {
+        $user = factory(User::class)->create();
+        $puzzle = Puzzle::create([
+            'letters' => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
+            'letter_combination_id' => 1,
+        ]);
+        $user->puzzles()->attach($puzzle, ['found_words' => ['foo']]);
+
+        $response = $this->actingAs($user)->postJson(route('api:game', $puzzle->id), [
+            'found_words' => ['foo', 'bar', 'baz'],
+        ]);
+
+        $response->assertSuccessful();
+        $this->assertSame(['foo', 'bar', 'baz'], $user->puzzles()->where('puzzle_id', $puzzle->id)->first()->game->found_words);
     }
 }
