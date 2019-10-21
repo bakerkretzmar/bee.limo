@@ -17,11 +17,4 @@ class Game extends Pivot
         'updated_at',
         'completed_at',
     ];
-
-    public function markWordAsFound(string $word)
-    {
-        $this->update([
-            'found_words' => array_merge($this->found_words, [$word]),
-        ]);
-    }
 }
