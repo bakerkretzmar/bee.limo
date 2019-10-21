@@ -34,4 +34,3 @@ Route::post('game/{puzzle}', [GameController::class, 'update'])->middleware(['au
 //     ]);
 
 // });
-
