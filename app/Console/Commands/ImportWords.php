@@ -42,7 +42,7 @@ class ImportWords extends Command
     {
         $handle = fopen($this->argument('file'), 'r');
 
-        while(! feof($handle)) {
+        while (! feof($handle)) {
             yield trim(fgets($handle));
         }
 

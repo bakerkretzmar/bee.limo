@@ -17,12 +17,14 @@ class SolvePuzzles extends Command
         if (Puzzle::unsolved()->doesntExist()) {
             $this->question('                                                                             ');
             $this->question('  No puzzles left to solve! Generate some with the puzzle:generate command.  ');
+
             return $this->question('                                                                             ');
         }
 
         $this->comment('Solving puzzles...');
 
-        $solved = 0; $passed = 0;
+        $solved = 0;
+        $passed = 0;
 
         Puzzle::unsolved()->inRandomOrder()->take($this->argument('amount'))->get()
             ->each(function ($puzzle) use (&$solved, &$passed) {
