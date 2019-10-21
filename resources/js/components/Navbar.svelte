@@ -8,24 +8,20 @@
 
 <nav class="flex items-center justify-between px-4 py-3">
 
-    <Brand class="w-24"/>
+    <InertiaLink href={route('puzzles')}>
+        <Brand class="w-24"/>
+    </InertiaLink>
 
     <ul class="flex items-center">
 
-        <li class="rounded overflow-hidden">
-            <InertiaLink class="inline-block px-3 py-1 font-medium hover:bg-cream-darker focus:bg-cream-darker" href="/">
-                Home
-            </InertiaLink>
-        </li>
-
         <li class="ml-2 rounded overflow-hidden">
-            <InertiaLink class="inline-block px-3 py-1 font-medium hover:bg-cream-darker focus:bg-cream-darker" href="/">
+            <InertiaLink class="inline-block px-3 py-1 hover:bg-cream-darker focus:bg-cream-darker" href="/">
                 About
             </InertiaLink>
         </li>
 
         <li class="ml-2 rounded overflow-hidden">
-            <InertiaLink class="inline-block px-3 py-1 font-medium hover:bg-cream-darker focus:bg-cream-darker" href="/">
+            <InertiaLink class="inline-block px-3 py-1 hover:bg-cream-darker focus:bg-cream-darker" href="/">
                 Account
             </InertiaLink>
         </li>

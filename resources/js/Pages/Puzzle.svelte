@@ -2,14 +2,13 @@
     import api from '@/api'
     import { onMount } from 'svelte'
     import { fade } from 'svelte/transition'
-    import { alphabet } from '@/util'
     import { Inertia } from '@inertiajs/inertia'
-    import Cell from '@/components/Cell.svelte'
-    import Controls from '@/components/Controls.svelte'
-    import Entry from '@/components/Entry.svelte'
     import Layout from '@/components/Layout.svelte'
     import Message from '@/components/Message.svelte'
-    import Loader from '@/components/Loader.svelte'
+    import PuzzleControls from '@/components/PuzzleControls.svelte'
+    import PuzzleInput from '@/components/PuzzleInput.svelte'
+    import PuzzleLetters from '@/components/PuzzleLetters.svelte'
+    import PuzzleWords from '@/components/PuzzleWords.svelte'
     import shuffle from 'lodash/shuffle'
     import debounce from 'lodash/debounce'
 
@@ -18,15 +17,19 @@
     let route = window.route
     let loading = true
 
-    let entry = ''
+    let input = ''
     let outers = shuffle(puzzle.letters.filter(l => l !== puzzle.initial))
-    let error = false
     let found = []
     let words = puzzle.words.map(w => w.word)
-    let pangram = false
     let pangrams = puzzle.pangrams.map(w => w.word)
-    let forbidden = alphabet.filter(l => ! puzzle.letters.includes(l))
+    let erroring = false
+    let justChecked = false
+    let justFoundPangram = false
+    let profanity = false
     let message = ''
+    let keysDown = []
+
+    $: ignoreKeys = keysDown.includes('Alt') || keysDown.includes('Control') || keysDown.includes('Meta')
     $: complete = found.length >= words.length
 
     onMount(async () => {
@@ -36,134 +39,144 @@
         loading = false
     })
 
-    const handleKeydown = (e) => {
+    function handleKeydown(e) {
+        if (justChecked) {
+            justChecked = false
+            profanity = false
+            erroring = false
+            clearInput()
+        }
+
+        if (e.key === 'Backspace') {
+            e.preventDefault()
+            input = input.substr(0, input.length - 1)
+            return
+        }
+
+        if (ignoreKeys) return
+
+        keysDown = [...keysDown, e.key]
+
         switch (true) {
             case ' ' === e.key:
                 return shuffleOuters()
             case /^[a-zA-Z]$/.test(e.key):
-                return entry += e.key.toLowerCase()
-            case 'Backspace' === e.key:
-                e.preventDefault()
-                return entry = entry.substr(0, entry.length - 1)
+                return input += e.key.toLowerCase()
             case 'Escape' === e.key:
                 e.preventDefault()
-                return clearEntry()
+                return clearInput()
             case 'Enter' === e.key:
                 e.preventDefault()
-                return checkEntry()
-            default:
-                return
+                return checkInput()
         }
     }
 
-    const shuffleOuters = () => {
+    function handleKeyup(e) {
+        keysDown = keysDown.filter(k => k !== e.key)
+    }
+
+    function shuffleOuters() {
         let shuffled = shuffle(outers)
         outers = ['','','','','','']
-        setTimeout(() => outers = shuffled, 200)
+        setTimeout(() => outers = shuffled, 150)
     }
 
-    const clearEntry = () => {
-        entry = ''
+    function clearInput() {
+        input = ''
     }
 
-    const checkEntry = () => {
-        if (found.includes(entry)) {
-            return handleBadEntry('Already found')
+    function checkInput() {
+        if (['fuck', 'shit', 'cunt', 'ass'].includes(input)) {
+            profanity = true
+            return handleBadInput('HEY.')
         }
 
-        if (words.includes(entry)) {
-            if (pangrams.includes(entry)) {
-                pangram = true
-                return handleGoodEntry('Panagram!')
+        if (found.includes(input)) {
+            return handleBadInput('Already found')
+        }
+
+        if (words.includes(input)) {
+            if (pangrams.includes(input)) {
+                justFoundPangram = true
+                return handleGoodInput('Panagram!')
             }
 
-            return handleGoodEntry('Nice!')
+            return handleGoodInput('Nice!')
         }
 
-        if (entry.length < 4) {
-            return handleBadEntry('Too short')
+        if (input.length < 4) {
+            return handleBadInput('Too short')
         }
 
-        if (forbidden.find(l => entry.split('').includes(l)) !== undefined) {
-            return handleBadEntry('Bad letters')
+        if (input.split('').find(l => !puzzle.letters.includes(l)) !== undefined) {
+            return handleBadInput('Bad letters')
         }
 
-        if (! entry.includes(puzzle.initial)) {
-            return handleBadEntry('Missing center letter')
+        if (! input.includes(puzzle.initial)) {
+            return handleBadInput('Missing center letter')
         }
 
-        return handleBadEntry('Not in word list')
+        return handleBadInput('Not in word list')
     }
 
-    const handleBadEntry = (msg) => {
-        showMessage(msg)
-        error = true
+    function handleBadInput(msg) {
+        erroring = true
+        message = msg
+        justChecked = true
         setTimeout(() => {
-            error = false
-            clearEntry()
+            erroring = false
+            message = ''
+            if (justChecked) {
+                justChecked = false
+                profanity = false
+                clearInput()
+            }
         }, 850)
     }
 
-    const handleGoodEntry = (msg) => {
-        showMessage(msg)
-        found = [...found, entry]
-        clearEntry()
+    function handleGoodInput(msg) {
+        justChecked = true
+        message = complete ? 'GENIUS!!' : msg
+        found = [...found, input]
+        clearInput()
         updateGame()
-    }
-
-    const showMessage = (msg) => {
-        message = msg
         setTimeout(() => {
             message = ''
-            pangram = false
-        }, 800)
+            if (justChecked) {
+                justChecked = false
+                justFoundPangram = false
+            }
+        }, 850)
+    }
+
+    function celebrate() {
+        //
     }
 
     const updateGame = debounce(async () => {
-        let data = await response.json()
         let response = await api.post(route('api:game', puzzle.id), { found_words: found, complete })
     }, 500)
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} on:blur={() => keysDown = []}/>
 
 <Layout title="Puzzle {puzzle.id.toLocaleString()}">
 
-    <div class="flex items-center justify-center flex-grow">
+    <div class="flex justify-center my-12">
 
         <div class="relative flex flex-col items-center">
 
-            <Message {message} {pangram} />
+            <Message {message} pangram={justFoundPangram} {profanity}/>
 
-            <Entry {entry} {error} letters={puzzle.letters} center={puzzle.initial} />
+            <PuzzleInput input={input} {erroring} initial={puzzle.initial} letters={puzzle.letters}/>
 
-            <div class="relative" style="width: 280px; padding-bottom: 294px;">
-                <Cell letter={puzzle.initial} on:click={() => entry += puzzle.initial} center />
-                <Cell letter={[outers[0]]} on:click={() => entry += outers[0]} y=-100 />
-                <Cell letter={[outers[1]]} on:click={() => entry += outers[1]} x=75 y=-50 />
-                <Cell letter={[outers[2]]} on:click={() => entry += outers[2]} x=75 y=50 />
-                <Cell letter={[outers[3]]} on:click={() => entry += outers[3]} y=100 />
-                <Cell letter={[outers[4]]} on:click={() => entry += outers[4]} x=-75 y=50 />
-                <Cell letter={[outers[5]]} on:click={() => entry += outers[5]} x=-75 y=-50 />
-            </div>
+            <PuzzleLetters initial={puzzle.initial} {outers} on:click={(e) => input += e.detail}/>
 
-            <Controls {clearEntry} {shuffleOuters} {checkEntry}/>
+            <PuzzleControls {clearInput} {shuffleOuters} {checkInput}/>
 
         </div>
 
-        <div class="relative flex flex-col justify-between ml-12 px-6 py-4 w-full max-w-md h-full max-h-lg border rounded-lg">
-            {#if loading}
-                <Loader/>
-            {:else}
-                <ul class="flex flex-col flex-wrap content-start max-h-md overflow-scroll" transition:fade={{duration: 100}}>
-                    {#each found.sort() as word}
-                        <li class="w-1/3 mb-1 capitalize">{word}</li>
-                    {/each}
-                </ul>
-
-                <p class="text-center text-xl" transition:fade={{duration: 100}}>{found.length} / {words.length}</p>
-            {/if}
-        </div>
+        <PuzzleWords {loading} {found} total={words.length}/>
 
     </div>
 
