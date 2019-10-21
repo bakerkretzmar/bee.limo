@@ -6,7 +6,9 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
         {{-- <meta name="twitter:title" content="{{ $page['props']['event']->title }}"> --}}
+
         <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+        <link href="https://use.typekit.net/sto6skh.css" rel="stylesheet">
 
         @routes
 

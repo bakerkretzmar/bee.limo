@@ -6,6 +6,8 @@ module.exports = {
 
         maxHeight: theme => theme('maxWidth'),
 
+        minWidth: theme => theme('maxWidth'),
+
         extend: {
 
             colors: {
@@ -16,7 +18,7 @@ module.exports = {
             },
 
             fontFamily: {
-                sans: ['"FreightSans Pro"', ...defaultTheme.fontFamily.sans],
+                sans: ['freight-sans-pro', ...defaultTheme.fontFamily.sans],
             },
 
         },

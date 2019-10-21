@@ -16,13 +16,13 @@
     <title>Log in | bee.limo</title>
 </svelte:head>
 
-<main class="flex flex-col items-center justify-center min-h-screen font-sans text-lg text-grey-900 bg-cream">
+<main class="flex flex-col items-center justify-center min-h-screen font-sans font-medium text-lg text-grey-900 bg-cream">
 
     <Brand class="w-48 my-8"/>
 
     <Card class="w-full max-w-xs">
 
-        <h1 class="mb-4 text-3xl font-medium">
+        <h1 class="mb-4 text-3xl font-semibold">
             Log in
         </h1>
 

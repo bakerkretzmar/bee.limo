@@ -1,5 +1,5 @@
 .btn {
-    @apply flex items-center justify-center h-10 font-medium tracking-wide rounded shadow;
+    @apply flex items-center justify-center h-10 font-semibold tracking-wide rounded shadow;
     @apply outline-none !important;
     &:focus {
         @apply shadow-outline;
