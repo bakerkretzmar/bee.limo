@@ -1,15 +1,12 @@
 php:
   preset: laravel
   disabled:
-    - unused_use
+    - concat_without_spaces
+    - length_ordered_imports
+    - no_blank_lines_between_imports
   finder:
+    exclude:
+      - tests
     not-name:
       - index.php
       - server.php
-
-js:
-  finder:
-    not-name:
-      - webpack.mix.js
-
-css: true
