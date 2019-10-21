@@ -6,10 +6,13 @@ use Inertia\Inertia;
 
 class AppController
 {
-    public function __invoke()
+    public function splash()
     {
-        return Inertia::render('Welcome', [
-            // 'event' => $event->only('id', 'title', 'start_date', 'description'),
-        ]);
+        return Inertia::render('Splash');
+    }
+
+    public function about()
+    {
+        return Inertia::render('About');
     }
 }

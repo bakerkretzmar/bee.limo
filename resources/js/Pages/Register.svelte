@@ -21,7 +21,7 @@
 
     <Card class="w-full max-w-xs">
 
-        <h1 class="mb-4 text-3xl font-semibold">
+        <h1 class="mb-4 text-3xl font-semibold text-center">
             Register
         </h1>
 

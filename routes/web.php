@@ -14,7 +14,8 @@ Route::get('register', [RegisterController::class, 'show'])->name('register');
 // $this->emailVerification();
 
 // App
-Route::get('/', AppController::class);
+Route::get('/', [AppController::class, 'splash'])->name('splash');
+Route::get('about', [AppController::class, 'about'])->name('about');
 Route::get('dash', DashboardController::class)->middleware(['auth'])->name('dashboard');
 
 // Puzzles
