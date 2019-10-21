@@ -6,7 +6,7 @@ php:
     - no_blank_lines_between_imports
   finder:
     exclude:
-      - tests
+      - "tests"
     not-name:
       - index.php
       - server.php
