@@ -27,6 +27,7 @@
     let pangrams = puzzle.pangrams.map(w => w.word)
     let forbidden = alphabet.filter(l => ! puzzle.letters.includes(l))
     let message = ''
+    $: complete = found.length >= words.length
 
     onMount(async () => {
         let response = await fetch(route('api:game', puzzle.id))
@@ -119,8 +120,8 @@
     }
 
     const updateGame = debounce(async () => {
-        let response = await api.post(route('api:game', puzzle.id), { found_words: found })
         let data = await response.json()
+        let response = await api.post(route('api:game', puzzle.id), { found_words: found, complete })
     }, 500)
 </script>
 

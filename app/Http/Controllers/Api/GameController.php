@@ -23,6 +23,7 @@ class GameController
     public function update(Request $request, Puzzle $puzzle)
     {
         Auth::user()->puzzles()->updateExistingPivot($puzzle->id, [
+            'completed_at' => $request->complete ? now() : null,
             'found_words' => $request->found_words,
         ]);
 
