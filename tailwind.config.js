@@ -28,9 +28,6 @@ module.exports = {
                 input: {
                     borderColor: defaultTheme.colors.gray[400],
                     borderWidth: defaultTheme.borderWidth['2'],
-                    // '&:focus': {
-                    //     borderColor: defaultTheme.colors.gray[400],
-                    // },
                 },
                 checkbox: {
                     color: defaultTheme.colors.teal[500],
