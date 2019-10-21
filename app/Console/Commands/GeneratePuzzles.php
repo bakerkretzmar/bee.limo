@@ -17,6 +17,7 @@ class GeneratePuzzles extends Command
         if (LetterCombination::unprocessed()->doesntExist()) {
             $this->question('                                                                    ');
             $this->question('  Holy shirt... all known letter combinations have been processed!  ');
+
             return $this->question('                                                                    ');
         }
 

@@ -140,7 +140,6 @@ class Puzzle extends Model
         return true;
     }
 
-
     public function scopeSolved(Builder $query)
     {
         return $query->whereNotNull('solved_at');
