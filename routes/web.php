@@ -1,12 +1,10 @@
 <?php
 
-use App\Http\Controllers\{
-    AppController,
-    DashboardController,
-    PuzzleController,
-    Auth\LoginController,
-    Auth\RegisterController,
-};
+use App\Http\Controllers\AppController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PuzzleController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 // Auth
 Route::get('login', [LoginController::class, 'show'])->name('login');

@@ -27,7 +27,8 @@ class SolvePuzzles implements ShouldQueue
 
         info('Solving ' . $this->quantity . ' puzzles...');
 
-        $solved = 0; $passed = 0;
+        $solved = 0;
+        $passed = 0;
 
         Puzzle::unsolved()->inRandomOrder()->take($this->quantity)->get()
             ->each(function ($puzzle) use (&$solved, &$passed) {

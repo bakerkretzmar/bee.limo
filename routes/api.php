@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\{
-    Api\GameController,
-    Auth\LoginController,
-    Auth\RegisterController,
-};
+use App\Http\Controllers\Api\GameController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 // Auth
 Route::post('login', [LoginController::class, 'login'])->name('login');
@@ -34,4 +32,3 @@ Route::post('game/{puzzle}', [GameController::class, 'update'])->middleware(['au
 //     ]);
 
 // });
-
