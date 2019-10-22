@@ -16,7 +16,7 @@ class ImportLetterCombinationsTest extends TestCase
             [
                 ['a', 'b', 'c', 'd', 'e', 'f'],
                 ['a', 'b', 'c', 'd', 'e', 'g'],
-                ['a', 'b', 'c', 'd', 'e', 'i'],
+                ['a', 'f', 'c', 'e', 'v', 'g'],
                 ['a', 'b', 'c', 'd', 'e', 'j'],
                 ['a', 'b', 'c', 'd', 'e', 'k'],
             ],
@@ -32,7 +32,34 @@ class ImportLetterCombinationsTest extends TestCase
         $this->assertEqualsCanonicalizing(
             [
                 ['a', 'b', 'c', 'd', 'e', 'g'],
-                ['a', 'e', 'i', 'o', 'u', 'r'],
+                ['a', 'b', 'c', 'd', 'e', 'k'],
+            ],
+            LetterCombination::pluck('letters')->all()
+        );
+    }
+
+    /** @test */
+    public function skips_letter_combinations_with_two_vowels()
+    {
+        $this->artisan('import:letters ' . base_path() . '/tests/_fixtures/letters_3.txt');
+
+        $this->assertEqualsCanonicalizing(
+            [
+                ['a', 'b', 'c', 'd', 'e', 'g'],
+                ['a', 'b', 'c', 'd', 'e', 'k'],
+            ],
+            LetterCombination::pluck('letters')->all()
+        );
+    }
+
+    /** @test */
+    public function skips_letter_combinations_with_letter_s()
+    {
+        $this->artisan('import:letters ' . base_path() . '/tests/_fixtures/letters_4.txt');
+
+        $this->assertEqualsCanonicalizing(
+            [
+                ['a', 'b', 'c', 'd', 'e', 'g'],
                 ['a', 'b', 'c', 'd', 'e', 'k'],
             ],
             LetterCombination::pluck('letters')->all()
