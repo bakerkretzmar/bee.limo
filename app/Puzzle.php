@@ -101,13 +101,13 @@ class Puzzle extends Model
             }
         )->get();
 
-        // Fail if the puzzle has fewer than 15 words
-        if ($words->count() < 15) {
+        // Fail if the puzzle has fewer than 20 words
+        if ($words->count() < 20) {
             $this->update([
                 'solved_at' => $this->freshTimestamp(),
                 'analysis' => [
                     'result' => 'fail',
-                    'summary' => 'Fewer than 15 words.',
+                    'summary' => 'Fewer than 20 words.',
                     'word_count' => $words->count(),
                 ],
             ]);
