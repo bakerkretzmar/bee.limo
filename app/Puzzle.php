@@ -92,8 +92,6 @@ class Puzzle extends Model
             return false;
         }
 
-        // $forbidden = array_values(array_diff(letters(), $this->letters));
-
         $words = tap(
             Word::whereJsonContains('letters', $this->initial),
             function ($query) {
@@ -111,7 +109,6 @@ class Puzzle extends Model
                     'result' => 'fail',
                     'summary' => 'Fewer than 15 words.',
                     'word_count' => $words->count(),
-                    'duration' => round($start->floatDiffInSeconds(now()), 3),
                 ],
             ]);
 
@@ -133,7 +130,6 @@ class Puzzle extends Model
                 'max_word_length' => max($words->map(function ($word) {
                     return strlen($word->word);
                 })->all()),
-                'duration' => round($start->floatDiffInSeconds(now()), 3),
             ],
         ]);
 

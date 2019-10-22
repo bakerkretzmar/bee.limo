@@ -12,7 +12,7 @@
 </script>
 
 <svelte:head>
-    <title>Register | bee.limo</title>
+    <title>Sign up | bee.limo</title>
 </svelte:head>
 
 <main class="flex flex-col items-center justify-center min-h-screen font-sans font-medium text-lg text-grey-900 bg-cream">
@@ -22,7 +22,7 @@
     <Card class="w-full max-w-xs">
 
         <h1 class="mb-4 text-3xl font-semibold text-center">
-            Register
+            Sign up
         </h1>
 
         <form class="flex flex-col" on:submit|preventDefault={() => Inertia.post(route('api:register'), { email, password })}>
@@ -44,7 +44,7 @@
             </label>
 
             <button type="submit" class="btn btn-teal mt-6 mb-2">
-                Register
+                Sign up
             </button>
 
         </form>

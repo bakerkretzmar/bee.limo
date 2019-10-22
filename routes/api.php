@@ -15,22 +15,6 @@ Route::post('register', [RegisterController::class, 'register'])->name('register
 Route::get('game/{puzzle}', [GameController::class, 'show'])->middleware(['auth'])->name('game');
 Route::post('game/{puzzle}', [GameController::class, 'update'])->middleware(['auth'])->name('game');
 
-// middleware(['auth'])->
-// Route::middleware([])->group(function () {
-
-//     Route::get('stats', [
-//         'as' => 'stats',
-//         'uses' => StatsController::class,
-//     ]);
-
-//     Route::get('settings', [
-//         'as' => 'settings',
-//         'uses' => SettingsController::class . '@get',
-//     ]);
-
-//     Route::post('settings', [
-//         'as' => 'settings',
-//         'uses' => SettingsController::class . '@set',
-//     ]);
-
-// });
+// Route::get('stats', StatsController::class)->middleware(['auth'])->name('stats');
+// Route::get('settings', [SettingsController::class, 'get'])->middleware(['auth'])->name('settings');
+// Route::post('settings', [SettingsController::class, 'set'])->middleware(['auth'])->name('settings');

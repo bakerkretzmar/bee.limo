@@ -58,7 +58,7 @@
     </Card>
 
     <InertiaLink href={route('register')} class="text-grey-600 hover:text-teal-600 focus:text-teal-600 mt-4 mb-20 text-base">
-        Register
+        Sign up
     </InertiaLink>
 
 </main>

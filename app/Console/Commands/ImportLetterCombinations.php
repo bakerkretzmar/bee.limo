@@ -28,9 +28,7 @@ class ImportLetterCombinations extends Command
             $letters = explode(',', $line);
 
             // Ignore letter combinations with no vowels
-            if (empty(get_vowels($letters))) {
-                continue;
-            }
+            if (empty(get_vowels($letters))) continue;
 
             LetterCombination::create(compact('letters'));
         }

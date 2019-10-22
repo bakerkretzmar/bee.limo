@@ -9,11 +9,6 @@ use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register()
-    {
-        //
-    }
-
     public function boot()
     {
         Inertia::version(function () {
