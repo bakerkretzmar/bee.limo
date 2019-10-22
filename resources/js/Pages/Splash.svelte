@@ -1,5 +1,5 @@
 <script>
-    import { InertiaLink } from '@inertiajs/inertia-svelte'
+    import { InertiaLink, page } from '@inertiajs/inertia-svelte'
     import Brand from '@/components/Brand.svelte'
 
     let route = window.route
@@ -15,7 +15,7 @@
 
     <div class="mt-24 mb-8">
 
-        <InertiaLink href={route('login')} class="flex items-center justify-center h-12 px-16 text-2xl font-bold tracking-wider hover:bg-cream-darker rounded uppercase">
+        <InertiaLink href={$page.user ? route('puzzles') : route('puzzles.random')} class="flex items-center justify-center h-12 px-16 text-2xl font-bold tracking-wider hover:bg-cream-darker rounded uppercase">
             Play
         </InertiaLink>
 

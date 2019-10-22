@@ -27,4 +27,9 @@ class PuzzleController
             'puzzle' => $puzzle->load('words', 'letterCombination')->append('pangrams'),
         ]);
     }
+
+    public function random()
+    {
+        return redirect()->route('puzzles.show', Puzzle::solved()->inRandomOrder()->first());
+    }
 }

@@ -3,6 +3,7 @@
     import { onMount } from 'svelte'
     import { fade } from 'svelte/transition'
     import { Inertia } from '@inertiajs/inertia'
+    import { InertiaLink, page } from '@inertiajs/inertia-svelte'
     import Layout from '@/components/Layout.svelte'
     import Message from '@/components/Message.svelte'
     import PuzzleControls from '@/components/PuzzleControls.svelte'
@@ -33,9 +34,11 @@
     $: complete = found.length >= words.length
 
     onMount(async () => {
-        let response = await fetch(route('api:game', puzzle.id))
-        let data = await response.json()
-        found = data.game.found_words || []
+        if ($page.user) {
+            let response = await fetch(route('api:game', puzzle.id))
+            let data = await response.json()
+            found = data.game.found_words || []
+        }
         loading = false
     })
 
@@ -154,6 +157,7 @@
     }
 
     const updateGame = debounce(async () => {
+        if (! $page.user) return
         let response = await api.post(route('api:game', puzzle.id), { found_words: found, complete })
     }, 500)
 </script>
@@ -173,6 +177,12 @@
             <PuzzleLetters initial={puzzle.initial} {outers} on:click={(e) => input += e.detail}/>
 
             <PuzzleControls {clearInput} {shuffleOuters} {checkInput}/>
+
+            {#if !$page.user}
+                <p class="mt-8 text-base text-grey-500">
+                    <InertiaLink class="text-yellow-500 hover:text-yellow-600 focus:text-yellow-600" href={route('login')}>Sign in</InertiaLink> to save your progress.
+                </p>
+            {/if}
 
         </div>
 

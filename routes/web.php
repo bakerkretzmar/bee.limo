@@ -16,8 +16,11 @@ Route::get('register', [RegisterController::class, 'show'])->name('register');
 // App
 Route::get('/', [AppController::class, 'splash'])->name('splash');
 Route::get('about', [AppController::class, 'about'])->name('about');
-Route::get('dash', DashboardController::class)->middleware(['auth'])->name('dashboard');
+Route::get('account', [AppController::class, 'account'])->name('account');
 
 // Puzzles
 Route::get('play', [PuzzleController::class, 'index'])->middleware(['auth'])->name('puzzles');
-Route::get('play/{puzzle}', [PuzzleController::class, 'show'])->middleware(['auth'])->name('puzzles.show');
+Route::get('play/random', [PuzzleController::class, 'random'])->name('puzzles.random');
+Route::get('play/{puzzle}', [PuzzleController::class, 'show'])->name('puzzles.show');
+
+// Route::get('dash', DashboardController::class)->middleware(['auth'])->name('dashboard');
