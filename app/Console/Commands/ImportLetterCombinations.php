@@ -36,7 +36,7 @@ class ImportLetterCombinations extends Command
             // Ignore letter combinations containing the letter 's'
             if (in_array('s', $letters)) continue;
 
-            LetterCombination::create(compact('letters'));
+            LetterCombination::updateOrCreate(compact('letters'));
         }
 
         $progress->finish();
