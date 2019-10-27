@@ -26,12 +26,23 @@
     let erroring = false
     let justChecked = false
     let justFoundPangram = false
+    let justFoundScore = 0
+    let initialGenius = false
     let profanity = false
     let message = ''
     let keysDown = []
 
     $: ignoreKeys = keysDown.includes('Alt') || keysDown.includes('Control') || keysDown.includes('Meta')
     $: complete = found.length >= words.length
+    $: score = found.reduce((score, word) => {
+        if (word.length === 4) return score + 1
+        return score + word.length + (pangrams.includes(word) ? 7 : 0)
+    }, 0)
+    $: genius = score >= puzzle.analysis.genius_score
+    $: if (genius && !initialGenius) {
+        alert(`WARNING – YOU ARE A GENIUS`)
+        initialGenius = true
+    }
 
     onMount(async () => {
         if ($page.user) {
@@ -40,6 +51,7 @@
             found = data.game.found_words || []
         }
         loading = false
+        initialGenius = genius
     })
 
     function handleKeydown(e) {
@@ -89,7 +101,7 @@
     }
 
     function checkInput() {
-        if (['fuck', 'shit', 'cunt', 'ass'].includes(input)) {
+        if (['fuck', 'shit', 'cunt', 'ass', 'bitch'].includes(input)) {
             profanity = true
             return handleBadInput('HEY.')
         }
@@ -99,6 +111,8 @@
         }
 
         if (words.includes(input)) {
+            justFoundScore = getWordScore(input)
+
             if (pangrams.includes(input)) {
                 justFoundPangram = true
                 return handleGoodInput('Panagram!')
@@ -148,6 +162,7 @@
             if (justChecked) {
                 justChecked = false
                 justFoundPangram = false
+                justFoundScore = 0
             }
         }, 850)
     }
@@ -160,6 +175,11 @@
         if (! $page.user) return
         let response = await api.post(route('api:game', puzzle.id), { found_words: found, complete })
     }, 500)
+
+    function getWordScore(word) {
+        if (word.length === 4) return 1
+        return word.length + (pangrams.includes(word) ? 7 : 0)
+    }
 </script>
 
 <svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} on:blur={() => keysDown = []}/>
@@ -170,7 +190,7 @@
 
         <div class="relative flex flex-col items-center">
 
-            <Message {message} pangram={justFoundPangram} {profanity}/>
+            <Message {message} score={justFoundScore} pangram={justFoundPangram} {profanity}/>
 
             <PuzzleInput input={input} {erroring} initial={puzzle.initial} letters={puzzle.letters}/>
 
@@ -186,7 +206,7 @@
 
         </div>
 
-        <PuzzleWords {loading} {found} total={words.length}/>
+        <PuzzleWords {loading} {found} {score} genius={puzzle.analysis.genius_score} max={puzzle.analysis.max_score}/>
 
     </div>
 

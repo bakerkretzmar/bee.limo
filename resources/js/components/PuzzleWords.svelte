@@ -4,7 +4,9 @@
 
     export let loading = true
     export let found = []
-    export let total = 0
+    export let score = 0
+    export let genius = 0
+    export let max = 0
 </script>
 
 <style>
@@ -24,6 +26,9 @@ ul {
                 <li class="mr-16 mb-1 capitalize">{word}</li>
             {/each}
         </ul>
-        <p class="text-center text-xl mt-6" transition:fade={{duration: 100}}>{found.length} / {total}</p>
+        <div class="flex justify-between mt-6" transition:fade={{duration: 100}}>
+            <span title="Max: {max.toLocaleString()}" class="text-grey-600">Genius: {genius.toLocaleString()}</span>
+            <span class="text-xl">{score.toLocaleString()}</span>
+        </div>
     {/if}
 </div>
