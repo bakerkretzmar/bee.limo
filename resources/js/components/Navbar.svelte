@@ -8,7 +8,7 @@
 
 <nav class="flex items-center justify-between p-4">
 
-    <InertiaLink href={route('puzzles')}>
+    <InertiaLink href={$page.user ? route('puzzles') : route('splash')}>
         <Brand class="w-24"/>
     </InertiaLink>
 
