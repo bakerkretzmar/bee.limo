@@ -19,7 +19,9 @@ class AppServiceProvider extends ServiceProvider
             'errors' => function () {
                 return Session::has('errors') ? Session::get('errors')->getBag('default')->getMessages() : (object) [];
             },
-            'user' => auth()->user(),
+            'user' => function () {
+                return auth()->user();
+            },
         ]);
     }
 }
