@@ -1,3 +1,7 @@
 .tabular-nums {
     font-variant-numeric: tabular-nums;
 }
+
+.lining-nums {
+    font-variant-numeric: lining-nums;
+}
