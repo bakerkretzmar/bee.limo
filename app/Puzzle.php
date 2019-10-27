@@ -66,10 +66,8 @@ class Puzzle extends Model
 
     public function getPangramsAttribute()
     {
-        $letters = $this->letters;
-
-        return $this->words->filter(function ($word) use ($letters) {
-            return array_intersect($letters, $word->letters) === $letters;
+        return $this->words->filter(function ($word) {
+            return array_intersect($this->letters, $word->letters) === $this->letters;
         })->values();
     }
 
@@ -119,11 +117,29 @@ class Puzzle extends Model
 
         $this->words()->sync($words);
 
+        $pangrams = $words->filter(function ($word) {
+            return array_intersect($this->letters, $word->letters) === $this->letters;
+        })->values();
+
+        $total_points = $words->sum('score') + ($pangrams->count() * 7);
+        $pangram_points = $pangrams->sum('score') + ($pangrams->count() * 7);
+
+        // Set genius score to 80% of theoretical maximum, then, if necessary, raise it
+        // enough to make it impossible to reach without at least one pangram
+        $genius_points = (int) ($total_points * 0.80);
+
+        if ($genius_points < ($total_points - $pangram_points)) {
+            $genius_points = $total_points - $pangram_points + 1;
+        }
+
         $this->update([
             'solved_at' => $this->freshTimestamp(),
             'analysis' => [
                 'result' => 'pass',
                 'word_count' => $words->count(),
+                'pangram_count' => $pangrams->count(),
+                'genius_score' => $genius_points,
+                'max_score' => $total_points,
                 'avg_word_length' => round($words->reduce(function ($carry, $word) {
                     return $carry + strlen($word->word);
                 }) / $words->count(), 3),

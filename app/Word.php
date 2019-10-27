@@ -6,6 +6,10 @@ use Arr;
 
 class Word extends Model
 {
+    protected $appends = [
+        'score',
+    ];
+
     protected $casts = [
         'letters' => 'array',
     ];
@@ -24,5 +28,12 @@ class Word extends Model
     public function puzzles()
     {
         return $this->belongsToMany(Puzzle::class);
+    }
+
+    public function getScoreAttribute(): int
+    {
+        if (strlen($this->word) === 4) return 1;
+
+        return strlen($this->word);
     }
 }
