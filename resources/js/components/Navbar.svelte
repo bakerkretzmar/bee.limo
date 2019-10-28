@@ -23,7 +23,7 @@
         {#if $page.user}
 
             <li class="ml-2 rounded overflow-hidden">
-                <InertiaLink class="inline-block px-3 py-1 hover:bg-cream-darker focus:bg-cream-darker" href={route('account')}>
+                <InertiaLink class="inline-block px-3 py-1 hover:bg-cream-darker focus:bg-cream-darker" href="/">
                     Account
                 </InertiaLink>
             </li>
