@@ -15,11 +15,11 @@ Play at [bee.limo](https://bee.limo).
 - [x] Say what tools it's built with
 - [x] Let people make an account
 - [x] ~~Save current puzzle state in local storage, but let people clear it~~ Let people play without being signed in
-- [-] Tune puzzle solver
+- [x] Tune puzzle solver
     - [x] Only 2 vowels
     - [x] No ‘S’
     - [x] Rethink ideal maximum/minimum words
-    - [ ] Build a real scoring system based on word length
+    - [x] Build a real scoring system based on word length
 - [x] Find a better word list!?
 - [ ] **Make the 'sign in to save your progress' link save the progress in the session and redirect back, with it, after a sign in**
 
