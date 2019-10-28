@@ -28,13 +28,19 @@ class ImportLetterCombinations extends Command
             $letters = explode(',', $line);
 
             // Ignore letter combinations with no vowels
-            if (empty(get_vowels($letters))) continue;
+            if (empty(get_vowels($letters))) {
+                continue;
+            }
 
             // Ignore letter combinations with more than 2 vowels
-            if (count(get_vowels($letters)) > 2) continue;
+            if (count(get_vowels($letters)) > 2) {
+                continue;
+            }
 
             // Ignore letter combinations containing the letter 's'
-            if (in_array('s', $letters)) continue;
+            if (in_array('s', $letters)) {
+                continue;
+            }
 
             LetterCombination::create(compact('letters'));
         }

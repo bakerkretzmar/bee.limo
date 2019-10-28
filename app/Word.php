@@ -32,7 +32,9 @@ class Word extends Model
 
     public function getScoreAttribute(): int
     {
-        if (strlen($this->word) === 4) return 1;
+        if (strlen($this->word) === 4) {
+            return 1;
+        }
 
         return strlen($this->word);
     }
