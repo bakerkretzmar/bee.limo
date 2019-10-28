@@ -40,8 +40,8 @@
     }, 0)
     $: genius = score >= puzzle.analysis.genius_score
     $: if (genius && !initialGenius) {
-        alert(`WARNING – YOU ARE A GENIUS`)
         initialGenius = true
+        setTimeout(() => alert(`ATTENTION: YOU ARE A GENIUS`), 400)
     }
 
     onMount(async () => {
@@ -50,8 +50,8 @@
             let data = await response.json()
             found = data.game.found_words || []
         }
-        loading = false
         initialGenius = genius
+        loading = false
     })
 
     function handleKeydown(e) {
@@ -167,13 +167,9 @@
         }, 850)
     }
 
-    function celebrate() {
-        //
-    }
-
     const updateGame = debounce(async () => {
         if (! $page.user) return
-        let response = await api.post(route('api:game', puzzle.id), { found_words: found, complete })
+        let response = await api.post(route('api:game', puzzle.id), { found_words: found, complete: genius })
     }, 500)
 
     function getWordScore(word) {
