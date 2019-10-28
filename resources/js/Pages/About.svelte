@@ -1,7 +1,5 @@
 <script>
     import Layout from '@/components/Layout.svelte'
-
-    // export let page
 </script>
 
 <style>
@@ -23,7 +21,7 @@ p a:hover, p a:focus {
 
         <h1 class="text-4xl font-bold">About <em>bee.limo</em></h1>
 
-        <p><em>bee.limo</em> is a word game based on <a href="https://www.nytimes.com/puzzles/spelling-bee" target="_blank">Spelling Bee</a> from the <em>New York Times</em> crossword—and when I say “based on,” I mean it’s an exact copy of that game. It was a learning exercise, please don’t sue me.</p>
+        <p><em>bee.limo</em> is a word game based on <a href="https://www.nytimes.com/puzzles/spelling-bee" target="_blank">Spelling Bee</a> from the <em>New York Times</em> crossword—and when I say “based on,” I mean it’s an exact copy of that game. I built it as a learning exercise, please don’t sue me. The general quality of the puzzles in this game is, predictably, much lower than that of those in the <em>New York Times</em>, in large part because theirs are edited and mine are generated automatically.</p>
 
         <p>The words used in this game are those in the <a href="https://www.scrabbleplayers.org/w/NWL2018" target="_blank">NASPA Word List</a> 2018 Edition, published by the North American Scrabble Players’ Association. The list of 7-letter combinations used to build new puzzles was generated with the delightful MathsIsFun.com <a href="https://www.mathsisfun.com/combinatorics/combinations-permutations-calculator.html" target="_blank">Combinations and Permutations Calculator</a>.</p>
 
