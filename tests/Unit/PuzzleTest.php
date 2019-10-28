@@ -134,6 +134,46 @@ class PuzzleTest extends TestCase
     }
 
     /** @test */
+    public function fails_analysis_if_any_letters_only_in_pangram()
+    {
+        $puzzle = Puzzle::create([
+            'letters' => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
+            'letter_combination_id' => 1,
+        ]);
+
+        Word::create(['word' => 'invite']);
+        Word::create(['word' => 'incentive']);
+        Word::create(['word' => 'incentivize']);
+        Word::create(['word' => 'intent']);
+        Word::create(['word' => 'nice']);
+        Word::create(['word' => 'nine']);
+        Word::create(['word' => 'cite']);
+        Word::create(['word' => 'cititen']);
+        Word::create(['word' => 'civic']);
+        Word::create(['word' => 'entice']);
+        Word::create(['word' => 'evict']);
+        Word::create(['word' => 'evince']);
+        Word::create(['word' => 'tinc']);
+        Word::create(['word' => 'incite']);
+        Word::create(['word' => 'zoomy']);
+        Word::create(['word' => 'accept']);
+        Word::create(['word' => 'niti']);
+        Word::create(['word' => 'itni']);
+        Word::create(['word' => 'invent']);
+        Word::create(['word' => 'vicit']);
+        Word::create(['word' => 'vincinti']);
+        Word::create(['word' => 'tivic']);
+
+        $puzzle->solve();
+
+        $this->assertTrue($puzzle->solved);
+        $this->assertSame('fail', $puzzle->analysis['result']);
+        $this->assertSame('Some letters only present in pangrams.', $puzzle->analysis['summary']);
+        $this->assertSame(20, $puzzle->analysis['word_count']);
+        $this->assertTrue($puzzle->trashed());
+    }
+
+    /** @test */
     public function passes_analysis_if_valid()
     {
         $puzzle = Puzzle::create([

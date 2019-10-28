@@ -115,11 +115,28 @@ class Puzzle extends Model
             return false;
         }
 
-        $this->words()->sync($words);
-
         $pangrams = $words->filter(function ($word) {
             return array_intersect($this->letters, $word->letters) === $this->letters;
         })->values();
+
+        // Fail if all non-pangram words together don't contain all 7 letters of
+        // the puzzle (i.e. any letters in the puzzle *only* appear in a pangram)
+        if ($words->diff($pangrams)->pluck('letters')->collapse()->unique()->count() < 7) {
+            $this->update([
+                'solved_at' => $this->freshTimestamp(),
+                'analysis' => [
+                    'result' => 'fail',
+                    'summary' => 'Some letters only present in pangrams.',
+                    'word_count' => $words->count(),
+                ],
+            ]);
+
+            $this->delete();
+
+            return false;
+        }
+
+        $this->words()->sync($words);
 
         $total_points = $words->sum('score') + ($pangrams->count() * 7);
         $pangram_points = $pangrams->sum('score') + ($pangrams->count() * 7);
