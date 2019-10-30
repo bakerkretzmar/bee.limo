@@ -20,8 +20,6 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping();
 
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
-
-        $schedule->command('telescope:prune --hours=336')->daily();
     }
 
     protected function commands()
