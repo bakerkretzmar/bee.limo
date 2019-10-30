@@ -1,7 +1,16 @@
 {
-    "name": "bakerkretzmar/spelling-bee",
+    "name": "bakerkretzmar/bee.limo",
+    "description": "Word game based on the New York Times’ Spelling Bee.",
     "type": "project",
     "license": "MIT",
+    "homepage": "https://github.com/bakerkretzmar/bee.limo",
+    "authors": [
+        {
+            "name": "Jacob Baker-Kretzmar",
+            "email": "jacobtbk@gmail.com",
+            "homepage": "https://github.com/bakerkretzmar"
+        }
+    ],
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
