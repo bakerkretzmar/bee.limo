@@ -2,6 +2,7 @@ bee.limo
 ========
 
 [![Build](https://github.com/bakerkretzmar/bee.limo/workflows/CI/badge.svg)](https://github.com/bakerkretzmar/bee.limo/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
 
 A word game based on [Spelling Bee](https://www.nytimes.com/puzzles/spelling-bee) from _The New York Times_ crossword—and when I say “based on,” I mean it’s an exact copy of that game. I built it as a learning exercise, please don’t sue me.
 
