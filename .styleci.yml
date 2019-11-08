@@ -3,7 +3,7 @@ preset: laravel
 disabled:
   - braces
   - concat_without_spaces
-  - length_ordered_imports
+  - alpha_ordered_imports
   - no_blank_lines_between_imports
   - single_import_per_statement
 
