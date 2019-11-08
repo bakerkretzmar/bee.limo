@@ -19,7 +19,7 @@
     </button>
 
     <button on:click={checkInput} class="px-3 py-1 ml-4 hover:bg-cream-darker focus:bg-cream-darker rounded">
-        Check
+        Enter
     </button>
 
 </section>
