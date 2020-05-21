@@ -12,9 +12,9 @@
 
         @routes
 
-        <script defer src="{{ mix('/js/app.js') }}"></script>
-
         <script defer src="https://cdn.usefathom.com/script.js" site="NMHGBIOO" included-domains="bee.limo"></script>
+
+        <script defer src="{{ mix('/js/app.js') }}"></script>
     </head>
     <body>
 
