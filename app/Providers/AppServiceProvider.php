@@ -2,14 +2,18 @@
 
 namespace App\Providers;
 
-use Session;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
-
 use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function register(): void
+    {
+        //
+    }
+
+    public function boot(): void
     {
         Inertia::version(function () {
             return md5_file(public_path('mix-manifest.json'));

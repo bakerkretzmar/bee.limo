@@ -2,31 +2,28 @@
 
 namespace App\Providers;
 
-use Route;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    public function map()
+    public function boot()
     {
-        $this->mapApiRoutes();
+        $this->configureRateLimiting();
 
-        $this->mapWebRoutes();
+        $this->routes(function () {
+            Route::prefix('api')->name('api:')->middleware('web')->group(base_path('routes/api.php'));
+            Route::middleware('web')->group(base_path('routes/web.php'));
+        });
     }
 
-    protected function mapApiRoutes()
+    protected function configureRateLimiting(): void
     {
-        Route::group([
-            'as' => 'api:',
-            'prefix' => 'api',
-            'middleware' => ['web'],
-        ], base_path('routes/api.php'));
-    }
-
-    protected function mapWebRoutes()
-    {
-        Route::group([
-            'middleware' => ['web'],
-        ], base_path('routes/web.php'));
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60);
+        });
     }
 }
