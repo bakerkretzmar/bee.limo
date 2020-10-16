@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Routing\Controller;
-
 use Inertia\Inertia;
 
 class LoginController extends Controller
@@ -12,11 +11,6 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     protected $redirectTo = '/play';
-
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
 
     public function show()
     {

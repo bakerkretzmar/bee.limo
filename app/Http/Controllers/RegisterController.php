@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\User;
-use Hash;
-use Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller;
-
 use Inertia\Inertia;
 
 class RegisterController extends Controller
@@ -15,11 +14,6 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     protected $redirectTo = '/play';
-
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
 
     public function show()
     {

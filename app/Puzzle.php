@@ -10,18 +10,13 @@ class Puzzle extends Model
     use SoftDeletes;
 
     protected $casts = [
-        'letters' => 'array',
         'analysis' => 'array',
+        'letters' => 'array',
+        'solved_at' => 'datetime',
     ];
 
-    protected $dates = [
-        'solved_at',
-    ];
-
-    public static function boot()
+    public static function booted()
     {
-        parent::boot();
-
         static::creating(function ($model) {
             $model->fill([
                 'string' => implode('', $model->letters),
@@ -38,13 +33,10 @@ class Puzzle extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)
-                    ->as('game')
-                    ->using(Game::class)
-                    ->withPivot([
-                        'found_words',
-                        'completed_at',
-                    ])
-                    ->withTimestamps();
+            ->using(Game::class)
+            ->as('game')
+            ->withPivot(['found_words', 'completed_at'])
+            ->withTimestamps();
     }
 
     public function words()

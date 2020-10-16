@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\LetterCombination;
 use App\Word;
@@ -13,9 +13,13 @@ class StatsController
             'words' => cache()->remember('stats:words', now()->addMinute(), function () {
                 return Word::count();
             }),
-            'letter_combinations' => cache()->remember('stats:letter_combinations', now()->addMinute(), function () {
-                return LetterCombination::count();
-            }),
+            'letter_combinations' => cache()->remember(
+                'stats:letter_combinations',
+                now()->addMinute(),
+                function () {
+                    return LetterCombination::count();
+                }
+            ),
         ]);
     }
 }

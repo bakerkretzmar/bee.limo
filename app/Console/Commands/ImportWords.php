@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Word;
-
 use Illuminate\Console\Command;
 
 class ImportWords extends Command

@@ -2,22 +2,17 @@
 
 namespace App;
 
-use Arr;
+use Illuminate\Support\Arr;
 
 class Word extends Model
 {
-    protected $appends = [
-        'score',
-    ];
-
+    protected $appends = ['score'];
     protected $casts = [
         'letters' => 'array',
     ];
 
-    public static function boot()
+    public static function booted()
     {
-        parent::boot();
-
         static::creating(function ($model) {
             $model->fill([
                 'letters' => array_values(Arr::sort(array_unique(str_split($model->word)))),
@@ -32,7 +27,9 @@ class Word extends Model
 
     public function getScoreAttribute(): int
     {
-        if (strlen($this->word) === 4) return 1;
+        if (strlen($this->word) === 4) {
+            return 1;
+        };
 
         return strlen($this->word);
     }

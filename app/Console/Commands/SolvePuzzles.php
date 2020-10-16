@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Puzzle;
-
 use Illuminate\Console\Command;
 
 class SolvePuzzles extends Command

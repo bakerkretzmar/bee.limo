@@ -1,17 +1,14 @@
 <?php
 
-use App\Http\Controllers\{
-    AppController,
-    DashboardController,
-    PuzzleController,
-    Auth\LoginController,
-    Auth\RegisterController,
-};
+use App\Http\Controllers\AppController;
+// use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PuzzleController;
+use App\Http\Controllers\RegisterController;
 
 // Auth
-Route::get('login', [LoginController::class, 'show'])->name('login');
-Route::get('register', [RegisterController::class, 'show'])->name('register');
-// $this->emailVerification();
+Route::get('login', [LoginController::class, 'show'])->middleware('guest')->name('login');
+Route::get('register', [RegisterController::class, 'show'])->middleware('guest')->name('register');
 
 // App
 Route::get('/', [AppController::class, 'splash'])->name('splash');

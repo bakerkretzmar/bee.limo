@@ -6,15 +6,10 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class Game extends Pivot
 {
-    protected $appends = [];
-
     protected $casts = [
+        'completed_at' => 'datetime',
+        'created_at' => 'datetime',
         'found_words' => 'array',
-    ];
-
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'completed_at',
+        'updated_at' => 'datetime',
     ];
 }

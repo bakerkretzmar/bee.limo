@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\LetterCombination;
-
 use Illuminate\Console\Command;
 
 class ImportLetterCombinations extends Command

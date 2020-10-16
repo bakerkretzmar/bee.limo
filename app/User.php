@@ -10,21 +10,16 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $casts = ['email_verified_at'];
     protected $guarded = [];
-
     protected $hidden = ['password', 'remember_token'];
-
-    protected $dates = ['email_verified_at'];
 
     public function puzzles()
     {
         return $this->belongsToMany(Puzzle::class)
-                    ->as('game')
-                    ->using(Game::class)
-                    ->withPivot([
-                        'found_words',
-                        'completed_at',
-                    ])
-                    ->withTimestamps();
+            ->using(Game::class)
+            ->as('game')
+            ->withPivot(['found_words', 'completed_at'])
+            ->withTimestamps();
     }
 }

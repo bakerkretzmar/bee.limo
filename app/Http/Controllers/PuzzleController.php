@@ -3,23 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Puzzle;
-
-use Auth;
-
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class PuzzleController
 {
-    public function index()
+    public function index(Request $request)
     {
         return Inertia::render('Puzzles', [
-            'page' => Puzzle::solved()->with(['users' => function ($query) {
-                $query->where('id', Auth::user()->id);
-            }])->latest()->select(['id'])->paginate(12),
+            'page' => Puzzle::solved()
+                ->with(['users' => function ($query) {
+                    $query->where('id', $request->user()->id);
+                }])
+                ->latest()
+                ->select(['id'])
+                ->paginate(12),
         ]);
     }
 
-    public function show(Puzzle $puzzle)
+    public function show(Request $request, Puzzle $puzzle)
     {
         abort_unless($puzzle->solved, 404);
 

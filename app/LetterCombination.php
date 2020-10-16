@@ -2,25 +2,20 @@
 
 namespace App;
 
-use Arr;
+use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Builder;
 
 class LetterCombination extends Model
 {
     protected $casts = [
-        'letters' => 'array',
-        'vowels' => 'array',
         'consonants' => 'array',
+        'letters' => 'array',
+        'processed_at' => 'datetime',
+        'vowels' => 'array',
     ];
 
-    protected $dates = [
-        'processed_at',
-    ];
-
-    public static function boot()
+    public static function booted()
     {
-        parent::boot();
-
         static::creating(function ($model) {
             $model->fill([
                 'string' => implode('', Arr::sort($model->letters)),

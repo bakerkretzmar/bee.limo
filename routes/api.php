@@ -1,15 +1,13 @@
 <?php
 
-use App\Http\Controllers\{
-    Api\GameController,
-    Auth\LoginController,
-    Auth\RegisterController,
-};
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 
 // Auth
-Route::post('login', [LoginController::class, 'login'])->name('login');
+Route::post('login', [LoginController::class, 'login'])->middleware('guest')->name('login');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-Route::post('register', [RegisterController::class, 'register'])->name('register');
+Route::post('register', [RegisterController::class, 'register'])->middleware('guest')->name('register');
 
 // Puzzles
 Route::get('game/{puzzle}', [GameController::class, 'show'])->middleware(['auth'])->name('game');
