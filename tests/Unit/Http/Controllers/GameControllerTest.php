@@ -11,7 +11,7 @@ class GameControllerTest extends TestCase
     /** @test */
     public function can_create_game_on_first_request()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $puzzle = Puzzle::create([
             'letters' => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
             'letter_combination_id' => 1,
@@ -26,7 +26,7 @@ class GameControllerTest extends TestCase
     /** @test */
     public function can_retreive_existing_game()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $puzzle = Puzzle::create([
             'letters' => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
             'letter_combination_id' => 1,
@@ -42,7 +42,7 @@ class GameControllerTest extends TestCase
     /** @test */
     public function can_update_existing_game()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $puzzle = Puzzle::create([
             'letters' => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
             'letter_combination_id' => 1,
