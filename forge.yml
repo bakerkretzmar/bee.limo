@@ -5,7 +5,7 @@ production:
   quick-deploy: true
   deployment:
     - 'cd /home/forge/bee.limo'
-    - 'git pull origin master'
+    - 'git pull origin main'
     - ''
     - 'composer install --no-interaction --quiet --optimize-autoloader --prefer-dist --no-dev'
     - ''

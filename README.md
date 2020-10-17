@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://bee.limo" target="_blank">
-        <img src="https://raw.githubusercontent.com/bakerkretzmar/bee.limo/master/bee.png" width="300">
+        <img src="bee.png" width="300">
     </a>
 </p>
 
