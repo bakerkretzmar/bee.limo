@@ -17,7 +17,7 @@ class GameControllerTest extends TestCase
             'letter_combination_id' => 1,
         ]);
 
-        $response = $this->actingAs($user)->getJson(route('api:game', $puzzle->id));
+        $response = $this->actingAs($user)->getJson(route('api:games.show', $puzzle->id));
 
         $response->assertSuccessful();
         $this->assertTrue($user->puzzles()->where('puzzle_id', $puzzle->id)->exists());
@@ -33,7 +33,7 @@ class GameControllerTest extends TestCase
         ]);
         $user->puzzles()->attach($puzzle, ['found_words' => ['test']]);
 
-        $response = $this->actingAs($user)->getJson(route('api:game', $puzzle->id));
+        $response = $this->actingAs($user)->getJson(route('api:games.show', $puzzle->id));
 
         $response->assertSuccessful();
         $this->assertSame(['test'], $response->json()['game']['found_words']);
@@ -49,7 +49,7 @@ class GameControllerTest extends TestCase
         ]);
         $user->puzzles()->attach($puzzle, ['found_words' => ['foo']]);
 
-        $response = $this->actingAs($user)->postJson(route('api:game', $puzzle->id), [
+        $response = $this->actingAs($user)->postJson(route('api:games.update', $puzzle->id), [
             'found_words' => ['foo', 'bar', 'baz'],
         ]);
 

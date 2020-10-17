@@ -1,18 +1,18 @@
-export default {
-    get(url) {
-        return fetch(url)
-    },
-
-    post(url, data, options) {
-        return fetch(url, {
-            credentials: 'same-origin',
-            method: 'POST',
-            body: JSON.stringify(data),
-            redirect: 'follow',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
-            },
-        })
-    },
+const cookie = (name) => {
+    const match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+    return match ? decodeURIComponent(match[3]) : null;
 }
+
+export default {
+    get: (url) => fetch(url),
+    post: (url, data, options) => fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        credentials: 'same-origin',
+        redirect: 'follow',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-XSRF-TOKEN': cookie('XSRF-TOKEN'),
+        },
+    }),
+};

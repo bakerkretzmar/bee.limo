@@ -12,7 +12,7 @@ class PuzzleController
     {
         return Inertia::render('Puzzles', [
             'page' => Puzzle::solved()
-                ->with(['users' => function ($query) {
+                ->with(['users' => function ($query) use ($request) {
                     $query->where('id', $request->user()->id);
                 }])
                 ->latest()

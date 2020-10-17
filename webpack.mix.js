@@ -1,18 +1,11 @@
-const mix = require('laravel-mix')
-const path = require('path')
-require('laravel-mix-purgecss')
+const mix = require('laravel-mix');
+const path = require('path');
 
 mix.disableNotifications()
 
-mix
-    .postCss('resources/css/app.css', 'public/css', [
-        require('postcss-import'),
-        require('tailwindcss'),
-        require('postcss-nesting'),
-    ])
+mix.postCss('resources/css/app.css', 'public/css', [require('tailwindcss')])
     .js('resources/js/app.js', 'public/js')
     .webpackConfig({
-        output: { chunkFilename: 'js/[name].js' },
         resolve: {
             mainFields: ['svelte', 'browser', 'module', 'main'],
             alias: {
@@ -36,9 +29,4 @@ mix
         },
     })
     .version()
-
-if (mix.inProduction()) {
-    mix.purgeCss({
-        extensions: ['html', 'svelte', 'js', 'php']
-    })
-}
+    .sourceMaps();

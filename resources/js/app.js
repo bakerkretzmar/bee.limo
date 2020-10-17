@@ -1,15 +1,18 @@
-import { InertiaApp } from '@inertiajs/inertia-svelte'
-import '../css/x.css'
+import { App } from '@inertiajs/inertia-svelte';
+import '../css/x.css';
 
-const app = document.getElementById('app')
+const el = document.getElementById('app');
 
-new InertiaApp({
-    target: app,
+new App({
+    target: el,
     props: {
-        initialPage: JSON.parse(app.dataset.page),
+        initialPage: JSON.parse(el.dataset.page),
         resolveComponent: name => {
-            process.env.NODE_ENV === 'production' && fathom.trackPageview()
-            return import(/* webpackChunkName: "[request]" */ `@/Pages/${name}.svelte`).then(module => module.default)
+            if (process.env.NODE_ENV === 'production') {
+                fathom.trackPageview();
+            }
+
+            return require(`@/Pages/${name}.svelte`);
         },
-    }
-})
+    },
+});

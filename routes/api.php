@@ -10,8 +10,8 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('register', [RegisterController::class, 'register'])->middleware('guest')->name('register');
 
 // Puzzles
-Route::get('game/{puzzle}', [GameController::class, 'show'])->middleware(['auth'])->name('game');
-Route::post('game/{puzzle}', [GameController::class, 'update'])->middleware(['auth'])->name('game');
+Route::get('game/{puzzle}', [GameController::class, 'show'])->middleware(['auth'])->name('games.show');
+Route::post('game/{puzzle}', [GameController::class, 'update'])->middleware(['auth'])->name('games.update');
 
 // Route::get('stats', StatsController::class)->middleware(['auth'])->name('stats');
 // Route::get('settings', [SettingsController::class, 'get'])->middleware(['auth'])->name('settings');
