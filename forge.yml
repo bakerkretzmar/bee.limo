@@ -1,25 +1,24 @@
-id: 865316
-name: bee.limo
-server: 275410
-quick-deploy: true
-deployment:
-  - 'cd /home/forge/bee.limo'
-  - ''
-  - 'git pull origin master'
-  - ''
-  - 'composer install --no-interaction --quiet --optimize-autoloader --prefer-dist --no-dev'
-  - 'php artisan env:check'
-  - ''
-  - 'yarn && yarn prod'
-  - ''
-  - 'echo "" | sudo -S service php7.3-fpm reload'
-  - ''
-  - 'php artisan migrate --force'
-  - 'php artisan storage:link'
-  - 'php artisan cache:clear'
-  - 'php artisan event:cache'
-  - 'php artisan view:cache'
-  - 'php artisan config:cache'
-  - 'php artisan horizon:terminate'
-webhooks: []
-workers: []
+production:
+  id: 865316
+  name: bee.limo
+  server: 275410
+  quick-deploy: true
+  deployment:
+    - 'cd /home/forge/bee.limo'
+    - 'git pull origin master'
+    - ''
+    - 'composer install --no-interaction --quiet --optimize-autoloader --prefer-dist --no-dev'
+    - ''
+    - 'npm install && npm run prod'
+    - ''
+    - 'echo "" | sudo -S service php7.3-fpm reload'
+    - ''
+    - 'php artisan migrate --force'
+    - 'php artisan cache:clear'
+    - 'php artisan event:cache'
+    - 'php artisan view:cache'
+    - 'php artisan config:cache'
+    - 'php artisan horizon:terminate'
+  webhooks: []
+  daemons: []
+  workers: []

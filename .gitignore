@@ -5,6 +5,7 @@ vendor/
 /public/css/
 /public/mix-manifest.json
 .env
-.env.forge
+.env.*
+!.env.example
 .phpunit.result.cache
 npm-debug.log
