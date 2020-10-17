@@ -8,7 +8,7 @@ class SettingsController
     {
         return response()->json([
             'auto_puzzle_generation' => true,
-            'auto_puzzle_analysis' => false,
+            'auto_puzzle_analysis'   => false,
         ]);
     }
 

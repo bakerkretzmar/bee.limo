@@ -34,17 +34,17 @@ return [
     'stores' => [
 
         'array' => [
-            'driver' => 'array',
+            'driver'    => 'array',
             'serialize' => false,
         ],
 
         'file' => [
             'driver' => 'file',
-            'path' => storage_path('framework/cache/data'),
+            'path'   => storage_path('framework/cache/data'),
         ],
 
         'redis' => [
-            'driver' => 'redis',
+            'driver'     => 'redis',
             'connection' => 'cache',
         ],
 

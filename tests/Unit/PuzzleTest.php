@@ -12,7 +12,7 @@ class PuzzleTest extends TestCase
     public function infers_attributes_when_creating()
     {
         $puzzle = Puzzle::create([
-            'letters' => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
+            'letters'               => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
             'letter_combination_id' => 1,
         ]);
 
@@ -24,7 +24,7 @@ class PuzzleTest extends TestCase
     public function can_check_if_pangram_exists()
     {
         $puzzle = Puzzle::create([
-            'letters' => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
+            'letters'               => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
             'letter_combination_id' => 1,
         ]);
 
@@ -37,7 +37,7 @@ class PuzzleTest extends TestCase
     public function can_check_if_pangram_doesnt_exist()
     {
         $puzzle = Puzzle::create([
-            'letters' => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
+            'letters'               => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
             'letter_combination_id' => 1,
         ]);
 
@@ -55,7 +55,7 @@ class PuzzleTest extends TestCase
     public function can_get_pangrams_attribute()
     {
         $puzzle = Puzzle::create([
-            'letters' => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
+            'letters'               => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
             'letter_combination_id' => 1,
         ]);
 
@@ -75,7 +75,7 @@ class PuzzleTest extends TestCase
     public function fails_analysis_if_no_pangram()
     {
         $puzzle = Puzzle::create([
-            'letters' => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
+            'letters'               => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
             'letter_combination_id' => 1,
         ]);
 
@@ -91,7 +91,7 @@ class PuzzleTest extends TestCase
         $this->assertTrue($puzzle->solved);
         $this->assertSame(
             [
-                'result' => 'fail',
+                'result'  => 'fail',
                 'summary' => 'No pangram.',
             ],
             $puzzle->analysis
@@ -103,7 +103,7 @@ class PuzzleTest extends TestCase
     public function fails_analysis_if_fewer_than_fifteen_words()
     {
         $puzzle = Puzzle::create([
-            'letters' => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
+            'letters'               => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
             'letter_combination_id' => 1,
         ]);
 
@@ -137,7 +137,7 @@ class PuzzleTest extends TestCase
     public function fails_analysis_if_any_letters_only_in_pangram()
     {
         $puzzle = Puzzle::create([
-            'letters' => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
+            'letters'               => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
             'letter_combination_id' => 1,
         ]);
 
@@ -177,7 +177,7 @@ class PuzzleTest extends TestCase
     public function passes_analysis_if_valid()
     {
         $puzzle = Puzzle::create([
-            'letters' => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
+            'letters'               => ['i', 'v', 'e', 't', 'n', 'c', 'z'],
             'letter_combination_id' => 1,
         ]);
 

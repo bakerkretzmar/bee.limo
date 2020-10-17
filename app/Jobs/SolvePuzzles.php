@@ -11,7 +11,10 @@ use Illuminate\Queue\SerializesModels;
 
 class SolvePuzzles implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public $quantity;
 
@@ -24,7 +27,7 @@ class SolvePuzzles implements ShouldQueue
     {
         $start = now();
 
-        info('Solving ' . $this->quantity . ' puzzles...');
+        info('Solving '.$this->quantity.' puzzles...');
 
         $solved = 0;
         $passed = 0;
@@ -36,6 +39,6 @@ class SolvePuzzles implements ShouldQueue
                 $solved++;
             });
 
-        info('Solved ' . number_format($solved) . ' puzzles, found ' . number_format($passed) . ', in ' . $start->shortAbsoluteDiffForHumans(now(), 2));
+        info('Solved '.number_format($solved).' puzzles, found '.number_format($passed).', in '.$start->shortAbsoluteDiffForHumans(now(), 2));
     }
 }

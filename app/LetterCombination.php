@@ -2,24 +2,24 @@
 
 namespace App;
 
-use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 
 class LetterCombination extends Model
 {
     protected $casts = [
-        'consonants' => 'array',
-        'letters' => 'array',
+        'consonants'   => 'array',
+        'letters'      => 'array',
         'processed_at' => 'datetime',
-        'vowels' => 'array',
+        'vowels'       => 'array',
     ];
 
     public static function booted()
     {
         static::creating(function ($model) {
             $model->fill([
-                'string' => implode('', Arr::sort($model->letters)),
-                'vowels' => get_vowels($model->letters),
+                'string'     => implode('', Arr::sort($model->letters)),
+                'vowels'     => get_vowels($model->letters),
                 'consonants' => get_consonants($model->letters),
             ]);
         });
@@ -32,7 +32,7 @@ class LetterCombination extends Model
 
     public function getProcessedAttribute(): bool
     {
-        return ! is_null($this->processed_at);
+        return !is_null($this->processed_at);
     }
 
     public function markAsProcessed()

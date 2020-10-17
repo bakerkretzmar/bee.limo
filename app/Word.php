@@ -29,7 +29,7 @@ class Word extends Model
     {
         if (strlen($this->word) === 4) {
             return 1;
-        };
+        }
 
         return strlen($this->word);
     }

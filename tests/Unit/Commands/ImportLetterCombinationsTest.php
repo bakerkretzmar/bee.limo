@@ -10,7 +10,7 @@ class ImportLetterCombinationsTest extends TestCase
     /** @test */
     public function can_import_letter_combinations_from_txt_file()
     {
-        $this->artisan('import:letters ' . base_path() . '/tests/_fixtures/letters_1.txt');
+        $this->artisan('import:letters '.base_path().'/tests/_fixtures/letters_1.txt');
 
         $this->assertEqualsCanonicalizing(
             [
@@ -27,7 +27,7 @@ class ImportLetterCombinationsTest extends TestCase
     /** @test */
     public function skips_letter_combinations_with_no_vowels()
     {
-        $this->artisan('import:letters ' . base_path() . '/tests/_fixtures/letters_2.txt');
+        $this->artisan('import:letters '.base_path().'/tests/_fixtures/letters_2.txt');
 
         $this->assertEqualsCanonicalizing(
             [
@@ -41,7 +41,7 @@ class ImportLetterCombinationsTest extends TestCase
     /** @test */
     public function skips_letter_combinations_with_two_vowels()
     {
-        $this->artisan('import:letters ' . base_path() . '/tests/_fixtures/letters_3.txt');
+        $this->artisan('import:letters '.base_path().'/tests/_fixtures/letters_3.txt');
 
         $this->assertEqualsCanonicalizing(
             [
@@ -55,7 +55,7 @@ class ImportLetterCombinationsTest extends TestCase
     /** @test */
     public function skips_letter_combinations_with_letter_s()
     {
-        $this->artisan('import:letters ' . base_path() . '/tests/_fixtures/letters_4.txt');
+        $this->artisan('import:letters '.base_path().'/tests/_fixtures/letters_4.txt');
 
         $this->assertEqualsCanonicalizing(
             [

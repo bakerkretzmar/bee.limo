@@ -10,8 +10,8 @@ class Puzzle extends Model
     use SoftDeletes;
 
     protected $casts = [
-        'analysis' => 'array',
-        'letters' => 'array',
+        'analysis'  => 'array',
+        'letters'   => 'array',
         'solved_at' => 'datetime',
     ];
 
@@ -19,7 +19,7 @@ class Puzzle extends Model
     {
         static::creating(function ($model) {
             $model->fill([
-                'string' => implode('', $model->letters),
+                'string'  => implode('', $model->letters),
                 'initial' => head($model->letters),
             ]);
         });
@@ -46,7 +46,7 @@ class Puzzle extends Model
 
     public function getSolvedAttribute(): bool
     {
-        return ! is_null($this->solved_at);
+        return !is_null($this->solved_at);
     }
 
     public function hasPangram(): bool
@@ -68,11 +68,11 @@ class Puzzle extends Model
         $start = now();
 
         // Fail if the puzzle doesn't have a pangram
-        if (! $this->hasPangram()) {
+        if (!$this->hasPangram()) {
             $this->update([
                 'solved_at' => $this->freshTimestamp(),
-                'analysis' => [
-                    'result' => 'fail',
+                'analysis'  => [
+                    'result'  => 'fail',
                     'summary' => 'No pangram.',
                 ],
             ]);
@@ -95,9 +95,9 @@ class Puzzle extends Model
         if ($words->count() < 20) {
             $this->update([
                 'solved_at' => $this->freshTimestamp(),
-                'analysis' => [
-                    'result' => 'fail',
-                    'summary' => 'Fewer than 20 words.',
+                'analysis'  => [
+                    'result'     => 'fail',
+                    'summary'    => 'Fewer than 20 words.',
                     'word_count' => $words->count(),
                 ],
             ]);
@@ -116,9 +116,9 @@ class Puzzle extends Model
         if ($words->diff($pangrams)->pluck('letters')->collapse()->unique()->count() < 7) {
             $this->update([
                 'solved_at' => $this->freshTimestamp(),
-                'analysis' => [
-                    'result' => 'fail',
-                    'summary' => 'Some letters only present in pangrams.',
+                'analysis'  => [
+                    'result'     => 'fail',
+                    'summary'    => 'Some letters only present in pangrams.',
                     'word_count' => $words->count(),
                 ],
             ]);
@@ -135,12 +135,12 @@ class Puzzle extends Model
 
         $this->update([
             'solved_at' => $this->freshTimestamp(),
-            'analysis' => [
-                'result' => 'pass',
-                'word_count' => $words->count(),
-                'pangram_count' => $pangrams->count(),
-                'genius_score' => (int) ($total_points * 0.70),
-                'max_score' => $total_points,
+            'analysis'  => [
+                'result'          => 'pass',
+                'word_count'      => $words->count(),
+                'pangram_count'   => $pangrams->count(),
+                'genius_score'    => (int) ($total_points * 0.70),
+                'max_score'       => $total_points,
                 'avg_word_length' => round($words->reduce(function ($carry, $word) {
                     return $carry + strlen($word->word);
                 }) / $words->count(), 3),
