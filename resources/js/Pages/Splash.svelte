@@ -9,7 +9,7 @@
     <title>bee.limo</title>
 </svelte:head>
 
-<main class="flex flex-col items-center justify-center min-h-screen font-sans font-medium text-lg text-grey-900 bg-cream">
+<main class="flex flex-col items-center justify-center min-h-screen font-sans font-medium text-lg text-gray-900 bg-cream">
 
     <Brand class="w-full max-w-lg px-4"/>
 

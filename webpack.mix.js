@@ -1,7 +1,7 @@
 const mix = require('laravel-mix');
 const path = require('path');
 
-mix.disableNotifications()
+mix.disableNotifications();
 
 mix.postCss('resources/css/app.css', 'public/css', [require('tailwindcss')])
     .js('resources/js/app.js', 'public/js')

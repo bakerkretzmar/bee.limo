@@ -27,7 +27,7 @@ ul {
             {/each}
         </ul>
         <div class="flex justify-between mt-6" transition:fade={{duration: 100}}>
-            <span title="Max: {max.toLocaleString()}" class="{score >= genius ? 'font-medium text-yellow-500' : 'text-grey-600'}">Genius: {genius.toLocaleString()}</span>
+            <span title="Max: {max.toLocaleString()}" class="{score >= genius ? 'font-medium text-yellow-500' : 'text-gray-600'}">Genius: {genius.toLocaleString()}</span>
             <span class="text-xl">{score.toLocaleString()}</span>
         </div>
     {/if}

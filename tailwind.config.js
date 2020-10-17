@@ -21,7 +21,6 @@ module.exports = {
         minWidth: theme => theme('maxWidth'),
         extend: {
             colors: {
-                grey: defaults.colors.gray,
                 cream: 'rgb(255, 252, 247)',
                 'cream-dark': 'rgb(245, 242, 237)',
                 'cream-darker': 'rgb(235, 232, 227)',

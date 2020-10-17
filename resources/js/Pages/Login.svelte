@@ -16,7 +16,7 @@
     <title>Log in | bee.limo</title>
 </svelte:head>
 
-<main class="flex flex-col items-center justify-center min-h-screen font-sans font-medium text-lg text-grey-900 bg-cream">
+<main class="flex flex-col items-center justify-center min-h-screen font-sans font-medium text-lg text-gray-900 bg-cream">
 
     <Brand class="w-48 my-8"/>
 
@@ -29,7 +29,7 @@
         <form class="flex flex-col" on:submit|preventDefault={() => Inertia.post(route('api:login'), { email, password, remember })}>
 
             <label class="flex flex-col">
-                <span class="text-grey-600">Email</span>
+                <span class="text-gray-600">Email</span>
                 <input type="text" name="email" class="form-input mt-1" bind:value={email}>
                 {#if errors && errors.email}
                     <span class="mt-1 text-sm text-red-600">{errors.email[0]}</span>
@@ -37,7 +37,7 @@
             </label>
 
             <label class="flex flex-col mt-4">
-                <span class="text-grey-600">Password</span>
+                <span class="text-gray-600">Password</span>
                 <input type="password" name="password" class="form-input mt-1" bind:value={password}>
                 {#if errors && errors.password}
                     <span class="mt-1 text-sm text-red-600">{errors.password[0]}</span>
@@ -57,7 +57,7 @@
 
     </Card>
 
-    <InertiaLink href={route('register')} class="text-grey-600 hover:text-teal-600 focus:text-teal-600 mt-4 mb-20 text-base">
+    <InertiaLink href={route('register')} class="text-gray-600 hover:text-teal-600 focus:text-teal-600 mt-4 mb-20 text-base">
         Sign up
     </InertiaLink>
 

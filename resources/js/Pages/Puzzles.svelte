@@ -45,7 +45,7 @@ li:hover, li:focus, li:focus-within {
 
                     <PuzzleThumbnail status={completed(puzzle) ? 'completed' : (started(puzzle) ? 'started' : null)}/>
 
-                    <span class="absolute text-3xl text-grey-800">{puzzle.id.toLocaleString()}</span>
+                    <span class="absolute text-3xl text-gray-800">{puzzle.id.toLocaleString()}</span>
 
                 </InertiaLink>
 

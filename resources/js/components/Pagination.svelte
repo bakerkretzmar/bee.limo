@@ -9,10 +9,10 @@
 
 <nav class="flex items-center justify-between w-full max-w-6xl mx-auto px-8 mb-8">
 
-    <InertiaLink class="text-grey-600 hover:text-yellow-500 focus:text-yellow-500 {prev ? '' : 'pointer-events-none opacity-0'}" href={prev}>Previous</InertiaLink>
+    <InertiaLink class="text-gray-600 hover:text-yellow-500 focus:text-yellow-500 {prev ? '' : 'pointer-events-none opacity-0'}" href={prev}>Previous</InertiaLink>
 
     <span>{current.toLocaleString()} / {last.toLocaleString()}</span>
 
-    <InertiaLink class="text-grey-600 hover:text-yellow-500 focus:text-yellow-500 {next ? '' : 'pointer-events-none opacity-0'}" href={next}>Next</InertiaLink>
+    <InertiaLink class="text-gray-600 hover:text-yellow-500 focus:text-yellow-500 {next ? '' : 'pointer-events-none opacity-0'}" href={next}>Next</InertiaLink>
 
 </nav>

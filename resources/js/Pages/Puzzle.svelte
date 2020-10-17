@@ -195,7 +195,7 @@
             <PuzzleControls {clearInput} {shuffleOuters} {checkInput}/>
 
             {#if !$page.props.user.email}
-                <p class="mt-8 text-base text-grey-500">
+                <p class="mt-8 text-base text-gray-500">
                     <InertiaLink class="text-yellow-500 hover:text-yellow-600 focus:text-yellow-600" href={route('login')}>Sign in</InertiaLink> to save your progress.
                 </p>
             {/if}

@@ -29,7 +29,7 @@
             </li>
 
             <li class="ml-2 rounded overflow-hidden">
-                <button class="px-3 py-1 text-grey-600 hover:bg-cream-dark focus:bg-cream-dark" on:click={() => Inertia.post(route('api:logout'))}>
+                <button class="px-3 py-1 text-gray-600 hover:bg-cream-dark focus:bg-cream-dark" on:click={() => Inertia.post(route('api:logout'))}>
                     Log out
                 </button>
             </li>

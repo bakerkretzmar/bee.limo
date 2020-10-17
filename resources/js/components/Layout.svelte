@@ -10,7 +10,7 @@
     <title>{title} | bee.limo</title>
 </svelte:head>
 
-<main class="flex flex-col min-h-screen font-sans font-medium text-lg text-grey-900 bg-cream {classes}">
+<main class="flex flex-col min-h-screen font-sans font-medium text-lg text-gray-900 bg-cream {classes}">
 
     <Navbar/>
 

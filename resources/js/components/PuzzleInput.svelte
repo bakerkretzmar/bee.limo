@@ -7,7 +7,7 @@
 
 <style>
 section::after {
-    @apply absolute block h-10 rounded bg-grey-500;
+    @apply absolute block h-10 rounded bg-gray-500;
     content: '';
     top: 53%;
     transform: translateY(-50%);
@@ -31,7 +31,7 @@ section.erroring {
 <section class="relative flex items-center h-16 mb-4 text-4xl uppercase tracking-wide" class:erroring class:mr-2={!input.length}>
 
     {#each input as letter}
-        <span class="font-bold" class:text-grey-500={!letters.includes(letter)} class:text-yellow-500={letter === initial}>
+        <span class="font-bold" class:text-gray-500={!letters.includes(letter)} class:text-yellow-500={letter === initial}>
             {letter}
         </span>
     {/each}
