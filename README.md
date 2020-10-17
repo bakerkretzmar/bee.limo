@@ -1,3 +1,9 @@
+<p align="center">
+    <a href="https://bee.limo" target="_blank">
+        <img src="https://raw.githubusercontent.com/bakerkretzmar/bee.limo/master/bee.png" width="300">
+    </a>
+</p>
+
 bee.limo
 ========
 
@@ -9,17 +15,3 @@ A word game based on [Spelling Bee](https://www.nytimes.com/puzzles/spelling-bee
 Built with Laravel, Svelte, and Tailwind.
 
 Play at [bee.limo](https://bee.limo).
-
-#### Todo
-
-- [x] Fun about page with ~~stats and~~ links out to where I got stuff from
-- [x] Say what tools it's built with
-- [x] Let people make an account
-- [x] ~~Save current puzzle state in local storage, but let people clear it~~ Let people play without being signed in
-- [x] Tune puzzle solver
-    - [x] Only 2 vowels
-    - [x] No ‘S’
-    - [x] Rethink ideal maximum/minimum words
-    - [x] Build a real scoring system based on word length
-- [x] Find a better word list!?
-- [ ] **Make the 'sign in to save your progress' link save the progress in the session and redirect back, with it, after a sign in**
