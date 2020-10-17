@@ -11,11 +11,11 @@ class ImportWords extends Command
 
     public function handle()
     {
-        $this->comment('Importing words from "' . $this->argument('file') . '"...');
+        $this->comment('Importing words from "'.$this->argument('file').'"...');
 
         $start = now();
 
-        $lines = (int) head(explode(' ', trim(exec('wc -l ' . $this->argument('file')))));
+        $lines = (int) head(explode(' ', trim(exec('wc -l '.$this->argument('file')))));
 
         $progress = $this->output->createProgressBar($lines);
         $progress->setFormat('debug');
@@ -34,14 +34,14 @@ class ImportWords extends Command
 
         $progress->finish();
 
-        $this->info("\n" . 'Imported ' . number_format(Word::count()) . ' words in ' . $start->shortAbsoluteDiffForHumans(now(), 2));
+        $this->info("\n".'Imported '.number_format(Word::count()).' words in '.$start->shortAbsoluteDiffForHumans(now(), 2));
     }
 
     protected function lineGenerator()
     {
         $handle = fopen($this->argument('file'), 'r');
 
-        while (! feof($handle)) {
+        while (!feof($handle)) {
             yield trim(fgets($handle));
         }
 

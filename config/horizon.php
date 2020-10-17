@@ -59,10 +59,10 @@ return [
     */
 
     'trim' => [
-        'recent' => 1440,
+        'recent'        => 1440,
         'recent_failed' => 10080,
-        'failed' => 10080,
-        'monitored' => 10080,
+        'failed'        => 10080,
+        'monitored'     => 10080,
     ],
 
     /*
@@ -91,20 +91,20 @@ return [
         'production' => [
             'supervisor-1' => [
                 'connection' => 'redis',
-                'queue' => ['priority', 'default'],
-                'balance' => 'auto',
-                'processes' => 4,
-                'tries' => 3,
+                'queue'      => ['priority', 'default'],
+                'balance'    => 'auto',
+                'processes'  => 4,
+                'tries'      => 3,
             ],
         ],
 
         'local' => [
             'supervisor-1' => [
                 'connection' => 'redis',
-                'queue' => ['priority', 'default'],
-                'balance' => 'auto',
-                'processes' => 4,
-                'tries' => 3,
+                'queue'      => ['priority', 'default'],
+                'balance'    => 'auto',
+                'processes'  => 4,
+                'tries'      => 3,
             ],
         ],
     ],

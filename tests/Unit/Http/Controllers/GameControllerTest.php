@@ -13,7 +13,7 @@ class GameControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $puzzle = Puzzle::create([
-            'letters' => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
+            'letters'               => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
             'letter_combination_id' => 1,
         ]);
 
@@ -28,7 +28,7 @@ class GameControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $puzzle = Puzzle::create([
-            'letters' => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
+            'letters'               => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
             'letter_combination_id' => 1,
         ]);
         $user->puzzles()->attach($puzzle, ['found_words' => ['test']]);
@@ -44,7 +44,7 @@ class GameControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $puzzle = Puzzle::create([
-            'letters' => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
+            'letters'               => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
             'letter_combination_id' => 1,
         ]);
         $user->puzzles()->attach($puzzle, ['found_words' => ['foo']]);

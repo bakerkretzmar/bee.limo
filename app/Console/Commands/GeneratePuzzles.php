@@ -30,6 +30,6 @@ class GeneratePuzzles extends Command
                 $generated += 7;
             });
 
-        $this->info('Generated ' . number_format($generated) . ' puzzles in ' . $start->shortAbsoluteDiffForHumans(now(), 2));
+        $this->info('Generated '.number_format($generated).' puzzles in '.$start->shortAbsoluteDiffForHumans(now(), 2));
     }
 }

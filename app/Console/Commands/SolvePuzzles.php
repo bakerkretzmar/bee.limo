@@ -32,6 +32,6 @@ class SolvePuzzles extends Command
                 $solved++;
             });
 
-        $this->info('Solved ' . number_format($solved) . ' puzzles, found ' . number_format($passed) . ', in ' . $start->shortAbsoluteDiffForHumans(now(), 2));
+        $this->info('Solved '.number_format($solved).' puzzles, found '.number_format($passed).', in '.$start->shortAbsoluteDiffForHumans(now(), 2));
     }
 }

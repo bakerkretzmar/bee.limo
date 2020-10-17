@@ -22,7 +22,7 @@ class GameController
     {
         $request->user()->puzzles()->updateExistingPivot($puzzle->id, [
             'completed_at' => $request->complete ? now() : null,
-            'found_words' => $request->found_words,
+            'found_words'  => $request->found_words,
         ]);
 
         return response()->json([]);
