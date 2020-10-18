@@ -2,13 +2,8 @@ const mix = require('laravel-mix');
 const path = require('path');
 require('laravel-mix-svelte');
 
-mix.disableNotifications();
-
-mix.postCss('resources/css/app.css', 'public/css', [require('tailwindcss')])
-    .js('resources/js/app.js', 'public/js')
-    .babelConfig({
-        plugins: ['@babel/plugin-proposal-optional-chaining'],
-    })
+mix.js('resources/js/app.js', 'public/js')
+    .postCss('resources/css/app.css', 'public/css', [require('tailwindcss')])
     .svelte({
         dev: !mix.inProduction(),
         emitCss: true,
@@ -16,9 +11,10 @@ mix.postCss('resources/css/app.css', 'public/css', [require('tailwindcss')])
     .webpackConfig({
         resolve: {
             alias: {
-                '@': path.resolve('resources/js'),
+                '@': path.join(__dirname, 'resources/js'),
             },
         },
     })
     .version()
-    .sourceMaps();
+    .sourceMaps()
+    .disableNotifications();

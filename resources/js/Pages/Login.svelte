@@ -49,7 +49,7 @@
                 <span class="ml-2">Remember me</span>
             </label>
 
-            <button type="submit" class="btn btn-teal mt-6 mb-2">
+            <button type="submit" class="flex items-center justify-center h-10 mt-6 mb-2 font-semibold text-white bg-teal-500 hover:bg-teal-600 focus:bg-teal-600 tracking-wide rounded shadow outline-none focus:shadow-outline">
                 Log in
             </button>
 
