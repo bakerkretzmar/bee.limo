@@ -8,7 +8,7 @@
 
 <nav class="flex items-center justify-between p-4">
 
-    <InertiaLink href={$page.props.user.email ? route('puzzles') : route('splash')}>
+    <InertiaLink href={$page.props.user?.email ? route('puzzles') : route('splash')}>
         <Brand class="w-24"/>
     </InertiaLink>
 
@@ -20,7 +20,7 @@
             </InertiaLink>
         </li>
 
-        {#if $page.props.user.email}
+        {#if $page.props.user?.email}
 
             <li class="ml-2 rounded overflow-hidden">
                 <InertiaLink class="inline-block px-3 py-1 hover:bg-cream-darker focus:bg-cream-darker" href="/">

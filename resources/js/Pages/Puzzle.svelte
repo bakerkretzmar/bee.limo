@@ -45,7 +45,7 @@
     }
 
     onMount(async () => {
-        if ($page.props.user.email) {
+        if ($page.props.user?.email) {
             let response = await fetch(route('api:games.show', puzzle.id))
             let data = await response.json()
             found = data.game.found_words || []
@@ -168,7 +168,7 @@
     }
 
     const updateGame = debounce(async () => {
-        if (! $page.props.user.email) return
+        if (! $page.props.user?.email) return
         let response = await api.post(route('api:games.update', puzzle.id), { found_words: found, complete: genius })
     }, 500)
 
@@ -194,7 +194,7 @@
 
             <PuzzleControls {clearInput} {shuffleOuters} {checkInput}/>
 
-            {#if !$page.props.user.email}
+            {#if !$page.props.user?.email}
                 <p class="mt-8 text-base text-gray-500">
                     <InertiaLink class="text-yellow-500 hover:text-yellow-600 focus:text-yellow-600" href={route('login')}>Sign in</InertiaLink> to save your progress.
                 </p>
