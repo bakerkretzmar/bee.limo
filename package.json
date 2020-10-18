@@ -6,11 +6,13 @@
         "prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@babel/plugin-proposal-optional-chaining": "^7.12.1",
         "@inertiajs/inertia": "^0.4.3",
         "@inertiajs/inertia-svelte": "^0.4.1",
         "@tailwindcss/custom-forms": "^0.2.1",
         "cross-env": "^7.0.2",
         "laravel-mix": "^5.0.0",
+        "laravel-mix-svelte": "^0.1.6",
         "lodash": "^4.17.15",
         "svelte": "^3.12.1",
         "svelte-loader": "^2.13.6",
