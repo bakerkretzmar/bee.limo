@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
 
 Schedule::job(new SolvePuzzles(10))
-    ->when(Puzzle::unsolved()->exists())
+    ->when(fn () => Puzzle::unsolved()->exists())
     ->everyTenMinutes()
     ->withoutOverlapping();
 
