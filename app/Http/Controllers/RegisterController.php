@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {

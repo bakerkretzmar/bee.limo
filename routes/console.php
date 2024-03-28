@@ -16,7 +16,6 @@ Schedule::job(new SolvePuzzles(10))
 
 Artisan::command('puzzles:generate {amount}', function (string $amount): int {
     /** @var \Illuminate\Console\Command $this */
-
     $start = now();
 
     if (LetterCombination::unprocessed()->doesntExist()) {
@@ -44,7 +43,6 @@ Artisan::command('puzzles:generate {amount}', function (string $amount): int {
 
 Artisan::command('import:letters {file}', function (string $file): int {
     /** @var \Illuminate\Console\Command $this */
-
     $this->comment('Importing letter combinations from "' . $file . '"...');
 
     $start = now();
@@ -95,7 +93,6 @@ Artisan::command('import:letters {file}', function (string $file): int {
 
 Artisan::command('import:words {file}', function (string $file): int {
     /** @var \Illuminate\Console\Command $this */
-
     $this->comment('Importing words from "' . $file . '"...');
 
     $start = now();
@@ -134,7 +131,6 @@ Artisan::command('import:words {file}', function (string $file): int {
 
 Artisan::command('puzzles:solve {amount}', function (string $amount): int {
     /** @var \Illuminate\Console\Command $this */
-
     $start = now();
 
     if (Puzzle::unsolved()->doesntExist()) {
