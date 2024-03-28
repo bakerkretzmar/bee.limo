@@ -17,7 +17,7 @@
     class="flex min-h-screen flex-col items-center justify-center bg-cream font-sans text-lg font-medium text-gray-900"
 >
     <Brand class="my-8 w-48" />
-    <div class="w-full max-w-xs rounded-lg border px-6 py-4">
+    <div class="w-full max-w-xs rounded-lg border border-yellow-800/20 px-6 py-4">
         <h1 class="mb-4 text-center text-3xl font-semibold">Sign up</h1>
         <form
             class="flex flex-col"
@@ -44,7 +44,7 @@
             </label>
             <button
                 type="submit"
-                class="mb-2 mt-6 flex h-10 items-center justify-center rounded bg-yellow-500 font-semibold tracking-wide text-white shadow outline-none hover:bg-yellow-600 focus:bg-yellow-600 focus:ring"
+                class="mb-2 mt-6 flex h-10 items-center justify-center rounded bg-yellow-500 font-semibold tracking-wide text-white outline-none hover:bg-yellow-600 focus:bg-yellow-600 focus:ring"
             >
                 Sign up
             </button>

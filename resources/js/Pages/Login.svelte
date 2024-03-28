@@ -45,7 +45,7 @@
             </label>
             <button
                 type="submit"
-                class="mb-2 mt-6 flex h-10 items-center justify-center rounded bg-yellow-500 font-semibold tracking-wide text-white shadow outline-none hover:bg-yellow-600 focus:bg-yellow-600 focus:ring"
+                class="mb-2 mt-6 flex h-10 items-center justify-center rounded bg-yellow-500 font-semibold tracking-wide text-white outline-none hover:bg-yellow-600 focus:bg-yellow-600 focus:ring"
             >
                 Log in
             </button>
