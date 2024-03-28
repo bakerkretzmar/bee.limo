@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware
             ->web(append: [HandleInertiaRequests::class])
-            ->redirectUsersTo(route('puzzles'));
+            ->redirectUsersTo(fn () => route('puzzles'));
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
