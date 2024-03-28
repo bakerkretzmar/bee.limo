@@ -17,7 +17,6 @@ class LoginController extends Controller
         return inertia('Login');
     }
 
-    // TODO might be able to remove depending on $request->wantsJson()
     protected function authenticated(Request $request, $user)
     {
         return redirect()->intended($this->redirectPath());
