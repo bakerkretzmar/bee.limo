@@ -21,4 +21,5 @@ jobs:
         with:
           php-version: 8.2
       - uses: ramsey/composer-install@v2
+      - run: cp .env.example .env && php artisan key:generate
       - run: php artisan test
