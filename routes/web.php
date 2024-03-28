@@ -5,6 +5,7 @@ use App\Http\Controllers\AppController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PuzzleController;
 use App\Http\Controllers\RegisterController;
+use Illuminate\Support\Facades\Route;
 
 // Auth
 Route::get('login', [LoginController::class, 'show'])->middleware('guest')->name('login');
