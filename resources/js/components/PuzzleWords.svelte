@@ -21,12 +21,12 @@ ul {
     {#if loading}
         <Loader/>
     {:else}
-        <ul class="max-w-full overflow-x-auto" transition:fade={{duration: 100}}>
+        <ul class="max-w-full overflow-x-auto" transition:fade|global={{duration: 100}}>
             {#each found.sort() as word}
                 <li class="mr-16 mb-1 capitalize">{word}</li>
             {/each}
         </ul>
-        <div class="flex justify-between mt-6" transition:fade={{duration: 100}}>
+        <div class="flex justify-between mt-6" transition:fade|global={{duration: 100}}>
             <span title="Max: {max.toLocaleString()}" class="{score >= genius ? 'font-medium text-yellow-500' : 'text-gray-600'}">Genius: {genius.toLocaleString()}</span>
             <span class="text-xl">{score.toLocaleString()}</span>
         </div>

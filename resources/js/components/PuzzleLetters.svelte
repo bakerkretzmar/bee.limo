@@ -47,7 +47,7 @@ text {
         <svg xmlns="http://www.w3.org/2000/svg" on:click={() => dispatch('click', letter)} class="absolute w-2/5 fill-current text-gray-300 hover:text-gray-400 pointer-events-none" style="transform: translate({coords[i].x}%, {coords[i].y}%);" viewBox="0 0 190 170">
             <polygon class="stroke-current pointer-events-auto cursor-pointer" points="0,70 40,0 120,0 160,70 120,140 40,140" transform="translate(15, 15)"></polygon>
             {#if letter}
-                <text class="text-6xl text-gray-900 font-bold uppercase fill-current" x="50%" y="50%" transition:fade={{ duration: 100 }}>{letter}</text>
+                <text class="text-6xl text-gray-900 font-bold uppercase fill-current" x="50%" y="50%" transition:fade|global={{ duration: 100 }}>{letter}</text>
             {/if}
         </svg>
     {/each}
