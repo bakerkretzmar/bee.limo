@@ -1,24 +1,10 @@
-const defaults = require('tailwindcss/defaultTheme');
+import defaults from 'tailwindcss/defaultTheme';
+import forms from '@tailwindcss/forms';
 
-module.exports = {
-    experimental: {
-        extendedSpacingScale: true,
-        applyComplexClasses: true,
-        // defaultLineHeights: true,
-        extendedFontSizeScale: true,
-    },
-    future: {
-        purgeLayersByDefault: true,
-        removeDeprecatedGapUtilities: true,
-    },
-    purge: [
-        'resources/**/*.html',
-        'resources/**/*.svelte',
-        'resources/**/*.js',
-        'resources/**/*.blade.php',
-    ],
+/** @type {import('tailwindcss').Config} */
+export default {
+    content: ['./resources/**/*.{html,svelte,js,blade.php}'],
     theme: {
-        minWidth: theme => theme('maxWidth'),
         extend: {
             colors: {
                 cream: 'rgb(255, 252, 247)',
@@ -29,24 +15,6 @@ module.exports = {
                 sans: ['freight-sans-pro', ...defaults.fontFamily.sans],
             },
         },
-        customForms: theme => ({
-            default: {
-                input: {
-                    borderColor: defaults.colors.gray[400],
-                    borderWidth: defaults.borderWidth['2'],
-                },
-                checkbox: {
-                    color: defaults.colors.teal[500],
-                    borderColor: defaults.colors.gray[400],
-                    borderWidth: defaults.borderWidth['2'],
-                },
-            },
-        }),
     },
-    variants: {
-        textColor: ['responsive', 'hover', 'group-hover', 'focus'],
-    },
-    plugins: [
-        require('@tailwindcss/custom-forms'),
-    ],
+    plugins: [forms],
 };
