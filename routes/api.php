@@ -3,6 +3,7 @@
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use Illuminate\Support\Facades\Route;
 
 // Auth
 Route::post('login', [LoginController::class, 'login'])->middleware('guest')->name('login');
