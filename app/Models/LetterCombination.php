@@ -1,9 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class LetterCombination extends Model
 {
@@ -14,18 +16,18 @@ class LetterCombination extends Model
         'vowels' => 'array',
     ];
 
-    public static function booted()
+    protected static function booted(): void
     {
-        static::creating(function ($model) {
-            $model->fill([
-                'string' => implode('', Arr::sort($model->letters)),
-                'vowels' => get_vowels($model->letters),
-                'consonants' => get_consonants($model->letters),
+        static::creating(function (LetterCombination $letterCombination) {
+            $letterCombination->fill([
+                'string' => implode('', Arr::sort($letterCombination->letters)),
+                'vowels' => Arr::vowels($letterCombination->letters),
+                'consonants' => Arr::consonants($letterCombination->letters),
             ]);
         });
     }
 
-    public function puzzles()
+    public function puzzles(): HasMany
     {
         return $this->hasMany(Puzzle::class);
     }
@@ -37,7 +39,7 @@ class LetterCombination extends Model
 
     public function markAsProcessed()
     {
-        return $this->update(['processed_at' => $this->freshTimestamp()]);
+        return $this->touch('processed_at');
     }
 
     public function generatePuzzles(): void
@@ -51,8 +53,8 @@ class LetterCombination extends Model
         $this->markAsProcessed();
     }
 
-    public function scopeUnprocessed(Builder $query)
+    public function scopeUnprocessed(Builder $query): void
     {
-        return $query->whereNull('processed_at');
+        $query->whereNull('processed_at');
     }
 }

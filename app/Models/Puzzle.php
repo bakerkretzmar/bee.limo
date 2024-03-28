@@ -1,9 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 
 class Puzzle extends Model
 {
@@ -15,17 +19,17 @@ class Puzzle extends Model
         'solved_at' => 'datetime',
     ];
 
-    public static function booted()
+    protected static function booted(): void
     {
-        static::creating(function ($model) {
-            $model->fill([
-                'string' => implode('', $model->letters),
-                'initial' => head($model->letters),
+        static::creating(function (Puzzle $puzzle) {
+            $puzzle->fill([
+                'string' => implode('', $puzzle->letters),
+                'initial' => head($puzzle->letters),
             ]);
         });
     }
 
-    public function letterCombination()
+    public function letterCombination(): BelongsTo
     {
         return $this->belongsTo(LetterCombination::class);
     }
@@ -33,13 +37,13 @@ class Puzzle extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)
-            ->using(Game::class)
             ->as('game')
+            ->using(Game::class)
             ->withPivot(['found_words', 'completed_at'])
             ->withTimestamps();
     }
 
-    public function words()
+    public function words(): BelongsToMany
     {
         return $this->belongsToMany(Word::class);
     }
@@ -65,8 +69,6 @@ class Puzzle extends Model
 
     public function solve(): bool
     {
-        $start = now();
-
         // Fail if the puzzle doesn't have a pangram
         if (! $this->hasPangram()) {
             $this->update([
@@ -85,7 +87,7 @@ class Puzzle extends Model
         $words = tap(
             Word::whereJsonContains('letters', $this->initial),
             function ($query) {
-                foreach (array_values(array_diff(letters(), $this->letters)) as $forbidden) {
+                foreach (array_values(array_diff(Arr::letters(), $this->letters)) as $forbidden) {
                     $query->whereJsonDoesntContain('letters', $forbidden);
                 }
             }
@@ -153,13 +155,13 @@ class Puzzle extends Model
         return true;
     }
 
-    public function scopeSolved(Builder $query)
+    public function scopeSolved(Builder $query): void
     {
-        return $query->whereNotNull('solved_at');
+        $query->whereNotNull('solved_at');
     }
 
-    public function scopeUnsolved(Builder $query)
+    public function scopeUnsolved(Builder $query): void
     {
-        return $query->whereNull('solved_at');
+        $query->whereNull('solved_at');
     }
 }

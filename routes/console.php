@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use App\Console\Commands\SolvePuzzles;
+use App\Models\Puzzle;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote')->hourly();
+Schedule::job(new SolvePuzzles(10))
+    ->when(Puzzle::unsolved()->exists())
+    ->everyTenMinutes()
+    ->withoutOverlapping();

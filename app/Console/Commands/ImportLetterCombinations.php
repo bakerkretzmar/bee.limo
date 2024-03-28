@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\LetterCombination;
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 
 class ImportLetterCombinations extends Command
 {
@@ -27,10 +28,10 @@ class ImportLetterCombinations extends Command
             $letters = explode(',', $line);
 
             // Ignore letter combinations with no vowels
-            if (empty(get_vowels($letters))) continue;
+            if (empty(Arr::vowels($letters))) continue;
 
             // Ignore letter combinations with more than 2 vowels
-            if (count(get_vowels($letters)) > 2) continue;
+            if (count(Arr::vowels($letters)) > 2) continue;
 
             // Ignore letter combinations containing the letter 's'
             if (in_array('s', $letters)) continue;
