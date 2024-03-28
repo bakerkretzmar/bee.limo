@@ -1,6 +1,6 @@
 <?php
 
-use App\Console\Commands\SolvePuzzles;
+use App\Jobs\SolvePuzzles;
 use App\Models\LetterCombination;
 use App\Models\Puzzle;
 use App\Models\Word;
