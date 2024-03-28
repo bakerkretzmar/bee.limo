@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\LetterCombination;
-use App\Word;
+use App\Models\LetterCombination;
+use App\Models\Word;
 
 class StatsController
 {

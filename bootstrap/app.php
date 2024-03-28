@@ -12,9 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->web(append: [HandleInertiaRequests::class]);
-
-        $middleware->redirectUsersTo(route('puzzles'));
+        $middleware
+            ->web(append: [HandleInertiaRequests::class])
+            ->redirectUsersTo(route('puzzles'));
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

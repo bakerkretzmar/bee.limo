@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
-
 class AppController
 {
     public function splash()
     {
-        return Inertia::render('Splash');
+        return inertia('Splash');
     }
 
     public function about()
     {
-        return Inertia::render('About');
+        return inertia('About');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Puzzle;
+use App\Models\Puzzle;
 use Illuminate\Http\Request;
 
 class GameController
