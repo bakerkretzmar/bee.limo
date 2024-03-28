@@ -1,18 +1,12 @@
-import { App } from '@inertiajs/inertia-svelte';
-import '../css/x.css';
+import { createInertiaApp } from '@inertiajs/svelte';
+import '../css/app.css';
 
-const el = document.getElementById('app');
-
-new App({
-    target: el,
-    props: {
-        initialPage: JSON.parse(el.dataset.page),
-        resolveComponent: name => {
-            if (process.env.NODE_ENV === 'production') {
-                fathom.trackPageview();
-            }
-
-            return require(`@/Pages/${name}.svelte`);
-        },
+createInertiaApp({
+    resolve: (name) => {
+        const pages = import.meta.glob('./Pages/**/*.svelte', { eager: true });
+        return pages[`./Pages/${name}.svelte`];
+    },
+    setup({ el, App, props }) {
+        new App({ target: el, props });
     },
 });

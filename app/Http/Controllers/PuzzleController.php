@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Puzzle;
+use App\Models\Puzzle;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
 class PuzzleController
 {
     public function index(Request $request)
     {
-        return Inertia::render('Puzzles', [
+        return inertia('Puzzles', [
             'page' => Puzzle::solved()
                 ->with(['users' => function ($query) use ($request) {
                     $query->where('id', $request->user()->id);
@@ -25,7 +24,7 @@ class PuzzleController
     {
         abort_unless($puzzle->solved, 404);
 
-        return Inertia::render('Puzzle', [
+        return inertia('Puzzle', [
             'puzzle' => $puzzle->load('words', 'letterCombination')->append('pangrams'),
         ]);
     }

@@ -1,7 +1,7 @@
 {
     "name": "bakerkretzmar/bee.limo",
-    "description": "Word game based on the New York Times’ Spelling Bee.",
     "type": "project",
+    "description": "Word game based on the New York Times’ Spelling Bee.",
     "license": "MIT",
     "homepage": "https://github.com/bakerkretzmar/bee.limo",
     "authors": [
@@ -12,34 +12,28 @@
         }
     ],
     "require": {
-        "php": "^7.3",
-        "fideloper/proxy": "^4.0",
-        "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
-        "inertiajs/inertia-laravel": "^0.3.1",
-        "laravel/framework": "^8.0",
-        "laravel/horizon": "^5.0",
-        "laravel/tinker": "^2.0",
-        "laravel/ui": "^3.0",
-        "spatie/laravel-db-snapshots": "^1.3",
-        "tightenco/ziggy": "^0.9.0"
+        "php": "^8.2",
+        "inertiajs/inertia-laravel": "^1.0",
+        "laravel/framework": "^11.1",
+        "laravel/tinker": "^2.9",
+        "laravel/ui": "^4.5.1",
+        "tightenco/ziggy": "^2.1"
     },
     "require-dev": {
-        "facade/ignition": "^2.3.6",
-        "fzaninotto/faker": "^1.4",
-        "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.0"
+        "fakerphp/faker": "^1.23.1",
+        "laravel/pint": "^1.15",
+        "mockery/mockery": "^1.6.11",
+        "nunomaduro/collision": "^8.1.1",
+        "pestphp/pest": "^2.34.5",
+        "pestphp/pest-plugin-laravel": "^2.3",
+        "spatie/laravel-ignition": "^2.4.2"
     },
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Database\\Factories\\": "database/factories",
-            "Database\\Seeders\\": "database/seeders"
-        },
-        "files": [
-            "app/Support/helpers.php"
-        ]
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
     },
     "autoload-dev": {
         "psr-4": {
@@ -52,14 +46,25 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan horizon:publish"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
         ]
     },
     "config": {
         "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
