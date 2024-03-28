@@ -3,7 +3,9 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "build:keep": "vite build --emptyOutDir=false",
+        "clean": "clean-orphaned-assets"
     },
     "devDependencies": {
         "@inertiajs/svelte": "^1.0.15",
