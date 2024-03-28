@@ -1,17 +1,13 @@
-<p align="center">
+<center>
     <a href="https://bee.limo" target="_blank">
         <img src="bee.png" width="300">
     </a>
-</p>
+</center>
 
-bee.limo
-========
+<p><br></p>
 
-[![Build](https://github.com/bakerkretzmar/bee.limo/workflows/CI/badge.svg)](https://github.com/bakerkretzmar/bee.limo/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
+<center>
 
-A word game based on [Spelling Bee](https://www.nytimes.com/puzzles/spelling-bee) from the _New York Times_ crossword—and when I say “based on,” I mean it’s an exact copy of that game. I built it as a learning exercise, please don’t sue me.
+[![Laravel Forge Site Deployment Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F51b6a42d-bdb2-4a1a-899a-653be0f27668%3Fdate%3D1%26commit%3D1&style=plastic)](https://forge.laravel.com/servers/602025/sites/2298985)
 
-Built with Laravel, Svelte, and Tailwind.
-
-Play at [bee.limo](https://bee.limo).
+</center
