@@ -36,12 +36,6 @@ return [
             'throw' => true,
         ],
 
-        'snapshots' => [
-            'driver' => 'local',
-            'root' => database_path('snapshots'),
-            'throw' => true,
-        ],
-
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
