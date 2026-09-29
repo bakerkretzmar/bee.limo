@@ -10,7 +10,7 @@
 </script>
 
 <div
-    class="relative ml-12 flex min-w-96 max-w-[theme(screens.md)] shrink flex-col justify-between rounded-lg border-2 px-6 py-4"
+    class="relative ml-12 flex min-w-96 max-w-(--breakpoint-md) shrink flex-col justify-between rounded-lg border-2 border-gray-200 px-6 py-4"
 >
     {#if loading}
         <Loader />

@@ -39,6 +39,8 @@
 </Layout>
 
 <style>
+    @reference '../../css/app.css';
+
     ul {
         display: grid;
         grid-template-columns: repeat(auto-fit, 12rem);

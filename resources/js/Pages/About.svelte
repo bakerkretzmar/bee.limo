@@ -35,6 +35,8 @@
 </Layout>
 
 <style>
+    @reference '../../css/app.css';
+
     p {
         @apply mt-6 leading-relaxed;
     }

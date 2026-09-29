@@ -21,7 +21,7 @@
     <div class="w-full max-w-xs rounded-lg border border-yellow-800/20 px-6 py-4">
         <h1 class="mb-4 text-center text-3xl font-semibold">Log in</h1>
         <form
-            class="flex flex-col"
+            class="mb-[1em] flex flex-col"
             on:submit|preventDefault={() => router.post(route('api:login'), { email, password, remember: true })}
         >
             <label class="flex flex-col gap-1">
@@ -45,7 +45,7 @@
             </label>
             <button
                 type="submit"
-                class="mb-2 mt-6 flex h-10 items-center justify-center rounded bg-yellow-500 font-semibold tracking-wide text-white outline-none hover:bg-yellow-600 focus:bg-yellow-600 focus:ring"
+                class="mb-2 mt-6 flex h-10 items-center justify-center rounded bg-yellow-500 font-semibold tracking-wide text-white outline-hidden hover:bg-yellow-600 focus:bg-yellow-600 focus:ring-3 focus:ring-blue-500/50"
             >
                 Log in
             </button>

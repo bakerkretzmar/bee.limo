@@ -1,0 +1,22 @@
+{
+    "$schema": "./node_modules/oxfmt/configuration_schema.json",
+    "ignorePatterns": [],
+    "htmlWhitespaceSensitivity": "ignore",
+    "overrides": [
+        {
+            "files": ["*.yml"],
+            "options": {
+                "tabWidth": 2,
+            },
+        },
+    ],
+    "printWidth": 140,
+    "singleQuote": true,
+    "sortImports": {
+        "newlinesBetween": false,
+    },
+    "sortTailwindcss": {
+        "stylesheet": "./resources/css/app.css",
+    },
+    "tabWidth": 4,
+}

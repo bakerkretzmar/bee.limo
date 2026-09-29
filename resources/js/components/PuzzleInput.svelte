@@ -22,6 +22,8 @@
 </section>
 
 <style>
+    @reference '../../css/app.css';
+
     section::after {
         @apply absolute block h-10 rounded bg-gray-500;
         content: '';

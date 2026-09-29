@@ -1,48 +1,27 @@
 {
+    "$schema": "https://www.schemastore.org/package.json",
     "private": true,
     "type": "module",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "build:keep": "vite build --emptyOutDir=false",
-        "clean": "clean-orphaned-assets"
+        "bump": "npm-check-updates --target semver --upgrade"
     },
     "devDependencies": {
-        "@inertiajs/svelte": "^1.0.15",
-        "@sveltejs/vite-plugin-svelte": "^3.0.2",
-        "@tailwindcss/forms": "^0.5.7",
-        "autoprefixer": "^10.4.19",
-        "laravel-vite-plugin": "^1.0.2",
-        "lodash": "^4.17.21",
-        "postcss": "^8.4.38",
-        "prettier": "^3.2.5",
-        "prettier-plugin-blade": "^2.1.11",
-        "prettier-plugin-svelte": "^3.2.2",
-        "prettier-plugin-tailwindcss": "^0.5.13",
-        "svelte": "^4.2.12",
-        "tailwindcss": "^3.4.3",
-        "vite": "^5.2.6"
+        "@inertiajs/svelte": "^3.7.1",
+        "@sveltejs/vite-plugin-svelte": "^7.3.1",
+        "@tailwindcss/forms": "^0.5.11",
+        "@tailwindcss/vite": "^4.3.3",
+        "concurrently": "^10.0.5",
+        "laravel-vite-plugin": "^3.2.0",
+        "lodash": "^4.18.1",
+        "npm-check-updates": "^23.1.0",
+        "oxfmt": "^0.71.0",
+        "svelte": "^5.57.1",
+        "tailwindcss": "^4.3.3",
+        "vite": "^8.3.1"
     },
-    "prettier": {
-        "printWidth": 120,
-        "singleQuote": true,
-        "tabWidth": 4,
-        "plugins": [
-            "prettier-plugin-blade",
-            "prettier-plugin-svelte",
-            "prettier-plugin-tailwindcss"
-        ],
-        "pluginSearchDirs": false,
-        "overrides": [
-            {
-                "files": [
-                    "*.blade.php"
-                ],
-                "options": {
-                    "htmlWhitespaceSensitivity": "css",
-                    "parser": "blade"
-                }
-            }
-        ]
+    "optionalDependencies": {
+        "@laravel/multiplex": "^0.4.1"
     }
 }
