@@ -15,7 +15,7 @@
     <Brand class="w-full max-w-lg px-4" />
     <div class="mb-8 mt-24">
         <Link
-            href={page.props.user?.email ? route('puzzles') : route('puzzles.random')}
+            href={page.props.auth.user?.email ? route('puzzles') : route('puzzles.random')}
             class="flex h-12 items-center justify-center rounded px-16 text-2xl font-bold uppercase tracking-wider hover:bg-cream-darker"
         >
             Play

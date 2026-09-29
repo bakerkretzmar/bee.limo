@@ -6,7 +6,7 @@
 </script>
 
 <nav class="flex items-center justify-between p-4">
-    <Link href={page.props.user?.email ? route('puzzles') : route('splash')}>
+    <Link href={page.props.auth.user?.email ? route('puzzles') : route('splash')}>
         <Brand class="w-24" />
     </Link>
     <ul class="flex items-center">
@@ -15,7 +15,7 @@
                 About
             </Link>
         </li>
-        {#if page.props.user?.email}
+        {#if page.props.auth.user?.email}
             <li class="ml-2 overflow-hidden rounded">
                 <Link class="inline-block px-3 py-1 hover:bg-cream-darker focus:bg-cream-darker" href="/">Account</Link>
             </li>
